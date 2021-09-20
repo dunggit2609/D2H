@@ -1,0 +1,18 @@
+$backgroundColor--white: rgb(245, 233, 233);
+$backgroundColor--dark: #1c2340;
+$color--dark: rgba(255, 218, 233, 0.89);
+$color--white: black;
+$backgroundColorCode--dark: #1e1f35;
+$backgroundColorCode--white: rgb(243, 187, 187);
+
+:root {
+  --backGroundColor: #{$backgroundColor--white};
+  --color: #{$color--white};
+  --backGroundColorCode: #{$backgroundColorCode--white};
+}
+
+html[data-theme="dark"] {
+  --backGroundColor: #{$backgroundColor--dark};
+  --color: #{$color--dark};
+  --backGroundColorCode: #{$backgroundColorCode--dark};
+}

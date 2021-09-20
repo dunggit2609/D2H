@@ -1,0 +1,29 @@
+.footerContainer {
+  text-align: center;
+  padding-bottom: 5vh !important;
+  
+  width: 100%;
+  height: auto;
+  position: absolute;
+  background: var(--backGroundColorCode);
+}
+.columnArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: left;
+}
+
+.coppyRightArea {
+  margin-top: 3vh !important;
+  padding-top: 2vh;
+  border-top: 2px solid var(--color) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columnContainer {
+  padding-top: 3vh;
+  padding-left: 22vw;
+}

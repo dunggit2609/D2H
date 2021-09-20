@@ -1,0 +1,87 @@
+{
+  "header": {
+    "appName": "MYW"
+  },
+  "yupValidate": {
+    "emailRequired": "Hãy nhập địa chỉ Email của bạn.",
+    "emailWrongFormat": "Email của bạn không hợp lệ.",
+    "phoneRequired": "Hãy nhập số điện thoại của bạn.",
+    "phoneWrongFormat": "Số điện thoại không hợp lệ.",
+    "fullnameRequired": "Hãy nhập họ và tên của bạn.",
+    "retypePassWordRequired": "Hãy nhập lại mật khẩu.",
+    "retypePassWordNotMatch": "Mật khẩu nhập lại không trùng khớp",
+    "passwordRequired": "Hãy nhập mật khẩu của bạn",
+    "passWordWrongFormat": "Mật khẩu gồm ít nhất 8 kí tự, 1 kí tự thường, 1 kí tự in hoa, 1 chứ số."
+  },
+  "auth": {
+    "authButton": {
+      "loginButton": "Đăng nhập",
+      "registerButton": "Đăng kí",
+      "loginByFb": "Tiếp tục với Facebook",
+
+      "noAccount": "Bạn không có tài khoàn? Đăng kí",
+      "haveAccount": "Bạn đã có tài khoản? Login"
+    },
+    "dialog": {
+      "dialogLoginFb": "Tính năng này đang phát triển. Bạn hãy sử dụng vào lần sau nhé 👌."
+    },
+    "authTitle": {
+      "login": "Đăng nhập",
+      "register": "Đăng kí"
+    },
+    "authField": {
+      "password": "Mật khẩu",
+      "retypepassword": "Nhập lại mật khẩu",
+      "phone": "Số điện thoại",
+      "fullname": "Họ và tên",
+      "email": "Email"
+    }
+  },
+  "toolTip": {
+    "toogleMode": "Sáng/Tối",
+    "chooseLanguage": "Ngôn ngữ",
+    "userAction": "Thông tin user",
+    "deleteWorkSpace": "Xóa",
+    "editWorkSpace": "Sửa"
+  },
+  "notiStack": {
+    "loginSuccess": "Đăng nhập thành công!!! ✨",
+    "registerSuccess": "Đăng kí thành công!!! 🎉",
+    "logoutSuccess": "Log out successfully!!! 🎈",
+    "hasLogin": "Bạn đã đăng nhập, chuyển hướng đến khu vực làm việc của bạn 🎇",
+    "notLogin": "Bạn chưa đăng nhập, Hãy đăng nhập 🔑"
+  },
+  "footer": {
+    "contact": "Liên lạc",
+    "address": "Phường 14, Quận 8, Thành Phố Hồ Chí Minh",
+    "email": "davidnguyendung71@gmail.com",
+    "phone": "0704635376",
+    "socialMedia": "Mạng xã hội",
+    "coppyRight": "© 2021 Bản quyền thuộc sở hứu của Nguyễn Trí Dũng"
+  },
+  "work-space": {
+    "pageTitle": "💻  Khu vực làm việc của bạn",
+    "filterArea": "Bộ lọc",
+    "noWorkSpace": "Bạn không có work space nào. Hãy thêm mới nhé 👇",
+    "noWorkSpaceJoined": "Bạn không tham gia work space nào !!!",
+    "addNewButton": "Thêm mới",
+    "dialog": {
+      "inputFieldLabel": "Tên của work space",
+      "title": "Hãy nhập thông tin work space của bạn !!!",
+      "workSpaceID": "Id của work space sẽ xóa",
+      "titleConfirmDelete": "Bạn chắc rằng sẽ xóa work space này chứ 😦",
+      "deleteWorkSpaceButton": "Xóa",
+      "addButton": "Thêm",
+      "closeButton": "Hủy"
+    },
+    "failedAddWorkSpace": "Thêm mới work space thất bại, hãy thử lại !!! 💪",
+    "successAddWorkSpace": "Chúc mừng bạn !!!, Thêm mới work space thành công 🎆",
+    "failedDeleteWorkSpace": "Xóa work space thất bại !!! ✋",
+    "successDeleteWorkSpace": "Xóa work space thành công !!! 🧨"
+  },
+  "listFilter": {
+    "all": "Tất cả",
+    "owned": "Khu vực làm việc bạn tạo",
+    "joined": "Khu vực làm việc bạn tham gia"
+  }
+}
