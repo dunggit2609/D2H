@@ -3,9 +3,13 @@
 /**
  * Module dependencies.
  */
-
-var app = require('./../../app');
-var debug = require('debug')('server:server');
+ const dotenv = require('dotenv').config({ path: 'src/.env' });
+ if (dotenv.error) {
+     throw dotenv.error;
+ }
+ const app = require('./../../app');
+ const debug = require('debug')('server:server');
+ const db = require("./../configs/database/index.js");
 var http = require('http');
 
 /**
