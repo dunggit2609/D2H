@@ -1,8 +1,7 @@
 {
   "name": "server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "src/bin/www.js",
-  "private": true,
   "scripts": {
     "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
     "start": "node ./src/bin/www.js",
