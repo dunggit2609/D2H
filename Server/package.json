@@ -7,6 +7,10 @@
     "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
     "dev": "nodemon src/bin/www"
   },
+  "engines": {
+    "npm": "7.24.1",
+    "node": "v14.17.3"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
