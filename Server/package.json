@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
-    "start": "node ./src/bin/www",
-    "dev": "nodemon ./src/bin/www"
+    "start": "node ./src/bin/www.js",
+    "dev": "nodemon ./src/bin/www.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
