@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "src/bin/www.js",
+  "main": "src/bin/www",
   "scripts": {
-    "start": "node ./src/bin/www.js",
+    "start": "node ./src/bin/www",
     "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
-    "dev": "nodemon ./src/bin/www.js"
+    "dev": "nodemon ./src/bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
