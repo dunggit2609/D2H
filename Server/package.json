@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "src/bin/www.js",
   "scripts": {
-    "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
     "start": "node ./src/bin/www.js",
+    "push": "git add . && git commit -m 'fix' && git push heroku master && heroku open",
     "dev": "nodemon ./src/bin/www.js"
   },
   "dependencies": {
