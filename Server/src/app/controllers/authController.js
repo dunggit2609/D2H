@@ -41,13 +41,17 @@ exports.signUp = function(req, res) {
 
             UserModel.create(newUser)
                 .then(data => {
-                    res.send(data);
+                    let userData = {
+						_id : data._id
+					}
+					const jwtPayload = userData;
+					const jwtData = {expiresIn: access_token_life};
+					const secret = access_token_secret;
+					userData.token = jwt.sign(jwtPayload, secret, jwtData);
+					apiResponse.successResponseWithData(res, "Success", userData);
                 })
                 .catch(err => {
-                    res.status(500).send({
-                    message:
-                      err.message || "Some error occurred while creating the Tutorial."
-                  });
+                    apiResponse.unauthorizedResponse(res, "Somethings wrong occurs");
             })
             
         })
@@ -84,7 +88,7 @@ exports.login = [
 									const jwtData = {expiresIn: access_token_life};
 									const secret = access_token_secret;
 									userData.token = jwt.sign(jwtPayload, secret, jwtData);
-									return apiResponse.successResponseWithData(res, "Login success", userData);
+									return apiResponse.successResponseWithData(res, "Success", userData);
 								}
 								else{
 									return apiResponse.unauthorizedResponse(res, "Account is blocked. Please contact admin");
