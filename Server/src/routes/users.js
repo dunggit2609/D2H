@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a Test');
+  res.send('respond with a Root Dir');
 });
 
 module.exports = router;
