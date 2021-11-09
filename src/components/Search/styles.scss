@@ -1,0 +1,18 @@
+.search {
+    &-container {
+        border: 1px solid var(--highlightBorder);
+        background: var(--highlightBackground);
+        border-radius: 10px;
+        padding: 4px 8px;
+    }
+    &__input {
+        border: unset;
+        background: unset;
+        color: (var(--color));
+        height: 28px;
+        padding-left: 8px;
+        &:focus {
+            outline: none;
+        }
+    }
+}

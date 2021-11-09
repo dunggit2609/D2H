@@ -1,0 +1,2 @@
+export const COURSE_DETAIL_TEST_TAB = 1
+export const COURSE_DETAIL_SUBMISSION_TAB = 2

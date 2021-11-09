@@ -1,0 +1,40 @@
+.class {
+    padding: 24px 0;
+
+    &__add-class {
+        padding-bottom: 24px;
+    }
+
+    &__list {
+        overflow-y: auto;
+        height: calc(100vh - 188px);
+        margin: 0;
+        padding: 0;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            background: none;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--highlightBorder);
+            border-radius: 4px;
+        }
+    }
+    &__item {
+        height: 24px;
+        padding: 8px;
+        color: var(--color);
+        font-weight: 400;
+        text-decoration: none;
+        &:hover {
+            background: var(--highlightBackground);
+            border-radius: 10px;
+        }
+
+        &.activelass {
+            background: var(--activeState);
+            border-radius: 10px;
+        }
+    }
+}
