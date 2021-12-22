@@ -1,0 +1,49 @@
+.test-config {
+    display: flex;
+    align-items: center;
+    
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    &__item-test-code {
+        flex-grow: 5;
+        margin-right: 16px;
+    }
+
+    &__item-test-result-type {
+        flex-grow: 3;
+    }
+    &__item-test-change-result {
+        flex-grow: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+}
+
+.test-name {
+    margin-bottom: 24px;
+}
+
+.select {
+    width: 100%;
+}
+
+.config-amount-question {
+    margin-top: 24px;
+}
+
+.config-paper-type {
+    margin-top: 24px;
+}
+
+.general-config {
+    display: flex;
+    align-items: center;
+}
+
+.question-type {
+    display: flex;
+    justify-content: center;
+}

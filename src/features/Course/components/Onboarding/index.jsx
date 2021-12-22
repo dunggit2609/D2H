@@ -5,9 +5,11 @@ import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import {Check, Settings, GroupAdd, VideoLabel} from '@mui/icons-material';
+import { Check, Settings, GroupAdd, VideoLabel } from '@mui/icons-material';
 
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+
+import { useTranslation } from 'react-i18next';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -161,22 +163,25 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
-export default function Onboarding() {
+export default function Onboarding(props) {
+  const {curStep} = props
+  const { t } = useTranslation()
+  const steps = [{key: 1, label: t("create_course.label")},{key: 2, label: t("create_test.label")},{key: 3, label: t("create_submission.label")}];
+
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+      <Stepper alternativeLabel activeStep={curStep - 1} connector={<QontoConnector />}>
+        {steps.map((item) => (
+          <Step key={item.key}>
+            <StepLabel StepIconComponent={QontoStepIcon}>{item.label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+      <Stepper alternativeLabel activeStep={curStep - 1} connector={<ColorlibConnector />}>
+        {steps.map((item) => (
+          <Step key={item.key}>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>{item.label}</StepLabel>
           </Step>
         ))}
       </Stepper>

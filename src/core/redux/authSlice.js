@@ -5,33 +5,39 @@ import authApi from "core/API/authApi";
 export const registerSlice = createAsyncThunk(
   "auth/register",
   async (payload) => {
-    const data = await authApi.register(payload);
-    localStorage.setItem(AUTH.TOKEN_KEY, data.user.token);
-    const timeExpired = new Date(`${data.user.timeExpired} UTC+07:00`)
+    const rs = await authApi.register(payload);
+    if (!rs || !rs.success) {
+      return
+    }
+    localStorage.setItem(AUTH.TOKEN_KEY, rs.data.token);
+    const timeExpired = new Date(`${rs.data.expired_time} UTC+07:00`)
     localStorage.setItem(AUTH.EXPIRED_TOKEN, timeExpired.toString());
-    localStorage.setItem(AUTH.STORAGE_KEY, data.user._id);
-    return data.user;
+    localStorage.setItem(AUTH.STORAGE_KEY, rs.data.user_id);
+    return rs.data;
   }
 );
 export const loginGetTokenSlice = createAsyncThunk(
   "auth/loginToken",
   async (payload) => {
-    const data = await authApi.loginGetToken(payload);
-    if (!!data) {
-      localStorage.setItem(AUTH.TOKEN_KEY, data.token);
-      const timeExpired = new Date(`${data.timeExpired} +07:00 UTC`);
-    localStorage.setItem(AUTH.EXPIRED_TOKEN, timeExpired.toString());
+    const rs = await authApi.loginGetToken(payload);
+    if (!rs || !rs.success) {
+      return
     }
 
-    //save expired at
+    localStorage.setItem(AUTH.TOKEN_KEY, rs.data.token);
+      const timeExpired = new Date(`${rs.data.timeExpired} +07:00 UTC`);
+    localStorage.setItem(AUTH.EXPIRED_TOKEN, timeExpired.toString());
   }
 );
 export const loginGetUserInforSlice = createAsyncThunk(
   "auth/loginUser",
   async () => {
-    const data = await authApi.loginGetUserInfo();
-    localStorage.setItem(AUTH.STORAGE_KEY, data.user._id);
-    if (data !== null) return data.user;
+    const rs = await authApi.loginGetUserInfo();
+    if (!rs || !rs.success) {
+      return
+    }
+    localStorage.setItem(AUTH.STORAGE_KEY, rs.data.user_id);
+    return rs.data;
     //save expired at
   }
 );

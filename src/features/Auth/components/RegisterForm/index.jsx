@@ -41,7 +41,7 @@ function RegisterForm(props) {
         /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
         t("yupValidate.phoneWrongFormat")
       ),
-    fullname: yup.string().required(t("yupValidate.fullnameRequired")),
+    username: yup.string().required(t("yupValidate.usernameRequired")),
     retypepassword: yup
       .string()
       .required(t("yupValidate.retypePassWordRequired"))
@@ -58,7 +58,7 @@ function RegisterForm(props) {
     defaultValues: {
       email: "",
       phone: "",
-      fullname: "",
+      username: "",
       password: "",
       retypepassword: "",
     },
@@ -81,7 +81,7 @@ function RegisterForm(props) {
     if (OnSubmit) {
       await OnSubmit(values);
     }
-    form.reset();
+    // form.reset();
   };
   useEffect(() => {
     const node = loadCSS(
@@ -115,7 +115,6 @@ function RegisterForm(props) {
           <InputField
             name="email"
             label={t("auth.authField.email")}
-            // placeholder="Please enter email"
             form={form}
             disabled={false}
           />
@@ -126,8 +125,8 @@ function RegisterForm(props) {
             disabled={false}
           />
           <InputField
-            name="fullname"
-            label={t("auth.authField.fullname")}
+            name="username"
+            label={t("auth.authField.username")}
             form={form}
             disabled={false}
           />

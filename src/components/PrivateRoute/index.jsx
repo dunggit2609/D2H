@@ -18,7 +18,6 @@ function PrivateRoute({ component: Component, ...rest }) {
       enqueueSnackbar(t("notiStack.notLogin"), { variant: "success" });
     }
   }, []);
-
   if (isLogin) {
     //gui request check token
     //con han => render component

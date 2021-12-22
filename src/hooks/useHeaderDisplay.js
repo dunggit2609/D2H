@@ -1,5 +1,4 @@
 import {
-  listLinkDisplayScrollClass,
   listPrivateLink,
   _LIST_LINK,
 } from "constant/config";

@@ -50,8 +50,9 @@ function App() {
           <Route path="/" component={HomePage} exact></Route>
           <Route path={routerLink.register} component={RegisterPage} exact />
           <Route path={routerLink.login} component={LoginPage} exact />
-          <PrivateRoute path={routerLink.course} component={Course} />
-          {/* <Route component={NotFound} /> */}
+          <Route path={routerLink.course} component={Course} exact={false} />
+          {/* <PrivateRoute path={routerLink.course} component={Course} exact={false}/> */}
+          <Route component={NotFound} />
         </Switch>
         {isDisplayFooter && <Footer />}
         <LoadingSpinner />

@@ -61,7 +61,6 @@ function LoginForm(props) {
     if (OnSubmit) {
       await OnSubmit(values);
     }
-    form.reset();
   };
   useEffect(() => {
     const node = loadCSS(

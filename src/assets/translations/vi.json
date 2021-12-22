@@ -3,15 +3,17 @@
     "appName": "MYW"
   },
   "yupValidate": {
-    "emailRequired": "Hãy nhập địa chỉ Email của bạn.",
-    "emailWrongFormat": "Email của bạn không hợp lệ.",
-    "phoneRequired": "Hãy nhập số điện thoại của bạn.",
+    "emailRequired": "Hãy nhập địa chỉ Email.",
+    "emailWrongFormat": "Email không hợp lệ.",
+    "phoneRequired": "Hãy nhập số điện thoại.",
     "phoneWrongFormat": "Số điện thoại không hợp lệ.",
-    "fullnameRequired": "Hãy nhập họ và tên của bạn.",
+    "usernameRequired": "Hãy nhập tên người dùng.",
     "retypePassWordRequired": "Hãy nhập lại mật khẩu.",
     "retypePassWordNotMatch": "Mật khẩu nhập lại không trùng khớp",
-    "passwordRequired": "Hãy nhập mật khẩu của bạn",
-    "passWordWrongFormat": "Mật khẩu gồm ít nhất 8 kí tự, 1 kí tự thường, 1 kí tự in hoa, 1 chứ số."
+    "passwordRequired": "Hãy nhập mật khẩu",
+    "passWordWrongFormat": "Mật khẩu gồm ít nhất 8 kí tự, 1 kí tự thường, 1 kí tự in hoa, 1 chứ số.",
+    "required_field": "Trường này không được bỏ trống"
+
   },
   "auth": {
     "authButton": {
@@ -33,7 +35,7 @@
       "password": "Mật khẩu",
       "retypepassword": "Nhập lại mật khẩu",
       "phone": "Số điện thoại",
-      "fullname": "Họ và tên",
+      "username": "Tên người dùng",
       "email": "Email"
     }
   },
@@ -86,5 +88,43 @@
   },
   "search": {
     "placeholder": "Tìm kiếm"
+  },
+  "create_course": {
+    "course_name": "Tên lớp",
+    "course_code": "Mã lớp",
+    "label": "Tạo lớp"
+  },
+  "button": {
+    "next_step": "Tiếp theo",
+    "do_later": "Tạo sau"
+  },
+  "create_test": {
+    "label": "Tạo bài kiểm tra",
+    "test_name": "Tên bài kiểm tra",
+    "test_code": "Mã đề",
+    "result_type": "Loại kết quả",
+    "amount_of_question": "Số câu hỏi",
+    "question_type": "Loại câu hỏi",
+    "multiple_choice": "Chọn nhiều đáp án",
+    "single_choice": "Chọn 1 đáp án đúng nhất",
+    "paper_type": "Mẫu giấy",
+    "test_info": "Thông tin bài kiểm tra",
+    "test_config": "Thiết lập bài kiểm tra",
+    "test_more_config": "Thiết lập mở rộng",
+    "change_result": "Thay đổi kết quả",
+    "upload_result": "Hãy tải file kết quả",
+    "input_result": "Hãy nhập kết quả",
+    "had_result": "Đã nhập kết quả",
+    "has_no_result": "Chưa nhập kết quả"
+   
+
+  },
+  "create_submission": {
+    "label": "Chấm bài"
+  },
+  "resultType": {
+    "image": "Ảnh",
+    "file": "Tệp",
+    "input": "Nhập từ giao diện"
   }
 }

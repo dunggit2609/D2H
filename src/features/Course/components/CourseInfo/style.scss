@@ -1,17 +1,22 @@
-.course-info-container {
-    padding-top: 24px;
-    padding-right: 24px;
+.course-info {
+    &-container {
+        padding-top: 24px;
+        padding-right: 24px;
+        
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__input {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--color);
+    
+        border: none;
+        background: none;
+        outline: none;
+    
+    }
 }
 
-.course-info__input {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--color);
 
-    border: none;
-    background: none;
-    outline: none;
-
-
-
-}

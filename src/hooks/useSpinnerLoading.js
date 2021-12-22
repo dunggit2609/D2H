@@ -1,5 +1,4 @@
 import { displaySpinner, hideSpinner } from "core/redux/spinnerSlice";
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export const UseSpinnerLoading = () => {

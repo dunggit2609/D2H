@@ -1,0 +1,23 @@
+.upload-submission-mage {
+    margin-top: 24px
+}
+
+.upload-submission-label {
+    margin-bottom: 24px;
+}
+
+.select-test {
+    // display: flex;
+
+    &_item {
+        width: 100%;
+        margin-right: 24px;
+        flex-grow: 1;
+    }
+
+    &_code {
+        width: 100%;
+        flex-grow: 1;
+        margin-top: 24px;
+    }
+}

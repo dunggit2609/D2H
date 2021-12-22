@@ -7,11 +7,12 @@
     "emailWrongFormat": "Your Email is wrong format.",
     "phoneRequired": "Please enter your Phone.",
     "phoneWrongFormat": "Phone number is invalid.",
-    "fullnameRequired": "Please enter your Full Name.",
+    "usernameRequired": "Please enter your Username.",
     "retypePassWordRequired": "Please retype your Password",
     "retypePassWordNotMatch": "Retyped Password dose not match",
     "passwordRequired": "Please enter your Password",
-    "passWordWrongFormat": "Password has minimum 8 characters, at leas tone uppercase letter,one lower letter,one number"
+    "passWordWrongFormat": "Password has minimum 8 characters, at leas tone uppercase letter,one lower letter,one number",
+    "required_field": "This field is required"
   },
   "auth": {
     "authButton": {
@@ -33,7 +34,7 @@
       "password": "Password",
       "retypepassword": "Retype Password",
       "phone": "Phone",
-      "fullname": "Fullname",
+      "username": "Username",
       "email": "Email"
     }
   },
@@ -87,5 +88,43 @@
   },
   "search": {
     "placeholder": "Search"
+  },
+  "create_course": {
+    "course_name": "Course name",
+    "course_code": "Course code",
+    "label": "Create course"
+  },
+  "button": {
+    "next_step": "Next step",
+    "do_later": "I'll do it later"
+
+  },
+  "create_test": {
+    "label": "Create test",
+    "test_name": "Test name",
+    "test_code": "Test code",
+    "result_type": "Result type",
+    "amount_of_question": "Question amounts",
+    "question_type": "Question type",
+    "multiple_choice": "Multiple choice",
+    "single_choice": "Single choice",
+    "paper_type": "Test paper's model",
+    "test_info": "Test info",
+    "test_config": "Test config",
+    "test_more_config": "More config",
+    "change_result": "Change result",
+    "upload_result": "Upload result file",
+    "input_result": "Enter result",
+    "had_result": "Had result",
+    "has_no_result": "Have no result"
+  },
+  "create_submission": {
+    "label": "Create submission"
+  },
+  "resultType": {
+    "image": "Image",
+    "file": "File *.csv, *.xlsx",
+    "input": "Input from UI"
   }
 }
+

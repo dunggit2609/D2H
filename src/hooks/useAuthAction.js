@@ -27,7 +27,8 @@ export const useAuthAction = (authType) => {
           : "";
       if (authType === "register") {
         const resultAction = await dispatch(action);
-        const user = unwrapResult(resultAction);
+        unwrapResult(resultAction);
+        // const user = unwrapResult(resultAction);
         const msg =
           authType === "login"
             ? t("notiStack.loginSuccess")
@@ -39,10 +40,12 @@ export const useAuthAction = (authType) => {
       }
       if (authType === "login") {
         const resultAction = await dispatch(action);
-        const token = unwrapResult(resultAction);
+        unwrapResult(resultAction);
+        // const token = unwrapResult(resultAction);
         const getUserAction = loginGetUserInforSlice();
         const getUserInfor = await dispatch(getUserAction);
-        const logginedUSer = unwrapResult(getUserInfor);
+        unwrapResult(getUserInfor);
+        // const logginedUSer = unwrapResult(getUserInfor);
         const msg =
           authType === "login"
             ? t("notiStack.loginSuccess")

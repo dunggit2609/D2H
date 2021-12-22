@@ -1,10 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-TabList.propTypes = {
-
-};
 
 function TabList(props) {
     const { selected, data, handleChangeTab } = props
@@ -19,11 +15,11 @@ function TabList(props) {
     };
     return (
         <div>
-            <Tabs indicatorColor="secondary"
-                textColor="secondary"
+            <Tabs indicatorColor="primary"
+                textColor="primary"
                 value={selected} onChange={onChangeTab} aria-label="basic tabs example">
                 {
-                    data.map((d) => <Tab label={d.label} {...a11yProps(d.value)} />)
+                    data.map((d) => <Tab label={d.label} {...a11yProps(d.value)} key={a11yProps(d.value).id }/>)
                 }
             </Tabs>
         </div>
