@@ -7,18 +7,15 @@ import { useTranslation } from 'react-i18next';
 import InputField from 'components/FormControl/InputField';
 import './styles.scss'
 import { Button, Divider, FormControl, FormLabel, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { Chip, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Chip, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import InputResultPopup from 'features/Course/components/InputResultPopup';
 import SelectFieldForm from 'components/FormControl/SelectField'
 
 import { RESULT_TYPE_FILE, RESULT_TYPE_IMAGE, RESULT_TYPE_INPUT } from 'features/Course/constant/resultType';
 import { PAPER_TYPE_1, PAPER_TYPE_2 } from 'features/Course/constant/paperType';
-import { number } from 'yup';
-import { QUESTION_TYPE_MULTIPLE, QUESTION_TYPE_SINGLE } from 'features/Course/constant/questionType';
-import RadioGroupForm from 'components/FormControl/RadioGroup';
-import { DropzoneArea } from 'material-ui-dropzone';
 import uploadService from 'core/API/uploadService';
 import CheckboxForm from 'components/FormControl/CheckboxForm';
+import { cloneDeep } from 'core/utils/common';
 
 CreateTestForm.propTypes = {
 
@@ -29,7 +26,6 @@ function CreateTestForm(props) {
 
     const { handleNextStep } = props
     const listPaper = [{ value: PAPER_TYPE_1, label: "Code1" }, { value: PAPER_TYPE_2, label: "Code2" },]
-    const listQuestionType = [{ value: QUESTION_TYPE_MULTIPLE, label: t("create_test.multiple_choice") }, { value: QUESTION_TYPE_SINGLE, label: t("create_test.single_choice") },]
     const listResult = [{ value: RESULT_TYPE_IMAGE, label: t("resultType.image") }, { value: RESULT_TYPE_FILE, label: t("resultType.file") },
     { value: RESULT_TYPE_INPUT, label: t("resultType.input") }]
     const [data, setData] = useState([{ testCode: '', result: null, }])
@@ -73,29 +69,43 @@ function CreateTestForm(props) {
         setDisplayAmountOfQuestion(display)
     }
 
-    const handleChangeFileResult = async (files, index) => {
-        if (!files || files.length === 0) {
-            return
-        }
-        const result = await uploadService.uploadToServer(files[0])
+    const handleChangeFileResult = async (file, index) => {
+
     }
     // const { isSubmitting } = form.formState;
     const handleOnSubmit = async (values) => {
-        // handleNextStep()
+
+        //handle call api
+        handleNextStep()
         form.reset();
     };
     const handleChangeResult = () => {
         setIsVisibleResultPopup(true)
 
     }
+
     const handleCloseResultPopup = () => {
         setIsVisibleResultPopup(false)
     }
+
     const addNewTest = () => {
         const newData = { testCode: '', resultType: null, }
         const newListData = [...data, newData]
         setData(newListData)
     }
+
+    const handleChangeTestCode = (value, index) => {
+        const dummy = cloneDeep(data)
+        dummy[index].testCode = value
+        if (!value) {
+            dummy[index].error = true
+        } else {
+            dummy[index].error = false
+        }
+
+        setData(dummy)
+    }
+
     return (
         <div className="create-course__body">
             <form onSubmit={form.handleSubmit(handleOnSubmit)}>
@@ -118,12 +128,12 @@ function CreateTestForm(props) {
                     </div> */}
                     <div className="general-config">
                         <div className="result-type flex-grow-3">
-                            <InputLabel id="result-type-label">{t("create_test.result_type")}</InputLabel>
+                            {/* <InputLabel id="result-type-label">{t("create_test.result_type")}</InputLabel> */}
                             <SelectFieldForm form={form}
                                 list={listResult}
                                 disabled={false}
                                 name="resultType"
-                                label={t("create_test.paper_type")}
+                                label={t("create_test.result_type")}
                                 onChangeSelected={handleDisableChangeResultAndDisplayAmountOfQuestion}
                             />
                         </div>
@@ -132,7 +142,7 @@ function CreateTestForm(props) {
                                 <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
                                 <CheckboxForm form={form}
                                     disabled={false}
-                                    name="questionType"
+                                    name="isMultiple"
                                     label={t("create_test.multiple_choice")}
                                 />
                             </div>
@@ -142,7 +152,7 @@ function CreateTestForm(props) {
                         <div className="paper-type flex-grow-3">
 
                             <div className="config-paper-type">
-                                <InputLabel id="paper-type-label">{t("create_test.paper_type")}</InputLabel>
+                                {/* <InputLabel id="paper-type-label">{t("create_test.paper_type")}</InputLabel> */}
                                 <SelectFieldForm form={form}
                                     list={listPaper}
                                     disabled={false}
@@ -169,17 +179,21 @@ function CreateTestForm(props) {
                 <section >
                     {data.map((item, index) => <div className="test-config" key={index}>
                         <div className="test-config__item-test-code">
-                            <InputField
-                                name="testCode"
+                            <TextField
                                 label={t("create_test.test_code")}
-                                form={form}
-                                disabled={false}
+                                value={item.testCode}
+                                onChange={(event) => handleChangeTestCode(event.target.value, index)}
+                                fullWidth
+                                error={item.error}
                             />
+                            {item.error && <p className="err-msg">{t("yupValidate.required_field")}</p>}
+
+
                         </div>
                         <div className="test-config__input-result-status">
                             {
-                                item.url || (item.result &&    item.result.length) > 0 ? <Chip variant='outlined' label={t("create_test.had_result")} color="success" /> :
-                                    <Chip label={t("create_test.has_no_result")} color="error" variant='outlined'/>
+                                item.url || (item.result && item.result.length) > 0 ? <Chip variant='outlined' label={t("create_test.had_result")} color="success" /> :
+                                    <Chip label={t("create_test.has_no_result")} color="error" variant='outlined' />
                             }
 
                         </div>

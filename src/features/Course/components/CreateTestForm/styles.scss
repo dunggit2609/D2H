@@ -14,11 +14,14 @@
         flex-grow: 3;
     }
     &__item-test-change-result {
-        flex-grow: 1;
 
+        flex-grow: 1;
         display: flex;
-        align-items: center;
         justify-content: end;
+
+        max-height: 40px;
+
+        margin-top: 18px;
     }
 }
 
@@ -34,16 +37,7 @@
     margin-top: 24px;
 }
 
-.config-paper-type {
-    margin-top: 24px;
-}
-
 .general-config {
     display: flex;
-    align-items: center;
 }
 
-.question-type {
-    display: flex;
-    justify-content: center;
-}

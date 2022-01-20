@@ -35,7 +35,7 @@ function LoginForm(props) {
     setOpenDialog(false);
   };
   const schema = yup.object().shape({
-    email: yup
+    username: yup
       .string()
       .required(t("yupValidate.emailWrongFormat"))
       .email(t("yupValidate.emailWrongFormat")),
@@ -50,7 +50,7 @@ function LoginForm(props) {
   
   const form = useForm({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
     resolver: yupResolver(schema),
@@ -91,7 +91,7 @@ function LoginForm(props) {
         </Typography>
         <form onSubmit={form.handleSubmit(handleOnSubmit)}>
           <InputField
-            name="email"
+            name="username"
             label={t("auth.authField.email")}
             form={form}
             disabled={false}

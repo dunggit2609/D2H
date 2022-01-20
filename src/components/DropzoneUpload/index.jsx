@@ -24,13 +24,14 @@ function DropzoneUpload(props) {
             const formData = new FormData();
             formData.append("file", files[i]);
             const url = await uploadToServer(formData)
+            console.log(url)
             if (!url) {
                 continue
             }
             files[i].url = url
 
         }
-
+        console.log(files)
         if (!onChange) {
             return
         }

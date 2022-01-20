@@ -17,14 +17,14 @@ CheckboxForm.propTypes = {
 };
 
 function CheckboxForm(props) {
-    const { form, name, label, disabled, placeholder, list, onChangeSelected, direction } = props;
+    const { form, name, label, disabled, placeholder, onChange } = props;
     const { errors, formState } = form;
     const hasError = errors[name] && formState.isSubmitted;
-    const handleChangeSelected = () => {
-        if (!onChangeSelected) {
+    const handleChange = (val) => {
+        if (!onChange) {
             return
         }
-        onChangeSelected()
+        onChange()
     }
     return (
         <div>
@@ -43,12 +43,11 @@ function CheckboxForm(props) {
                 render={({ onChange, value, ref }) => (
                     <Checkbox
                         onChange={(val) => {
-                            onChange(val)
-                            handleChangeSelected()
+                            onChange(val.target.checked)
+                            handleChange()
                         }}
                         checked={value}
                         inputRef={ref}
-                        direction={direction}
                     />
                 )}
             />

@@ -5,6 +5,7 @@ import authApi from "core/API/authApi";
 export const registerSlice = createAsyncThunk(
   "auth/register",
   async (payload) => {
+    
     const rs = await authApi.register(payload);
     if (!rs || !rs.success) {
       return
