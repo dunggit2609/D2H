@@ -16,10 +16,10 @@ export const useFeatureOfMenu = () => {
   const isDisplayAuth = location.pathname === _LIST_LINK.index ? true : false;
   const isDisplayHeader =
     location.pathname !== _LIST_LINK.notFound ? true : false;
-    const user = useSelector((state) => state.auth.current);
-    const isLogin =
-      !!localStorage.getItem(AUTH.TOKEN_KEY) &&
-      !!(Object.keys(user).length !== 0);
+  const user = useSelector((state) => state.auth.current);
+  const isLogin =
+    !!localStorage.getItem(AUTH.TOKEN_KEY) &&
+    !!(Object.keys(user).length !== 0);
 
   const handleLanguageBoxClick = (event) => {
     if (!isLanguageOpen) {
@@ -38,7 +38,7 @@ export const useFeatureOfMenu = () => {
     if (isUserAvartaOpen !== null) {
       setIsUserAvartaOpen(null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, isLanguageOpen, isUserAvartaOpen]);
 
   const handleLanguageBoxClose = () => {
     setIsLanguageOpen(null);
