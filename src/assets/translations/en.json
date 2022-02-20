@@ -103,7 +103,8 @@
     "view": "View",
     "visualize": "Visualize",
     "delete": "Delete",
-    "view_assignments": "View assignments"
+    "view_assignments": "View assignments", 
+    "add_new_test": "Add new test"
   },
   "create_test": {
     "label": "Create test",
@@ -151,7 +152,7 @@
     "new": "New",
     "graded": "Graded"
   },
-  "created_at": "Created at",
+  "created_at": "Created date",
   "yes": "Yes",
   "no": "No",
   "paper_type": {

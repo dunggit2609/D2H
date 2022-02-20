@@ -15,6 +15,7 @@ import { UseSpinnerLoading } from "hooks/useSpinnerLoading";
 import TestDetail from './pages/TestDetail/TestDetail';
 import Assignments from './pages/Assignments/index';
 import Visualize from './pages/Visualize/index';
+import VisualizeCourse from './pages/VisualizeCourse/VisualizeCourse';
 
 
 function Course(props) {
@@ -88,6 +89,11 @@ function Course(props) {
         <Route
           path={`${_LIST_LINK.visualize}`}
           component={Visualize}
+          exact
+        />
+        <Route
+          path={`${_LIST_LINK.visualizeCourse}`}
+          component={VisualizeCourse}
           exact
         />
       </Switch>

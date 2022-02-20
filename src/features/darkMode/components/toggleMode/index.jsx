@@ -1,5 +1,4 @@
 import { ButtonBase, Tooltip } from "@material-ui/core";
-import { Brightness4Outlined } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import  './styles.scss'

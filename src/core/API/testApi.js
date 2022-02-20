@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import {convertObjectCamelToSnake} from 'core/utils/object'
+import { convertObjectCamelToSnake } from 'core/utils/object'
 import qs from 'query-string'
 const url = "/test";
 const testApi = {
@@ -13,13 +13,17 @@ const testApi = {
     return axiosClient.get(`${url}/get-test/${id}`);
   },
   delete(id) {
-      return axiosClient.delete(`${url}/${id}`)
+    return axiosClient.delete(`${url}/${id}`)
   },
   update(id, payload) {
-      return axiosClient.put(`${url}/${id}`, convertObjectCamelToSnake(payload))
+    return axiosClient.put(`${url}/${id}`, convertObjectCamelToSnake(payload))
   },
   getStatistic(id, payload) {
     return axiosClient.get(`${url}/get-test-statistic/${id}?step=${payload ? payload : 1}`)
+  },
+  getAllStatistic(id) {
+    return axiosClient.get(`${url}/get-all-test-statistics/${id}`)
+
   }
 };
 

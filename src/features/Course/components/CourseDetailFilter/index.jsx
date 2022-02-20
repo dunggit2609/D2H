@@ -27,6 +27,8 @@ import qs from 'query-string'
 import { _LIST_LINK } from 'constant/config';
 import { InputLabel } from '@mui/material';
 import { FormControl } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { cloneDeep } from 'core/utils/common';
 CourseDetailFilter.propTypes = {
 
 };
@@ -79,6 +81,23 @@ function CourseDetailFilter(props) {
         fetchData()
     }
 
+    const handleClearDate = (type) => {
+        const [start, end] = date
+        const dummy = [null, null]
+        switch (type) {
+            case 'start':
+                dummy[1] = end;
+                break;
+            case 'end':
+                dummy[0] = start;
+                break
+            default:
+                break
+        }
+
+        setDate(dummy)
+    }
+
     const fetchData = async () => {
         const payload = {
             courseId: courseId,
@@ -120,7 +139,7 @@ function CourseDetailFilter(props) {
                         fullWidth
                         size='small'
                     >
-                        {statuses && statuses.length > 0 && statuses.map(s => <MenuItem value={s.id}>{s.label}</MenuItem>)}
+                        {statuses && statuses.length > 0 && statuses.map(s => <MenuItem key={s.id} value={s.id}>{s.label}</MenuItem>)}
 
                     </Select>
                 </FormControl>
@@ -148,6 +167,17 @@ function CourseDetailFilter(props) {
                                                 <DateRangeIcon />
                                             </InputAdornment>
                                         ),
+                                        endAdornment: (
+                                            <>
+                                                {
+                                                    date[0] && <InputAdornment position="end" size='small' onClick={() => handleClearDate('start')}>
+                                                        <CloseIcon />
+                                                    </InputAdornment>
+                                                }
+                                            </>
+
+
+                                        ),
                                     }}
                                 />
                                 <Box sx={{ mx: 1 }}></Box>
@@ -158,6 +188,15 @@ function CourseDetailFilter(props) {
                                             <InputAdornment position="start">
                                                 <DateRangeIcon />
                                             </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <>
+                                            {
+                                                date[1] && <InputAdornment position="end" size='small' onClick={() => handleClearDate('end')}>
+                                                    <CloseIcon />
+                                                </InputAdornment>
+                                            }
+                                        </>
                                         ),
                                     }}
                                 />

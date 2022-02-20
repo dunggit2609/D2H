@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './styles.scss'
 import { Button, Grid, Menu, Paper, MenuItem } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -17,55 +16,53 @@ import TestDetailForm from 'features/Course/components/TestDetailForm';
 import { _LIST_LINK } from 'constant/config';
 import { useHistory } from 'react-router';
 import ListIcon from '@mui/icons-material/List';
-import { useLocation } from 'react-router';
-import Popover from '@mui/material/Popover';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { styled, alpha } from '@mui/material/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { StyledMenu } from 'components/DropdownMenu/DropdownMenu';
 
 TestDetail.propTypes = {
 
 };
-const StyledMenu = styled((props) => (
-    <Menu
-        elevation={0}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        {...props}
-    />
-))(({ theme }) => ({
-    '& .MuiPaper-root': {
-        borderRadius: 6,
-        marginTop: theme.spacing(1),
-        minWidth: 180,
-        color:
-            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-        boxShadow:
-            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        '& .MuiMenu-list': {
-            padding: '4px 0',
-        },
-        '& .MuiMenuItem-root': {
-            '& .MuiSvgIcon-root': {
-                fontSize: 18,
-                color: theme.palette.text.secondary,
-                marginRight: theme.spacing(1.5),
-            },
-            '&:active': {
-                backgroundColor: alpha(
-                    theme.palette.primary.main,
-                    theme.palette.action.selectedOpacity,
-                ),
-            },
-        },
-    },
-}));
+// const StyledMenu = styled((props) => (
+//     <Menu
+//         elevation={0}
+//         anchorOrigin={{
+//             vertical: 'bottom',
+//             horizontal: 'right',
+//         }}
+//         transformOrigin={{
+//             vertical: 'top',
+//             horizontal: 'right',
+//         }}
+//         {...props}
+//     />
+// ))(({ theme }) => ({
+//     '& .MuiPaper-root': {
+//         borderRadius: 6,
+//         marginTop: theme.spacing(1),
+//         minWidth: 180,
+//         color:
+//             theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+//         boxShadow:
+//             'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+//         '& .MuiMenu-list': {
+//             padding: '4px 0',
+//         },
+//         '& .MuiMenuItem-root': {
+//             '& .MuiSvgIcon-root': {
+//                 fontSize: 18,
+//                 color: theme.palette.text.secondary,
+//                 marginRight: theme.spacing(1.5),
+//             },
+//             '&:active': {
+//                 backgroundColor: alpha(
+//                     theme.palette.primary.main,
+//                     theme.palette.action.selectedOpacity,
+//                 ),
+//             },
+//         },
+//     },
+// }));
 function TestDetail(props) {
     const { t } = useTranslation()
     const { handleDisplaySpinner } = UseSpinnerLoading()
@@ -73,7 +70,6 @@ function TestDetail(props) {
     const { enqueueSnackbar } = useSnackbar();
     const { testId, courseId } = useParams()
     const history = useHistory()
-    const location = useLocation()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -135,32 +131,14 @@ function TestDetail(props) {
         <div className='test-detail-container'>
             <Grid container spacing={2}>
                 <Grid item xs={12} className='test-detail__header'>
-                <section className='assignment-page-label'>
-                <span className="back-to-test" onClick={handleClickBackToAssignment}><ArrowBackIosIcon /></span>
-                <span className="assignment-label" >
-                    {t('test_detail.label')}
-                </span>
-            </section>
+                    <section className='assignment-page-label'>
+                        <span className="back-to-test" onClick={handleClickBackToAssignment}><ArrowBackIosIcon /></span>
+                        <span className="assignment-label" >
+                            {t('test_detail.label')}
+                        </span>
+                    </section>
                     <span>
-                        {/* <SpeedDial
-                            ariaLabel="SpeedDial controlled open example"
-                            icon={<SpeedDialIcon icon={<MoreHorizIcon/>}/>}
-                            onClose={handleClose}
-                            onOpen={handleOpen}
-                            open={open}
-                            direction="left"
-                        >
-                            {actions.map((action) => (
-                                <SpeedDialAction
-                                    key={action.name}
-                                    icon={action.icon}
-                                    tooltipTitle={action.name}
-                                    onClick={action.action}
-                                    FabProps={action.FabProp}
-
-                                />
-                            ))}
-                        </SpeedDial> */}
+                      
                         <Button
                             id="demo-customized-button"
                             aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -196,32 +174,7 @@ function TestDetail(props) {
                         <TestDetailForm />
                     </Paper>
                 </Grid>
-                {/* <Grid item xs={3}>
-                    <Paper className='test-form__action'>
-                        <div className="action__label">
-                            <h3>Actions</h3>
-                        </div>
-                        <div className="action__list">
-                            <div className="button__assign">
-                               
-                                <Button color='primary' variant='outlined' fullWidth startIcon={<GradingIcon />} onClick={handleAssign} >{t('button.assign')}</Button>
-
-                            </div>
-                            <div className="button__assign">
-                                <Button color='primary' variant='outlined' fullWidth startIcon={<ListIcon />} onClick={handleViewAssignment}>View assignments</Button>
-
-                            </div>
-                            <div className="button__visualize">
-                                <Button color='primary' variant='outlined' fullWidth startIcon={<InsertChartIcon />}>{t('button.visualize')}</Button>
-
-                            </div>
-                            <div className="button__delete">
-                                <Button color='error' variant='contained' fullWidth startIcon={<DeleteForever />}>{t('button.delete')}</Button>
-
-                            </div>
-                        </div>
-                    </Paper>
-                </Grid> */}
+              
             </Grid>
 
         </div>

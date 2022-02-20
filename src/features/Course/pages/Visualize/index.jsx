@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './styles.scss'
 import { useTranslation } from 'react-i18next';
 import { Button, Grid, Select, Slider } from '@mui/material';
@@ -48,7 +47,7 @@ function Visualize(props) {
     const { handleDisplaySpinner } = UseSpinnerLoading()
     const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(async () => {
+    useEffect(() => {
         fetchStatistic()
     }, [])
     const fetchStatistic = async () => {

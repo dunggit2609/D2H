@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import "./styles.scss";
 import { Button } from "@mui/material";
-
+import logo from 'assets/images/logo.png'
 export default function Header() {
   const { t } = useTranslation();
   const {
@@ -87,9 +87,7 @@ export default function Header() {
                           component={RouterLink}
                           to={_LIST_LINK.index}
                         >
-                          <Typography variant="h4" className="toolbar__title">
-                            {t("header.appName")}
-                          </Typography>
+                          <img src={logo} width={100 + 'px'} height={50+ 'px'}/>
                         </ButtonBase>
                       </div>
                     </>

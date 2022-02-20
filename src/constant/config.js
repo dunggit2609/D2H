@@ -12,7 +12,8 @@ export const _LIST_LINK = {
   assginmentCreate: "/course/:courseId/test/:testId/assign",
   courseDetail: "/course/:courseId",
   viewAssignment: "/course/:courseId/test/:testId/view-assignment",
-  visualize: "/course/:courseId/test/:testId/visualize"
+  visualize: "/course/:courseId/test/:testId/visualize",
+  visualizeCourse: "/course/:courseId/visualize"
 
 };
 export const listLinkDisplayScrollClass = [

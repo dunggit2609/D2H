@@ -81,12 +81,26 @@ export const getStatistic = createAsyncThunk(
     return convertObjectSnakeToCamel(rs.data)
   }
 );
+export const getAllStatistics = createAsyncThunk(
+  "test/getAllStatistics",
+  async (payload) => {
+    
+
+
+    const rs = await testApi.getAllStatistic(payload);
+    if (!rs || !rs.success) {
+      return
+    }
+    return rs.data.map(item => convertObjectSnakeToCamel(item))
+  }
+);
 const testSlice = createSlice({
   name: "test",
   initialState: {
     tests: {},
     curTest: {},
-    statistic: {}  
+    statistic: {},
+    statistics: []  
   },
   reducers: {},
   extraReducers: {
@@ -94,7 +108,6 @@ const testSlice = createSlice({
       state.curTest = action.payload;
     },
     [getAllTest.fulfilled]: (state, action) => {
-      console.log("payload", action.payload)
       state.tests = action.payload;
     },
     [getTestDetail.fulfilled]: (state, action) => {
@@ -102,6 +115,9 @@ const testSlice = createSlice({
     },
     [getStatistic.fulfilled]: (state, action) => {
       state.statistic = action.payload;
+    },
+    [getAllStatistics.fulfilled]: (state, action) => {
+      state.statistics = action.payload;
     },
   },
 });
