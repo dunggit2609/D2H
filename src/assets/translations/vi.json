@@ -13,16 +13,14 @@
     "passwordRequired": "Hãy nhập mật khẩu",
     "passWordWrongFormat": "Mật khẩu gồm ít nhất 8 kí tự, 1 kí tự thường, 1 kí tự in hoa, 1 chứ số.",
     "required_field": "Trường này không được bỏ trống"
-
   },
   "auth": {
     "authButton": {
       "loginButton": "Đăng nhập",
       "registerButton": "Đăng kí",
       "loginByFb": "Tiếp tục với Facebook",
-
-      "noAccount": "Bạn không có tài khoàn? Đăng kí",
-      "haveAccount": "Bạn đã có tài khoản? Login"
+      "noAccount": "Bạn không có tài khoàn",
+      "haveAccount": "Bạn đã có tài khoản"
     },
     "dialog": {
       "dialogLoginFb": "Tính năng này đang phát triển. Bạn hãy sử dụng vào lần sau nhé 👌."
@@ -36,7 +34,8 @@
       "retypepassword": "Nhập lại mật khẩu",
       "phone": "Số điện thoại",
       "username": "Tên người dùng",
-      "email": "Email"
+      "email": "Email",
+      "username_email": "Email hoặc tên đang nhập"
     }
   },
   "toolTip": {
@@ -92,11 +91,20 @@
   "create_course": {
     "course_name": "Tên lớp",
     "course_code": "Mã lớp",
-    "label": "Tạo lớp"
+    "label": "Tạo lớp",
+    "ok": "Đồng ý",
+    "cancel": "Hủy",
+    "submit": "Chấm bài",
+    "view": "Xem"
   },
   "button": {
     "next_step": "Tiếp theo",
-    "do_later": "Tạo sau"
+    "do_later": "Tạo sau",
+    "add_new_course": "Tạo khóa học mới",
+    "assign": "Chấm bài",
+    "visualize": "Trực quan dữ liệu",
+    "delete": "Xóa",
+    "view_assignments": "Xem kết quả chấm bài"
   },
   "create_test": {
     "label": "Tạo bài kiểm tra",
@@ -111,20 +119,54 @@
     "test_info": "Thông tin bài kiểm tra",
     "test_config": "Thiết lập bài kiểm tra",
     "test_more_config": "Thiết lập mở rộng",
-    "change_result": "Thay đổi kết quả",
+    "change_result": "Thay đổi câu trả lời",
     "upload_result": "Hãy tải file kết quả",
     "input_result": "Hãy nhập kết quả",
     "had_result": "Đã nhập kết quả",
-    "has_no_result": "Chưa nhập kết quả"
-   
+    "has_no_result": "Chưa nhập kết quả",
+    "enter_result": "Hãy tải tệp hoặc nhập kết quả",
+    "duplicate_test_code": "Mã đề bị trùng",
+    "file_name": "Tên file",
+    "upload_answer": "Tải kết quả"
 
   },
   "create_submission": {
-    "label": "Chấm bài"
+    "label": "Chấm bài",
+    "upload_assignment": "Tải ảnh bài làm"
   },
   "resultType": {
     "image": "Ảnh",
     "file": "Tệp",
     "input": "Nhập từ giao diện"
+  },
+  "course_desc": "Khóa học giúp bạn quản lý đề kiểm tra và bài làm của thí sinh",
+  "course_add_new": "Hãy bắt đầu tạo khóa học mới",
+  "from_date": "Từ ngày",
+  "to_date": "Đến ngày",
+  "status": {
+    "label": "Trạng thái",
+    "new": "Mới tạo",
+    "graded": "Đã chấm"
+  },
+  "created_at": "Ngày tạo",
+  "yes": "Có",
+  "no": "Không",
+  "paper_type": {
+    "model_1": "Mẫu 1",
+    "model_2": "Mẫu 2"
+  },
+  "student_id": "Mã số",
+  "grade": "Điểm",
+  "image": "Ảnh",
+  "test_detail": {
+    "label": "Chi tiết bài kiểm tra",
+    "info": "Thông tin chung",
+    "config": "Thiết lập"
+  },
+  "more_feature": "Tính năng",
+  "list_of_course": "Danh sách khóa học",
+  "visualize": {
+    "grade_type": "Thống kê loại điểm",
+    "grade_range": "Thống kê khoảng điểm"
   }
 }

@@ -17,6 +17,8 @@ import "./features/multiLanguage/i18n.js";
 import "assets/styles/flex.scss"
 import "assets/styles/base.scss"
 import Course from "features/Course";
+import NoCourse from "features/Course/pages/NoCourse/NoCourse";
+
 function App() {
   const HomePage = React.lazy(() => import("./features/HomePage"));
   const routerLink = _LIST_LINK;
@@ -50,8 +52,9 @@ function App() {
           <Route path="/" component={HomePage} exact></Route>
           <Route path={routerLink.register} component={RegisterPage} exact />
           <Route path={routerLink.login} component={LoginPage} exact />
-          <Route path={routerLink.course} component={Course} exact={false} />
-          {/* <PrivateRoute path={routerLink.course} component={Course} exact={false}/> */}
+          <PrivateRoute path={routerLink.course} component={Course} exact={false}/>
+          {/* <Route path={routerLink.course} component={Course} exact={false}/> */}
+          <PrivateRoute path={routerLink.noCourse} component={NoCourse} exact={false}/>
           <Route component={NotFound} />
         </Switch>
         {isDisplayFooter && <Footer />}

@@ -1,3 +1,3 @@
-export const RESULT_TYPE_IMAGE = 1
-export const RESULT_TYPE_FILE = 2
-export const RESULT_TYPE_INPUT = 3
+export const RESULT_TYPE_IMAGE = "image"
+export const RESULT_TYPE_FILE = "csv"
+export const RESULT_TYPE_INPUT = "object"

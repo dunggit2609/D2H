@@ -17,28 +17,36 @@
         }
 
         &::-webkit-scrollbar-thumb {
-            background: var(--highlightBorder);
+            background: var(--activeState);
             border-radius: 4px;
         }
     }
     &__item {
         height: 24px;
-        padding: 8px;
+        padding: 8px 24px;
+
         color: var(--color);
-        font-weight: 400;
+        font-weight: 500;
+        font-size: 16px;
+
         text-decoration: none;
+
         &:hover {
             background: var(--highlightBackground);
-            border-radius: 10px;
+            border-radius: 4px;
         }
 
         &.activelass {
             background: var(--activeState);
-            border-radius: 10px;
+            border-radius: 4px;
+            color: var(--activeColor);
         }
     }
 }
 
-a.add-new-course {
-    text-decoration: none;
+.course-icon {
+    display: flex;
+    align-items: center;
+
+    margin-right: 8px;
 }

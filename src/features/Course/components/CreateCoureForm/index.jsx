@@ -6,15 +6,28 @@ import * as yup from "yup";
 import { useTranslation } from 'react-i18next';
 import InputField from 'components/FormControl/InputField';
 import './styles.scss'
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
+import { useSnackbar } from "notistack";
+import { createCourseSlice } from 'core/redux/courseSlice';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
+import { Link } from 'react-router-dom';
+import { _LIST_LINK } from 'constant/config';
+
 CreateCourseForm.propTypes = {
 
 };
 
 function CreateCourseForm(props) {
     const { handleNextStep } = props
+    const { enqueueSnackbar } = useSnackbar();
 
     const { t } = useTranslation()
+    const dispatch = useDispatch();
+    const { handleDisplaySpinner } = UseSpinnerLoading()
+
+
     const schema = yup.object().shape({
         courseName: yup
             .string()
@@ -32,10 +45,23 @@ function CreateCourseForm(props) {
         },
         resolver: yupResolver(schema),
     });
+
     // const { isSubmitting } = form.formState;
     const handleOnSubmit = async (values) => {
-        handleNextStep()
-        form.reset();
+        try {
+            handleDisplaySpinner(true)
+            const action = createCourseSlice(values)
+            const rs = await dispatch(action)
+            handleDisplaySpinner(false)
+            unwrapResult(rs)
+
+            handleNextStep()
+            form.reset();
+        } catch (err) {
+            enqueueSnackbar(err.message, { variant: "error" });
+            handleDisplaySpinner(false)
+        }
+
     };
     return (
 
@@ -71,6 +97,19 @@ function CreateCourseForm(props) {
                     >
                         {t("button.next_step")}
                     </Button>
+                </section>
+                <section className="do-later">
+                    <Link to={_LIST_LINK.course} className='decoration-none'>
+                        <Button
+                            color="primary"
+                            variant="text"
+                            fullWidth
+                            type="default"
+                        >
+                            {t("button.do_later")}
+                        </Button>
+                    </Link>
+
                 </section>
             </form>
 

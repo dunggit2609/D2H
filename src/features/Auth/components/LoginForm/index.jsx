@@ -1,12 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Avatar,
-  Button,
+
   Container,
   Icon,
   LinearProgress,
   Typography,
 } from "@material-ui/core";
+import { Button } from '@mui/material'
 import { LockOpenRounded } from "@material-ui/icons";
 import DialogSlide from "components/DialogSlide";
 import InputField from "components/FormControl/InputField";
@@ -18,7 +19,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import * as yup from "yup";
 import "./styles.scss";
 LoginForm.propTypes = {
@@ -37,8 +38,7 @@ function LoginForm(props) {
   const schema = yup.object().shape({
     username: yup
       .string()
-      .required(t("yupValidate.emailWrongFormat"))
-      .email(t("yupValidate.emailWrongFormat")),
+      .required(t("yupValidate.required_field")),
     password: yup
       .string()
       .required(t("yupValidate.passwordRequired"))
@@ -47,7 +47,7 @@ function LoginForm(props) {
         t("yupValidate.passWordWrongFormat")
       ),
   });
-  
+
   const form = useForm({
     defaultValues: {
       username: "",
@@ -76,7 +76,7 @@ function LoginForm(props) {
     <div className="container">
       <Container maxWidth="xs" className="mainBox mainBox--loginBox">
         <div className="authSubmitting">
-          {isSubmitting && <LinearProgress color="secondary" />}
+          {isSubmitting && <LinearProgress color="primary" />}
         </div>
 
         <Avatar className="mainBox__avatar">
@@ -92,7 +92,7 @@ function LoginForm(props) {
         <form onSubmit={form.handleSubmit(handleOnSubmit)}>
           <InputField
             name="username"
-            label={t("auth.authField.email")}
+            label={t("auth.authField.username_email")}
             form={form}
             disabled={false}
           />
@@ -105,7 +105,7 @@ function LoginForm(props) {
           />
 
           <Button
-            color="secondary"
+            color="primary"
             className="mainBox__submitButton"
             variant="contained"
             fullWidth
@@ -115,23 +115,18 @@ function LoginForm(props) {
           </Button>
         </form>
         <div className="mainBox__buttonArea">
-          <Button
-            component={RouterLink}
-            to={_LIST_LINK.register}
-            className="mainBox__iconSign"
-            variant="contained"
-            fullWidth
-          >
-            <span>{t("auth.authButton.noAccount")}</span>
-          </Button>
+          <div className="register">
+            <span className="no-account">{t("auth.authButton.noAccount")}</span> 
+            <span className="no-account">-</span> 
+            <Link className="decoration-none decoration-none-hover-effect" to={_LIST_LINK.register}>{t("auth.authButton.registerButton")}</Link>
+          </div>
+          
           <Button
             onClick={handleLoginFBClick}
             className="mainBox__iconSign"
             variant="contained"
-            fullWidth
           >
             <Icon className="mainBox__icon fab fa-facebook" color="secondary" />
-            <span>{t("auth.authButton.loginByFb")}</span>
           </Button>
         </div>
         <DialogSlide

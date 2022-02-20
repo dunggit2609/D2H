@@ -22,7 +22,7 @@ function Footer(props) {
       <Grid container spacing={3}>
         <Grid container className="columnContainer">
           <Grid item xs={12} md={6} className="columnArea">
-            <Typography variant="h4">{t("footer.contact")}</Typography>
+            <Typography>{t("footer.contact")}</Typography>
             <Typography>{t("footer.address")}</Typography>
             <Typography>{t("footer.email")}</Typography>
             <Typography>{t("footer.phone")}</Typography>
@@ -33,7 +33,7 @@ function Footer(props) {
             md={6}
             className="columnArea columnArea--socialMedia"
           >
-            <Typography variant="h4">{t("footer.socialMedia")}</Typography>
+            <Typography>{t("footer.socialMedia")}</Typography>
             <div>
               <a
                 target="_blank"
@@ -41,13 +41,13 @@ function Footer(props) {
               >
                 <Icon
                   className="mainBox__icon fab fa-facebook"
-                  color="secondary"
+                  color="primary"
                 />
               </a>
               <a target="_blank" href="#">
                 <Icon
                   className="mainBox__icon fab fa-twitter"
-                  color="secondary"
+                  color="primary"
                 />
               </a>
               <a
@@ -56,7 +56,7 @@ function Footer(props) {
               >
                 <Icon
                   className="mainBox__icon fab fa-linkedin-in"
-                  color="secondary"
+                  color="primary"
                 />
               </a>
             </div>

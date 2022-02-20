@@ -3,13 +3,15 @@ $backgroundColor--dark: rgb(0, 30, 60);
 $color--dark: #ddeeff;
 $color--white: black;
 $backGroundColorStrength--dark: rgb(0, 30, 60);
-$backGroundColorStrength--white: #ddeeff;
+$backGroundColorStrength--white: #ffffff;
 $highlight-state-background--dark: rgb(19, 47, 76);
 $highlight-state-border--dark: rgb(30, 73, 118);
-$highlight-state-background--white: #e6e4e4;
-$highlight-state-border--white: #e6e6e6;
-$active-state-background--dark: rgba(51, 153, 255, 0.24);
-$active-state-background--white: white;
+$highlight-state-background--white: rgb(243, 246, 249);
+$highlight-state-border--white: rgb(30, 73, 118);
+$active-state-background--dark: rgb(19, 47, 76);
+$active-state-background--white: rgb(240, 247, 255);
+$active-color--white: rgb(0, 114, 229);
+$active-color--dark: rgb(102, 178, 255);
 
 :root {
   --backGroundColor: #{$backgroundColor--white};
@@ -18,6 +20,7 @@ $active-state-background--white: white;
   --highlightBackground: #{$highlight-state-background--white};
   --highlightBorder: #{$highlight-state-border--white};
   --activeState: #{$active-state-background--white};
+  --activeColor: #{$active-color--white};
 }
 
 html[data-theme="dark"] {
@@ -27,6 +30,8 @@ html[data-theme="dark"] {
   --highlightBackground: #{$highlight-state-background--dark};
   --highlightBorder: #{$highlight-state-border--dark};
   --activeState: #{$active-state-background--dark};
+  --activeColor: #{$active-color--dark};
+
 
 }
 

@@ -4,7 +4,7 @@ const spinnerSlice = createSlice({
   name: "spinner",
   initialState: false,
   reducers: {
-    displaySpinner(state) {
+   displaySpinner (state) {
       return state = true;
     },
     hideSpinner(state) {

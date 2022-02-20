@@ -1,5 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, FormLabel, Grid } from "@material-ui/core";
+import { FormLabel, Grid } from "@material-ui/core";
+import { Button } from '@mui/material';
+
 import InputField from "components/FormControl/InputField";
 import CustomizedRadios from "components/RadioButtonCustom";
 import { listWorkSpaceBackGround } from "constant/config";

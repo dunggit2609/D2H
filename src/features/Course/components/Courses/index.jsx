@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { Add } from '@material-ui/icons';
 import './style.scss'
-import { NavLink, useHistory, useRouteMatch, useLocation, Link } from 'react-router-dom';
-
+import { NavLink, useRouteMatch, useLocation, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { _LIST_LINK } from 'constant/config';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 function Courses(props) {
     const [showAddCourseButton, setShowAddCourseButton] = useState(true)
-    let history = useHistory();
     const rootPath = useRouteMatch()
-    const addNewCoursePath = `${rootPath.path}/create-course/new`
+    const addNewCoursePath = _LIST_LINK.addNewCourse
     const location = useLocation()
+
     useEffect(() => {
         if (location.pathname === addNewCoursePath) {
             setShowAddCourseButton(false)
@@ -19,37 +21,16 @@ function Courses(props) {
         }
 
     }, [location.pathname]);
-    const data = [
-        {
-            id: 1,
-            name: 'Math Course'
-        },
-        {
-            id: 2,
-            name: 'Biology Course'
-        },
-        {
-            id: 3,
-            name: 'Chemistry Course'
-        },
-        {
-            id: 4,
-            name: 'Physic Course'
-        },
-        {
-            id: 5,
-            name: 'English Course'
-        },
 
-    ]
+    const data = useSelector(state => state.course.courses);
     return (
         <div className="class">
 
             {showAddCourseButton && <>
                 <div className="class__add-class">
-                    <Link to={addNewCoursePath} className="add-new-course">
-                        <Button style={{ width: 100 + '%' }} variant="contained" endIcon={<Add />}>
-                            Add new class
+                    <Link to={addNewCoursePath} className="decoration-none">
+                        <Button style={{ width: 100 + '%' }} variant="text" startIcon={<Add />}>
+                            Add new course
                         </Button>
                     </Link>
                 </div>
@@ -58,14 +39,19 @@ function Courses(props) {
 
 
             {
-                data.length > 0 &&
+                data && data.items && data.items.length > 0 &&
                 <>
                     <ul className="class__list">
                         {
-                            data.map(c =>
-                                <li className="list-style-none" key={c.id}>
-                                    <NavLink activeClassName="activelass" className="class__item pointer d-flex align-items-center justify-content-center" to={`${rootPath.path}/${c.id}`}>
-                                        {c.name}
+                            data.items.map(c =>
+                                <li className="list-style-none" key={c.courseId}>
+                                    <NavLink activeClassName="activelass" className="class__item pointer d-flex align-items-center justify-content-start" to={`${rootPath.path}/${c.courseId}`}>
+                                        <span className='course-icon'>
+                                            <ClassOutlinedIcon />
+                                        </span>
+                                        <span>
+                                            {c.courseName}
+                                        </span>
                                     </NavLink>
                                 </li>
 

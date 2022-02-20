@@ -1,7 +1,7 @@
 @import "./assets/responsive";
 $iconColor: black;
 $mainBoxColor: white;
-$avatarColor: red;
+$avatarColor: #1976D2;
 $buttonAreaColor: transparent;
 $iconSignColor: white;
 .App {
@@ -264,4 +264,13 @@ h4 {
 
 .width-100 {
   width: 100%;
+}
+
+a.decoration-none {
+  text-decoration: none;
+  color: $avatarColor;
+
+  &-hover-effect:hover {
+    text-decoration: underline $avatarColor;
+  }
 }

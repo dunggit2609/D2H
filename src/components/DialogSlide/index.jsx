@@ -1,4 +1,5 @@
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
+import { Button } from "@mui/material"
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -6,7 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import './styles.scss'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -22,6 +23,12 @@ export default function DialogSlide({ component: Component, ...rest }) {
     dialogTitle,
     displayLoadingForm,
     notDisplayCloseButton,
+    handleConfirm,
+    cancelText,
+    cancelType,
+    okText,
+    okType,
+    disabledConfirm
   } = rest;
   const [isRenderComponent, setIsRenderComponent] = useState(false);
   const { t } = useTranslation();
@@ -29,7 +36,13 @@ export default function DialogSlide({ component: Component, ...rest }) {
     if (!handleCloseDialog) return;
     handleCloseDialog();
   };
+  const handleConfirmDialog = () => {
+    if (!handleConfirm) {
+      return
+    }
 
+    handleConfirm()
+  }
   useEffect(() => {
     if (!displayLoadingForm) {
       setIsRenderComponent(true);
@@ -68,13 +81,24 @@ export default function DialogSlide({ component: Component, ...rest }) {
         {isRenderComponent && !!Component && Component}
       </DialogContent>
       {!notDisplayCloseButton && (
-        <DialogActions>
-          <ButtonBase
+        <DialogActions className="mr-16">
+          <Button
             onClick={handleClose}
-            className="btn btn--hoverBottomSpot"
+            color={cancelType ? cancelType : 'info'}
+            variant="contained"
           >
-            {t("work-space.dialog.closeButton")}
-          </ButtonBase>
+            {cancelText ? cancelText : t("button.cancel")}
+          </Button>
+          <Button
+            onClick={handleConfirmDialog}
+            disabled={disabledConfirm}
+            color={okType ? okType : 'primary'}
+            variant="contained"
+
+          >
+            {okText ? okText : t("button.ok")}
+          </Button>
+
         </DialogActions>
       )}
     </Dialog>

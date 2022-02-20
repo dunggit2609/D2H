@@ -47,7 +47,7 @@ axiosClient.interceptors.request.use(async (config) => {
   const customHeaders = {};
   configToken();
   const header_token_name = AUTH.HEADER_TOKEN_NAME;
-  const accessToken = localStorage.getItem(AUTH.TOKEN_KEY);
+  const accessToken = `Bearer ${localStorage.getItem(AUTH.TOKEN_KEY)}`;
   if (!!accessToken) {
     customHeaders[header_token_name] = accessToken;
   }

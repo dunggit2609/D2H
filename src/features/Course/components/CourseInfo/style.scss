@@ -4,10 +4,10 @@
         padding-right: 24px;
         
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
     }
 
-    &__input {
+    &__input-code {
         font-size: 28px;
         font-weight: 700;
         color: var(--color);
@@ -17,6 +17,22 @@
         outline: none;
     
     }
+
+    &__input-name {
+        font-size: 22px;
+        font-weight: 500;
+        color: #acb5ac;
+    
+        border: none;
+        background: none;
+        outline: none;
+    
+    }
+
+    &__name {
+        margin-top: 16px;
+    }
+
 }
 
 

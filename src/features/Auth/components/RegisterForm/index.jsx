@@ -1,12 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Avatar,
-  Button,
   Container,
   Icon,
   LinearProgress,
   Typography,
 } from "@material-ui/core";
+import {  Button} from '@mui/material'
 import { VpnKeyRounded } from "@material-ui/icons";
 import DialogSlide from "components/DialogSlide";
 import InputField from "components/FormControl/InputField";
@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 
 import * as yup from "yup";
 import "./styles.scss";
@@ -97,7 +97,7 @@ function RegisterForm(props) {
     <div className="container">
       <Container maxWidth="xs" className="mainBox">
         <div className="authSubmitting">
-          {isSubmitting && <LinearProgress color="secondary" />}
+          {isSubmitting && <LinearProgress color="primary" />}
         </div>
 
         <Avatar className="mainBox__avatar">
@@ -146,7 +146,7 @@ function RegisterForm(props) {
           />
 
           <Button
-            color="secondary"
+            color="primary"
             className="mainBox__submitButton"
             variant="contained"
             fullWidth
@@ -156,23 +156,18 @@ function RegisterForm(props) {
           </Button>
         </form>
         <div className="mainBox__buttonArea">
-          <Button
-            component={RouterLink}
-            to={_LIST_LINK.login}
-            className="mainBox__iconSign"
-            variant="contained"
-            fullWidth
-          >
-            <span>{t("auth.authButton.haveAccount")}</span>
-          </Button>
+          <div className="register">
+            <span className="have-account">{t("auth.authButton.haveAccount")}</span>
+            <span className="have-account">-</span>
+            <Link className="decoration-none decoration-none-hover-effect" to={_LIST_LINK.login}>{t("auth.authButton.loginButton")}</Link>
+          </div>
           <Button
             onClick={handleLoginFBClick}
             className="mainBox__iconSign"
             variant="contained"
-            fullWidth
           >
-            <Icon className="mainBox__icon fab fa-facebook" color="secondary" />
-            <span>{t("auth.authButton.loginByFb")}</span>
+            <Icon className="mainBox__icon fab fa-facebook" color="primary" />
+            {/* <span>{t("auth.authButton.loginByFb")}</span> */}
           </Button>
         </div>
         <DialogSlide

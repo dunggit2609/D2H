@@ -3,30 +3,63 @@ import './styles.scss'
 import DialogSlide from "components/DialogSlide";
 import { useTranslation } from "react-i18next";
 import ResultInputForm from 'features/Course/components/ResultInputForm'
-import { RESULT_TYPE_IMAGE, RESULT_TYPE_INPUT } from 'features/Course/constant/resultType';
+import { RESULT_TYPE_FILE, RESULT_TYPE_IMAGE, RESULT_TYPE_INPUT } from 'features/Course/constant/resultType';
 import { uploadToServer } from 'core/helper/uploadToServer'
 import DropzoneUpload from 'components/DropzoneUpload'
 function InputResultPopup(props) {
-    const { isOpen, handleClose, type, index, onChange } = props
+    const { isOpen, handleClose, type, index, onChange, amount, multiple } = props
     const [data, setData] = useState([])
+    const [origin, setOriginData] = useState([])
     const [popupTitle, setPopupTitle] = useState('')
-
+    const [disabledConfirm, setDisabledConfirm] = useState(false)
     const { t } = useTranslation()
 
     const dropzoneConfig = {
-        filesLimit: 5,
+        filesLimit: 1,
         showPreviews: true,
         showPreviewsInDropzone: false,
         showFileNamesInPreview: true,
-        previewText: ""
+        previewText: "",
+        acceptedFiles: type === RESULT_TYPE_IMAGE ? ['image/*'] : ['.csv', '.xlsx']
     }
 
     const handleChangeFile = (values) => {
-
-        const dummy = values.map(v => v.url)
+        const dummy = values.map(v => {
+            return { name: v.path, url: v.url }
+        })
         setData(dummy)
     }
 
+    const confirmChange = () => {
+        if (!onChange) {
+            return
+        }
+        setOriginData(data)
+        onChange(data, index)
+
+    }
+
+    const handleChangeResultInput = (values) => {
+        setData(values)
+    }
+
+    const onClose = () => {
+        if (!handleClose) {
+            return
+        }
+        handleClose(index)
+
+    }
+
+    useEffect(() => {
+        console.log(data)
+        if (data.length === 0) {
+            setDisabledConfirm(true)
+            return
+        }
+
+        setDisabledConfirm(false)
+    }, [data])
 
     useEffect(() => {
         switch (type) {
@@ -47,13 +80,18 @@ function InputResultPopup(props) {
             <DialogSlide
                 component={
 
-                    type === RESULT_TYPE_IMAGE ? <>
+                    type === RESULT_TYPE_IMAGE || type === RESULT_TYPE_FILE ? <>
                         <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
-                    </> : type === RESULT_TYPE_INPUT ? <> <ResultInputForm /> </> : <> </>
+                    </> : type === RESULT_TYPE_INPUT ? <> <ResultInputForm amount={amount} onChange={handleChangeResultInput} multiple={multiple}/> </> : <> </>
                 }
                 openStatus={isOpen}
-                handleCloseDialog={handleClose}
+                handleCloseDialog={onClose}
+                handleConfirm={confirmChange}
                 dialogTitle={popupTitle}
+                disabledConfirm={disabledConfirm}
+                cancelType="error"
+                okType="primary"
+                okText="Confirm"
             />
         </div>
     );

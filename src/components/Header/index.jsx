@@ -2,7 +2,8 @@ import { ButtonBase, Grid, Tooltip } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { AccountCircle, LanguageOutlined } from "@material-ui/icons";
+import LanguageIcon from '@mui/icons-material/Language';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from "@material-ui/icons/Menu";
 import SelectBox from "components/selectBox";
 import { listLocalStorage, _LIST_LINK } from "constant/config";
@@ -15,6 +16,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import "./styles.scss";
+import { Button } from "@mui/material";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -56,7 +58,7 @@ export default function Header() {
                         className="btn btn--hoverBottomSpot "
                         onClick={handleLanguageBoxClick}
                       >
-                        <LanguageOutlined />
+                        <LanguageIcon color="primary"/>
                       </ButtonBase>
                     </Tooltip>
                     <SelectBox
@@ -142,12 +144,13 @@ export default function Header() {
                           title={t("toolTip.userAction")}
                           placement="bottom"
                         >
-                          <ButtonBase
-                            className="btn btn--hoverBottomSpot "
+                          <Button
                             onClick={handleUserBoxClick}
+                            type="contained"
+                            color='primary'
                           >
-                            <AccountCircle />
-                          </ButtonBase>
+                            <AccountCircleIcon color='primary'/>
+                          </Button>
                         </Tooltip>
                         <SelectBox
                           handleItemSelected={handleChooseUserAction}

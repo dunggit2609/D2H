@@ -19,9 +19,8 @@
       "loginButton": "Login",
       "registerButton": "Register",
       "loginByFb": "Login with Facebook",
-      
-      "noAccount": "Have no account? Register",
-      "haveAccount": "Already have an account? Login"
+      "noAccount": "Have no account",
+      "haveAccount": "Already have an account"
     },
     "dialog": {
       "dialogLoginFb": "This feature is developing. You can use it next time 👌."
@@ -35,7 +34,8 @@
       "retypepassword": "Retype Password",
       "phone": "Phone",
       "username": "Username",
-      "email": "Email"
+      "email": "Email",
+      "username_email": "Email or username"
     }
   },
   "toolTip": {
@@ -74,7 +74,6 @@
       "titleConfirmDelete": "Are you sure to delete this work space 😦",
       "addButton": "Add",
       "closeButton": "Close"
-      
     },
     "failedAddWorkSpace": "Fail to add new work space, please try again !!! 💪",
     "successAddWorkSpace": "Congratuations !!!, Success to add New Work Space 🎆",
@@ -96,8 +95,15 @@
   },
   "button": {
     "next_step": "Next step",
-    "do_later": "I'll do it later"
-
+    "do_later": "I'll do it later",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "assign": "Assign",
+    "add_new_course": "Add new course",
+    "view": "View",
+    "visualize": "Visualize",
+    "delete": "Delete",
+    "view_assignments": "View assignments"
   },
   "create_test": {
     "label": "Create test",
@@ -111,20 +117,59 @@
     "paper_type": "Test paper's model",
     "test_info": "Test info",
     "test_config": "Test config",
+    "test_codes": "Test codes",
     "test_more_config": "More config",
-    "change_result": "Change result",
+    "change_result": "Change answer",
     "upload_result": "Upload result file",
     "input_result": "Enter result",
     "had_result": "Had result",
-    "has_no_result": "Have no result"
+    "has_no_result": "Have no result",
+    "enter_result": "Please enter or upload result",
+    "duplicate_test_code": "Test code are duplicate",
+    "file_name": "File name",
+    "upload_answer": "Upload answer"
   },
   "create_submission": {
-    "label": "Create submission"
+    "label": "Create assignments",
+    "upload_assignment": "Upload assignment"
   },
   "resultType": {
     "image": "Image",
     "file": "File *.csv, *.xlsx",
     "input": "Input from UI"
+  },
+  "tab_label": {
+    "test": "Test",
+    "assignment": "Assignment"
+  },
+  "course_desc": "Course help you manage tests and student's exams",
+  "course_add_new": "Please start your new course",
+  "from_date": "From date",
+  "to_date": "To date",
+  "status": {
+    "label": "Status",
+    "new": "New",
+    "graded": "Graded"
+  },
+  "created_at": "Created at",
+  "yes": "Yes",
+  "no": "No",
+  "paper_type": {
+    "model_1": "Model 1",
+    "model_2": "Model 2"
+  },
+  "student_id": "Student ID",
+  "grade": "Grade",
+  "image": "Image",
+  "test_detail": {
+    "label": "Test detail",
+    "info": "Info",
+    "config": "Config"
+  },
+  "more_feature": "More features",
+  "list_of_course": "List of courses",
+  "visualize": {
+    "grade_type": "Statistic grade type",
+    "grade_range": "Statistic grade range"
   }
 }
-

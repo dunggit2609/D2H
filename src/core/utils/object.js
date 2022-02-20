@@ -1,5 +1,6 @@
 import isPlain from 'is-plain-object'
 import { isObject } from 'core/utils/type'
+import _ from 'loadsh'
 
 /**
  * Merge target object with value
@@ -80,4 +81,16 @@ export const convertValueObjToString = (obj) => {
   })
 
   return newObj
+}
+
+export const convertObjectCamelToSnake = (obj) => {
+  const newObj = {}
+  Object.keys(obj).forEach((k) => {
+    newObj[_.snakeCase(k)] = obj[k]
+  })
+
+  return newObj;
+}
+export const convertObjectSnakeToCamel = (obj) => {
+  return  _.mapKeys(obj, (value, key) => _.camelCase(key));
 }

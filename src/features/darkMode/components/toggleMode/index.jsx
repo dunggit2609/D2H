@@ -3,6 +3,8 @@ import { Brightness4Outlined } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import  './styles.scss'
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 ToggleMode.propTypes = {};
 
 function ToggleMode(props) {
@@ -30,7 +32,7 @@ function ToggleMode(props) {
     <div>
       <Tooltip title={t("toolTip.toogleMode")} placement="bottom">
       <ButtonBase className="btn btn--hoverBottomSpot " onClick={handleClickToggle}>
-        <Brightness4Outlined />
+        {currentTheme === 'dark' ? <DarkModeOutlinedIcon  color="primary"/> : <WbSunnyOutlinedIcon color="primary"/>}
       </ButtonBase>
       </Tooltip>
       

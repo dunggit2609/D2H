@@ -10,13 +10,13 @@ function TabList(props) {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
-    const onChangeTab = (event, newValue) => {
-        handleChangeTab(newValue);
+    const onChangeTab = (event, index) => {
+        handleChangeTab(index);
     };
     return (
         <div>
             <Tabs indicatorColor="primary"
-                textColor="primary"
+                textColor="inherit"
                 value={selected} onChange={onChangeTab} aria-label="basic tabs example">
                 {
                     data.map((d) => <Tab label={d.label} {...a11yProps(d.value)} key={a11yProps(d.value).id }/>)

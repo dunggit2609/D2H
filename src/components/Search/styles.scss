@@ -1,9 +1,11 @@
 .search {
     &-container {
-        border: 1px solid var(--highlightBorder);
+        border: 1px solid var(--activeColor);
         background: var(--highlightBackground);
-        border-radius: 10px;
+        border-radius: 4px;
         padding: 4px 8px;
+
+        cursor: text;
     }
     &__input {
         border: unset;
@@ -14,5 +16,6 @@
         &:focus {
             outline: none;
         }
+
     }
 }
