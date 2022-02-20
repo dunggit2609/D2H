@@ -58,7 +58,7 @@ export default function Header() {
                         className="btn btn--hoverBottomSpot "
                         onClick={handleLanguageBoxClick}
                       >
-                        <LanguageIcon color="primary"/>
+                        <LanguageIcon color="primary" />
                       </ButtonBase>
                     </Tooltip>
                     <SelectBox
@@ -81,14 +81,12 @@ export default function Header() {
                   {!isNotDisplayAppTitle && (
                     <>
                       <div className="toolbar__center">
-                        <ButtonBase
-                          className="btn btn--hoverBottomSpot "
-                          color="inherit"
-                          component={RouterLink}
+                        <Link
+                          className="decoration-none"
                           to={_LIST_LINK.index}
                         >
-                          <img src={logo} width={100 + 'px'} height={50+ 'px'}/>
-                        </ButtonBase>
+                          <img src={logo} width={100 + 'px'} height={50 + 'px'} />
+                        </Link>
                       </div>
                     </>
                   )}
@@ -147,7 +145,7 @@ export default function Header() {
                             type="contained"
                             color='primary'
                           >
-                            <AccountCircleIcon color='primary'/>
+                            <AccountCircleIcon color='primary' />
                           </Button>
                         </Tooltip>
                         <SelectBox

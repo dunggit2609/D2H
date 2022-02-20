@@ -62,7 +62,7 @@ function CourseDetailFilter(props) {
     }
     const curCourse = useSelector(state => state.course.curCourse)
     useEffect(async () => {
-        if (!courseId || tab !== COURSE_DETAIL_TEST_TAB || match.path !== _LIST_LINK.courseDetail) {
+        if (!courseId  || match.path !== _LIST_LINK.courseDetail) {
             return
         }
         fetchData()

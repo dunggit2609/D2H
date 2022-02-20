@@ -42,22 +42,22 @@ export const dataTemplate = [
     {
         label: 'Dataset 1',
         data: [],
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(75, 192, 192)',
     },
     {
         label: 'Dataset 2',
         data: [],
-        backgroundColor: 'rgb(75, 192, 192)',
-    },
-    {
-        label: 'Dataset 3',
-        data: [],
         backgroundColor: 'rgb(53, 162, 235)',
     },
     {
         label: 'Dataset 3',
         data: [],
-        backgroundColor: 'rgb(53, 162, 235)',
+        backgroundColor: '#f9f4be',
+    },
+    {
+        label: 'Dataset 3',
+        data: [],
+        backgroundColor: 'rgb(255, 99, 132)',
     },
 ];
 
