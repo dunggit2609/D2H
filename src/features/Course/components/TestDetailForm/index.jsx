@@ -65,7 +65,7 @@ function TestDetailForm(props) {
             <Grid container>
                 <Grid item xs={12}>
                     <h3>{t("test_detail.info")}</h3>    <br />
-                    <TextField variant="outlined" fullWidth label={t('create_test.test_name')} value={testName} onChange={(e) => setTestName(e.target.value)} />
+                    <TextField variant="outlined" disabled fullWidth label={t('create_test.test_name')} value={testName} onChange={(e) => setTestName(e.target.value)} />
                 </Grid>
                 <Divider></Divider>
 

@@ -170,7 +170,7 @@ function CourseDetailFilter(props) {
                                         endAdornment: (
                                             <>
                                                 {
-                                                    date[0] && <InputAdornment position="end" size='small' onClick={() => handleClearDate('start')}>
+                                                    date[0] && <InputAdornment style={{cursor: 'pointer'}} position="end" size='small' onClick={() => handleClearDate('start')}>
                                                         <CloseIcon />
                                                     </InputAdornment>
                                                 }
@@ -192,7 +192,7 @@ function CourseDetailFilter(props) {
                                         endAdornment: (
                                             <>
                                             {
-                                                date[1] && <InputAdornment position="end" size='small' onClick={() => handleClearDate('end')}>
+                                                date[1] && <InputAdornment style={{cursor: 'pointer'}} position="end" size='small' onClick={() => handleClearDate('end')}>
                                                     <CloseIcon />
                                                 </InputAdornment>
                                             }

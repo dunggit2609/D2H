@@ -8,30 +8,29 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SelectBox from "components/selectBox";
 import { listLocalStorage, _LIST_LINK } from "constant/config";
 import languageModel from "core/model/languageModel";
-import userLoginedModel from "core/model/userLoginedModel";
 import ToggleMode from "features/darkMode/components/toggleMode";
 import { useFeatureOfMenu } from "hooks/useFeatureOfMenu";
 import { useHeaderDisplay } from "hooks/useHeaderDisplay";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./styles.scss";
-import { Button } from "@mui/material";
+import { IconButton, MenuItem } from "@mui/material";
 import logo from 'assets/images/logo.png'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { StyledMenu } from 'components/DropdownMenu/DropdownMenu';
 export default function Header() {
   const { t } = useTranslation();
   const {
     handleChooseUserAction,
     handleChooseLng,
-    handleUserBoxClose,
-    handleUserBoxClick,
+
     handleLanguageBoxClose,
     handleLanguageBoxClick,
     isLanguageOpen,
     isDisplayAuth,
     isLogin,
     isDisplayHeader,
-    isUserAvartaOpen,
   } = useFeatureOfMenu();
   //useDisplay
   const {
@@ -39,6 +38,21 @@ export default function Header() {
     isNotDisplayAppTitle,
     handleHamburgerClick,
   } = useHeaderDisplay();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+  const actions = [
+
+    { icon: <LogoutIcon />, name: "Log out", FabProp: { color: 'primary' }, action: 'Log out' },
+  ];
   const curLng = localStorage.getItem(listLocalStorage.language);
   const itemSelected = curLng;
   return (
@@ -48,7 +62,29 @@ export default function Header() {
           <AppBar position="fixed" color="transparent" className="appBar">
             <Toolbar className={scrollClass}>
               <Grid container spacing={3}>
-                <Grid item xs={3}>
+                <Grid item xs={6} className='logo-container'>
+                  {!isNotDisplayAppTitle && (
+                    <>
+                      <div className="toolbar__center">
+                        <Link
+                          className="decoration-none"
+                          to={_LIST_LINK.index}
+                        >
+                          <img src={logo} width={100 + 'px'} height={50 + 'px'} />
+                        </Link>
+                      </div>
+                    </>
+                  )}
+                </Grid>
+                <div className="hamburgerIcon">
+                  <ButtonBase
+                    className="handleHamburgerClick"
+                    onClick={handleHamburgerClick}
+                  >
+                    <MenuIcon></MenuIcon>
+                  </ButtonBase>
+                </div>
+                <Grid item xs={6} className='header-action-container'>
                   <div className="toolbar__extraFeature" id="extraFeature">
                     <Tooltip
                       title={t("toolTip.chooseLanguage")}
@@ -76,90 +112,62 @@ export default function Header() {
                     />
                     <ToggleMode></ToggleMode>
                   </div>
-                </Grid>
-                <Grid item xs={6}>
-                  {!isNotDisplayAppTitle && (
-                    <>
-                      <div className="toolbar__center">
-                        <Link
-                          className="decoration-none"
-                          to={_LIST_LINK.index}
-                        >
-                          <img src={logo} width={100 + 'px'} height={50 + 'px'} />
-                        </Link>
-                      </div>
-                    </>
-                  )}
-                </Grid>
-                <div className="hamburgerIcon">
-                  <ButtonBase
-                    className="handleHamburgerClick"
-                    onClick={handleHamburgerClick}
-                  >
-                    <MenuIcon></MenuIcon>
-                  </ButtonBase>
-                </div>
-                <Grid item xs={3}>
                   {isDisplayAuth && !isLogin && (
                     <>
                       <div className="float-right-block">
-                        <ButtonBase
-                          color="inherit"
-                          className="btn btn--hoverBottomSpot "
-                          component={RouterLink}
+                        <Link
+                          className="decoration-none"
                           to={_LIST_LINK.login}
                           size="medium"
                         >
                           <Typography>
                             {t("auth.authButton.loginButton")}
                           </Typography>
-                        </ButtonBase>
+                        </Link>
 
                         <Typography className="toolbar__separateIcon">
                           |
                         </Typography>
 
-                        <ButtonBase
-                          color="inherit"
-                          className="btn btn--hoverBottomSpot "
-                          component={RouterLink}
+                        <Link
+                          className="decoration-none"
                           to={_LIST_LINK.register}
                           size="medium"
                         >
                           <Typography>
                             {t("auth.authButton.registerButton")}
                           </Typography>
-                        </ButtonBase>
+                        </Link>
                       </div>
                     </>
                   )}
                   {isLogin && (
                     <>
                       <div className="float-right-block">
-                        <Tooltip
-                          title={t("toolTip.userAction")}
-                          placement="bottom"
+                        <IconButton
+                          aria-controls={open ? 'user-info' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          variant="contained"
+                          disableElevation
+                          onClick={handleClick}
                         >
-                          <Button
-                            onClick={handleUserBoxClick}
-                            type="contained"
-                            color='primary'
-                          >
-                            <AccountCircleIcon color='primary' />
-                          </Button>
-                        </Tooltip>
-                        <SelectBox
-                          handleItemSelected={handleChooseUserAction}
-                          listValue={userLoginedModel}
-                          isOpen={isUserAvartaOpen}
-                          handleSelectBoxClose={handleUserBoxClose}
-                          menuPos={{ vertical: "top", horizontal: "right" }}
-                          displayPos={{
-                            vertical: "bottom",
-                            horizontal: "left",
+                          <AccountCircleIcon />
+                        </IconButton>
+                        <StyledMenu
+                          id="user-info"
+                          MenuListProps={{
+                            'aria-labelledby': 'demo-customized-button',
                           }}
-                          selected={true}
-                        />
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                        >
+                          {actions.map(action => <MenuItem key={action.name} onClick={() => handleChooseUserAction(action.action)}>
+                            {action.icon}
+                            {action.name}
+                          </MenuItem>)}
+                        </StyledMenu>
                       </div>
                     </>
                   )}

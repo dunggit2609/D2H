@@ -9,7 +9,7 @@ $scrollHeaderColor: rgb(252, 227, 227);
 }
 
 .toolbar {
-  height: 40px
+  height: 32px
   &__title {
     font-weight: bold !important;
   }
@@ -17,14 +17,18 @@ $scrollHeaderColor: rgb(252, 227, 227);
   &__extraFeature {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    align-items: center;
+
+    margin-right: 16px;
     @include tablet {
       display: none;
     }
   }
 
   &__center {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   &__separateIcon {
@@ -38,6 +42,7 @@ $scrollHeaderColor: rgb(252, 227, 227);
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   @include tablet {
     display: none;
   }
@@ -63,6 +68,9 @@ $scrollHeaderColor: rgb(252, 227, 227);
   box-shadow: 0px 2px 4px -1px rgb(190, 190, 190),
     0px 4px 5px 0px rgb(182, 182, 182), 0px 1px 10px 0px rgb(199, 199, 199);
   transition: background 1s ease 0s;
+  height: 40px !important;
+  min-height: unset !important;
+
 }
 
 .toolBar--unScroll {
@@ -72,4 +80,18 @@ $scrollHeaderColor: rgb(252, 227, 227);
   flex-wrap: nowrap;
   transition-duration: 1s;
   background-color: transparent !important;
+  height: 40px !important;
+  min-height: unset !important;
+}
+
+.header-action-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }

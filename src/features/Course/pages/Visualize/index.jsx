@@ -16,6 +16,9 @@ import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import PieChart from 'components/PieChart';
+import { useHistory } from 'react-router';
+import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
+import { _LIST_LINK } from 'constant/config';
 
 Visualize.propTypes = {
 
@@ -28,7 +31,7 @@ function Visualize(props) {
     const [barData, setBarData] = useState([])
     const [barLabel, setBarLabel] = useState([])
     const [pieData, setPieData] = useState([])
-    const pieLabel = ["Good score (8 - 10)", "Medium score (6.5 - 8)", "Rather score (5 - 6.5)", "Weak score (0 - 5)"]
+    const pieLabel = ["Good score (8 - 10) - %", "Medium score (6.5 - 8) - %", "Rather score (5 - 6.5) - %", "Weak score (0 - 5) - %"]
     const visualizeTypes = [
         {
             label: t('visualize.grade_type'),
@@ -42,11 +45,11 @@ function Visualize(props) {
         },
 
     ]
-    const { testId } = useParams()
+    const { testId, courseId } = useParams()
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading()
     const { enqueueSnackbar } = useSnackbar();
-
+    const history = useHistory()
     useEffect(() => {
         fetchStatistic()
     }, [])
@@ -76,10 +79,15 @@ function Visualize(props) {
             (!statistic.scoreAtWeak && statistic.scoreAtWeak !== 0)) {
             return
         }
+
         const barData = Object.values(statistic.scoreInRange)
         const barLabel = Object.keys(statistic.scoreInRange).map(k => k.replace("_", " to "))
-        const pieData = [statistic.scoreAtGood, statistic.scoreAtMedium, statistic.scoreAtRather, statistic.scoreAtWeak]
-        console.log({ barData, barLabel, pieData });
+        const dummyPieData = [statistic.scoreAtGood, statistic.scoreAtMedium, statistic.scoreAtRather, statistic.scoreAtWeak]
+        const totalPieData = dummyPieData.reduce((prev, cur) => {
+            return prev + cur
+        }, 0)
+        const  pieData = dummyPieData.map(v => (v / totalPieData) * 100 )
+
         setBarData(barData)
         setBarLabel(barLabel)
         setPieData(pieData)
@@ -110,11 +118,21 @@ function Visualize(props) {
     function valuetext(value) {
         return `${value}`;
     }
+    const handleClickBackToTest = () => {
+        if (!courseId || !testId) {
+            return
+        }
+
+        const url = _LIST_LINK.testDetail.replace(':courseId', courseId).replace(':testId', testId)
+        history.push({ pathname: url })
+
+    }
     return (
         <div className='visualize__container'>
             <div className="visualize__filter">
                 <Grid container className='filter__container'>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} className='visualize-title'>
+                        <span className="back-to-test" onClick={handleClickBackToTest}><ArrowBackIosIcon /></span>
                         <h2>Visualization</h2>
                     </Grid>
                     <Grid item xs={10} className='filter-item-container'>

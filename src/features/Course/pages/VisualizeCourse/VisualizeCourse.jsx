@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss'
-import { useTranslation } from 'react-i18next';
 import { Grid } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,6 +10,9 @@ import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import { StackedBarChart } from 'components/StackedBarChart/StackedBarChart';
+import { useHistory } from 'react-router';
+import { _LIST_LINK } from 'constant/config';
+import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
 
 
 function VisualizeCourse(props) {
@@ -21,6 +23,7 @@ function VisualizeCourse(props) {
     const [stackLabel, setStackLabel] = useState([])
 
     const { courseId } = useParams()
+    const history = useHistory()
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading()
     const { enqueueSnackbar } = useSnackbar();
@@ -67,11 +70,22 @@ function VisualizeCourse(props) {
         setDataSetLabel(datasetLabel)
     }, [statistic])
 
+    const handleClickBackToTest = () => {
+        if (!courseId ) {
+            return
+        }
+
+        const url = _LIST_LINK.courseDetail.replace(':courseId', courseId)
+        history.push({ pathname: url })
+
+    }
+
     return (
         <div className='visualize__container'>
             <div className="visualize__filter">
                 <Grid container className='filter__container'>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} className='visualize-title'>
+                        <span className="back-to-test" onClick={handleClickBackToTest}><ArrowBackIosIcon /></span>
                         <h2>Visualization</h2>
                     </Grid>
 

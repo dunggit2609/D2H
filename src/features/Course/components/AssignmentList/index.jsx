@@ -115,9 +115,9 @@ function AssignmentList(props) {
                                                         Image
                                                     </a>
                                                     : c.id === 'correctAnswer'
-                                                    ? row['grade'] * Object.keys(row['answer']).length
+                                                    ? Math.floor(( row['grade'] / 10) * Object.keys(row['answer']).length)
                                                     : c.id === 'grade'
-                                                    ? row[c.id] * 10
+                                                    ? row[c.id]
                                                     : c.id === 'numberOfQuestion'
                                                     ? Object.keys(row['answer']).length
                                                     : row[c.id]

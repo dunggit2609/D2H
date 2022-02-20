@@ -90,8 +90,7 @@ function CourseInfo(props) {
                 </Grid>
                 <Grid item xs={6} className='course-info__item--more-button'>
                     <Button
-                        id="demo-customized-button"
-                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                        aria-controls={open ? 'course-info-more' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         variant="contained"
@@ -102,7 +101,7 @@ function CourseInfo(props) {
                         {t('more_feature')}
                     </Button>
                     <StyledMenu
-                        id="demo-customized-menu"
+                        id="course-info-more"
                         MenuListProps={{
                             'aria-labelledby': 'demo-customized-button',
                         }}

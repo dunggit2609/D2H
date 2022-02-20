@@ -1,6 +1,6 @@
 .visualize{
     &__container {
-        margin-top: 105px;
+        margin-top: 60px;
     margin-left: 272px;
     margin-right: 40px;
     margin-bottom: 80px;
@@ -56,5 +56,10 @@
 .select-step-container {
     display: flex;
     flex-direction: column !important;
+    align-items: center;
+}
+
+.visualize-title {
+    display: flex;
     align-items: center;
 }

@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { isEmpty } from 'core/utils/object';
 import { useRouteMatch, useHistory } from 'react-router';
+import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
 
 function CreateSubmission(props) {
     const dropzoneConfig = {
@@ -46,8 +47,7 @@ function CreateSubmission(props) {
     }
 
     const handleConfirmAssignSucces = () => {
-        console.log(courseId, testId)
-        
+
         if (!courseId || !testId)
             if (match.path === _LIST_LINK.assginmentCreate) {
                 const url = `${_LIST_LINK.testDetail}`.replace(':courseId', courseId).replace(':testId', testId)
@@ -76,10 +76,21 @@ function CreateSubmission(props) {
         }
     }
     const curAssignment = useSelector(state => state.assignment.curAssignment)
+    const handleClickBackToTest = () => {
+        if (!courseId || !testId) {
+            return
+        }
+
+        const url = _LIST_LINK.testDetail.replace(':courseId', courseId).replace(':testId', testId)
+        history.push({ pathname: url })
+
+    }
     return (
         <div className='assignment-container'>
             <div className="upload-submission-image">
                 <div className="upload-submission-label">
+                    <span className="back-to-test" onClick={handleClickBackToTest}><ArrowBackIosIcon /></span>
+
                     {t("create_submission.upload_assignment")}
                 </div>
                 <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
