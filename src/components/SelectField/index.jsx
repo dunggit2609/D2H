@@ -24,6 +24,7 @@ function SelectField(props) {
             value={val}
             onChange={(event) => setVal(event.target.value)}
             className="select"
+            fullWidth
         >
             {
                 list.map((i) => < MenuItem value={i.value} key={i.value}>{i.label} </MenuItem>)

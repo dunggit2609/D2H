@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -7,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import InputField from 'components/FormControl/InputField';
 import './styles.scss'
 import { Divider, InputLabel } from '@material-ui/core';
-import { Button, IconButton, Snackbar, Tooltip, Grid, Alert } from '@mui/material';
+import { Button, IconButton, Snackbar, Tooltip, Grid, Alert, Paper } from '@mui/material';
 
 import { Chip, TextField } from '@mui/material';
 import InputResultPopup from 'features/Course/components/InputResultPopup';
@@ -32,6 +31,9 @@ import BackupOutlinedIcon from '@mui/icons-material/BackupOutlined';
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import ContentPasteOffOutlinedIcon from '@mui/icons-material/ContentPasteOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import DownloadIcon from '@mui/icons-material/Download';
+import PreviewIcon from '@mui/icons-material/Preview';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 CreateTestForm.propTypes = {
 
 };
@@ -46,6 +48,8 @@ function CreateTestForm(props) {
     const [data, setData] = useState([{ testCode: '', url: '', answer: {}, error: false, message: '', visiblePopup: false }])
     const [disabledSubmit, setDisabledSubmit] = useState(false)
     const [isInputFromUI, setIsInputFromUI] = useState(false)
+    const [isDisplayPreviewTemplate, setIsDisplayPreviewTemplate] = useState(false)
+    const [templateUrl, setTemplateUrl] = useState('')
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading();
     const { enqueueSnackbar } = useSnackbar();
@@ -56,6 +60,9 @@ function CreateTestForm(props) {
     const [openConfirmRemoveTestCode, setOpenConfirmRemoveTestCode] = useState(false)
     const [currentIndexRemoved, setCurrentIndexRemoved] = useState(null)
     const { courseId } = useParams()
+    const resultTemplate = 'https://res.cloudinary.com/haiii/raw/upload/v1645447170/excel/Result-template_snoypp.xlsx'
+    const template1 = 'https://res.cloudinary.com/dunbjnt9i/image/upload/v1644650582/test-img/a4_300_kvnapg.png'
+    const template2 = 'https://res.cloudinary.com/dunbjnt9i/image/upload/v1644650590/test-img/mau2-40-300_kksqnf.png'
     const schema = yup.object().shape({
         testName: yup
             .string()
@@ -229,191 +236,255 @@ function CreateTestForm(props) {
         return inValid
     }
 
+    const handleChangePaperType = () => {
+
+        if (!form.getValues('paperType')) {
+            return
+        }
+
+        if (form.getValues('paperType') === PAPER_TYPE_1) {
+            setIsDisplayPreviewTemplate(true)
+            setTemplateUrl(template1)
+        }
+        if (form.getValues('paperType') === PAPER_TYPE_2) {
+            setIsDisplayPreviewTemplate(true)
+            setTemplateUrl(template2)
+        }
+    }
+    const handleClickBackToCourse = () => {
+        if (!courseId) {
+            return
+        }
+
+        const url = _LIST_LINK.courseDetail.replace(':courseId', courseId)
+        history.push({ pathname: url })
+
+    }
     return (
         <div className="create-course__body">
-            <form onSubmit={form.handleSubmit(handleOnSubmit)}>
-                <h2>{t("create_test.test_info")}</h2>
-                <section className="test-name">
+            <div className="create-test-title">
+                {match.path === _LIST_LINK.testCreate && <span className="back-to-test" onClick={handleClickBackToCourse}><ArrowBackIosIcon /></span>
+                }
 
-                    <InputField
-                        name="testName"
-                        label={t("create_test.test_name")}
-                        form={form}
-                        disabled={false}
-                    />
-                </section>
-                <Divider></Divider>
-                <h2>{t("create_test.test_config")}</h2>
-                <section className="test-config-extend">
+                <h2>
+                    Create new test
+                </h2>
+            </div>
 
-                    <div className="general-config">
-                        <div className="result-type flex-grow-3">
-                            <SelectFieldForm form={form}
-                                list={listResult}
-                                disabled={false}
-                                name="resultType"
-                                label={t("create_test.result_type")}
-                                onChangeSelected={handleDisableChangeResultAndDisplaynumberOfQuestion}
-                            />
-                        </div>
-                        <div className="question-type flex-grow-1">
-                            <div className="container">
-                                <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
-                                <CheckboxForm form={form}
-                                    disabled={false}
-                                    name="multipleChoice"
-                                    label={t("create_test.multiple_choice")}
-                                />
-                            </div>
+            <Paper className='create-test-paper-container'>
+                <form onSubmit={form.handleSubmit(handleOnSubmit)}>
+                    <h2>{t("create_test.test_info")}</h2>
+                    <section className="test-name">
 
+                        <InputField
+                            name="testName"
+                            label={t("create_test.test_name")}
+                            form={form}
+                            disabled={false}
+                        />
+                    </section>
+                    <Divider></Divider>
+                    <h2>{t("create_test.test_config")}</h2>
+                    <section className="test-config-extend">
 
-                        </div>
-                        <div className="paper-type flex-grow-3">
-
-                            <div className="config-paper-type">
+                        <div className="general-config">
+                            <div className="result-type flex-grow-3">
                                 <SelectFieldForm form={form}
-                                    list={listPaper}
+                                    list={listResult}
                                     disabled={false}
-                                    name="paperType"
-                                    label={t("create_test.paper_type")} />
+                                    name="resultType"
+                                    label={t("create_test.result_type")}
+                                    onChangeSelected={handleDisableChangeResultAndDisplaynumberOfQuestion}
+
+                                />
+                                {form.getValues('resultType') === RESULT_TYPE_INPUT &&
+                                    <span className='mt-9 ml-8'>
+                                        <a href={resultTemplate} className='decoration-none pointer' target="_blank" download="Result-template.xlsx">
+                                            <Tooltip title="Download result template">
+                                                <IconButton>
+                                                    <DownloadIcon />
+
+                                                </IconButton>
+
+                                            </Tooltip>
+                                        </a>
+
+                                    </span>}
+
+
                             </div>
-
-                            {isInputFromUI && <>
-                                <div className="config-amount-question">
-                                    <InputField
-                                        name="numberOfQuestion"
-                                        label={t("create_test.amount_of_question")}
-                                        form={form}
+                            <div className="question-type flex-grow-1">
+                                <div className="container">
+                                    <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
+                                    <CheckboxForm form={form}
                                         disabled={false}
-                                        onChangeVal={handleDisableChangeResultAndDisplaynumberOfQuestion}
+                                        name="multipleChoice"
+                                        label={t("create_test.multiple_choice")}
                                     />
-                                </div>   </>}
-                        </div>
-                    </div>
+                                </div>
 
 
+                            </div>
+                            <div className="paper-type flex-grow-3">
 
-                </section>
-                <Divider></Divider>
-                {form.getValues('resultType') &&
-                    <section className='test-config__test-codes'>
-                        <h2>{t("create_test.test_codes")}</h2>
-
-                        {data.map((item, index) => <div className="test-config" key={index}>
-                            {
-                                isInputFromUI ? <div className="test-config__item-test-code">
-                                    <TextField
-                                        label={t("create_test.test_code")}
-                                        value={item.testCode}
-                                        onChange={(event) => handleChangeTestCode(event.target.value, index)}
-                                        fullWidth
-                                        error={item.error}
-                                    />
-                                    {item.error && <p className="err-msg">{item.message}</p>}
-
-
-                                </div> : <div className="test-config__item-test-code">
-                                    <TextField
-                                        label={t("create_test.file_name")}
-                                        value={item.fileName ? item.fileName : ''}
-                                        fullWidth
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
+                                <div className="config-paper-type">
+                                    <SelectFieldForm form={form}
+                                        list={listPaper}
+                                        disabled={false}
+                                        name="paperType"
+                                        label={t("create_test.paper_type")}
+                                        onChangeSelected={handleChangePaperType}
                                     />
 
+                                    {isDisplayPreviewTemplate
+
+                                        && <span className='mt-9 ml-8'>
+                                            <a href={templateUrl} className='decoration-none pointer' target="_blank" >
+                                                <Tooltip title="View paper template">
+                                                    <IconButton >
+                                                        <PreviewIcon />
+                                                    </IconButton>
+
+                                                </Tooltip>
+                                            </a>
+
+                                        </span>
+                                    }
 
                                 </div>
-                            }
 
-                            {/* <div className="test-config__input-result-status">
+                                {isInputFromUI && <>
+                                    <div className="config-amount-question">
+                                        <InputField
+                                            name="numberOfQuestion"
+                                            label={t("create_test.amount_of_question")}
+                                            form={form}
+                                            disabled={false}
+                                            onChangeVal={handleDisableChangeResultAndDisplaynumberOfQuestion}
+                                        />
+                                    </div>   </>}
+                            </div>
+                        </div>
+
+
+
+                    </section>
+                    <Divider></Divider>
+                    {form.getValues('resultType') &&
+                        <section className='test-config__test-codes'>
+                            <h2>{t("create_test.test_codes")}</h2>
+
+                            {data.map((item, index) => <div className="test-config" key={index}>
+                                {
+                                    isInputFromUI ? <div className="test-config__item-test-code">
+                                        <TextField
+                                            label={t("create_test.test_code")}
+                                            value={item.testCode}
+                                            onChange={(event) => handleChangeTestCode(event.target.value, index)}
+                                            fullWidth
+                                            error={item.error}
+                                        />
+                                        {item.error && <p className="err-msg">{item.message}</p>}
+
+
+                                    </div> : <div className="test-config__item-test-code">
+                                        <TextField
+                                            label={t("create_test.file_name")}
+                                            value={item.fileName ? item.fileName : ''}
+                                            fullWidth
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                        />
+
+
+                                    </div>
+                                }
+
+                                {/* <div className="test-config__input-result-status">
                                 
 
                             </div> */}
-                            <div className="test-config__item-test-change-result">
-                                <Grid container>
-                                    <Grid item xs={4} className='change-result-item  width-202'>
-                                        {
-                                            item.url || !isEmpty(item.answer) ? <Chip icon={<CheckCircleOutlineOutlinedIcon />} variant='contained' label={t("create_test.had_result")} color="success" /> :
-                                                <Chip icon={<ContentPasteOffOutlinedIcon />} label={t("create_test.has_no_result")} color="error" variant='contained' />
-                                        }
+                                <div className="test-config__item-test-change-result">
+                                    <Grid container>
+                                        <Grid item xs={4} className='change-result-item  width-202'>
+                                            {
+                                                item.url || !isEmpty(item.answer) ? <Chip icon={<CheckCircleOutlineOutlinedIcon />} variant='contained' label={t("create_test.had_result")} color="success" /> :
+                                                    <Chip icon={<ContentPasteOffOutlinedIcon />} label={t("create_test.has_no_result")} color="error" variant='contained' />
+                                            }
+                                        </Grid>
+                                        <Grid item xs={4} className='change-result-item'>
+                                            <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
+                                                <IconButton color="primary" onClick={() => { handleOpenInputResult(index) }} disabled={disabledSubmit}>
+                                                    {item.url || !isEmpty(item.answer) ? <ChangeCircleOutlinedIcon /> : <BackupOutlinedIcon />}
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Grid>
+                                        <Grid item xs={4} className='change-result-item width-150'>
+                                            {index !== 0 && <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
+                                                <IconButton color="error" onClick={() => { handleRemoveTestCode(index) }} disabled={disabledSubmit}>
+                                                    <RemoveCircleOutlinedIcon />
+                                                </IconButton>
+                                            </Tooltip>}
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={4} className='change-result-item'>
-                                        <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
-                                            <IconButton color="primary" onClick={() => { handleOpenInputResult(index) }} disabled={disabledSubmit}>
-                                                {item.url || !isEmpty(item.answer) ? <ChangeCircleOutlinedIcon /> : <BackupOutlinedIcon />}
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item xs={4} className='change-result-item width-150'>
-                                        {index !== 0 && <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
-                                            <IconButton color="error" onClick={() => { handleRemoveTestCode(index) }} disabled={disabledSubmit}>
-                                                <RemoveCircleOutlinedIcon />
-                                            </IconButton>
-                                        </Tooltip>}
-                                    </Grid>
-                                </Grid>
-
-
-
-
-
+                                </div>
+                                <InputResultPopup multiple={form.getValues('multipleChoice')} amount={form.getValues('numberOfQuestion')} index={index} onChange={handleChangeResult} type={form.getValues('resultType')} isOpen={item.visiblePopup} handleClose={handleCloseResultPopup} />
 
                             </div>
-                            <InputResultPopup multiple={form.getValues('multipleChoice')} amount={form.getValues('numberOfQuestion')} index={index} onChange={handleChangeResult} type={form.getValues('resultType')} isOpen={item.visiblePopup} handleClose={handleCloseResultPopup} />
 
-                        </div>
+                            )}
+                            {form.getValues('resultType') && <div className="add-new-test-config">
+                                <Button variant="outlined" color="primary" onClick={addNewTest} >Add New</Button>
+                            </div>}
 
-                        )}
-                        {form.getValues('resultType') && <div className="add-new-test-config">
-                            <Button variant="outlined" color="primary" onClick={addNewTest} >Add New</Button>
-                        </div>}
+                        </section>}
 
-                    </section>}
+                    <Snackbar
+                        open={openConfirmRemoveTestCode}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 
-                <Snackbar
-                    open={openConfirmRemoveTestCode}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-
-                >
-                    <Alert severity="warning" sx={{ width: '100%' }}>
-                        Are you sure to remove this test code?
-                        <span onClick={handleConfirmRemoveTestCode} className='confirm-remove'>CONFIRM</span>
-                        <span onClick={handleCancelRemoveTestCode} className='cancel-remove'>CANCEL</span>
-                        {/* <Button color="inherit" size="small" color='error' onClick={handleConfirmRemoveTestCode}>
+                    >
+                        <Alert severity="warning" sx={{ width: '100%' }}>
+                            Are you sure to remove this test code?
+                            <span onClick={handleConfirmRemoveTestCode} className='confirm-remove'>CONFIRM</span>
+                            <span onClick={handleCancelRemoveTestCode} className='cancel-remove'>CANCEL</span>
+                            {/* <Button color="inherit" size="small" color='error' onClick={handleConfirmRemoveTestCode}>
                             Confirm
                         </Button>
                         <Button color="inherit" size="small" onClick={handleCancelRemoveTestCode} >
                             Cancel
                         </Button> */}
-                    </Alert>
-                </Snackbar>
-                <section className="course-info__submit">
-                    <Button
-                        color="primary"
-                        className="mainBox__submitButton"
-                        variant="contained"
-                        fullWidth
-                        type="submit"
-                    >
-                        {t("create_test.label")}
-                    </Button>
-                </section>
-                <section className="do-later">
-                    <Link to={_LIST_LINK.course} className='decoration-none'>
+                        </Alert>
+                    </Snackbar>
+                    <section className="course-info__submit">
                         <Button
                             color="primary"
-                            variant="text"
+                            className="mainBox__submitButton"
+                            variant="contained"
                             fullWidth
-                            type="default"
+                            type="submit"
                         >
-                            {t("button.do_later")}
-                        </Button></Link>
+                            {t("create_test.label")}
+                        </Button>
+                    </section>
+                    <section className="do-later">
+                        <Link to={_LIST_LINK.course} className='decoration-none'>
+                            <Button
+                                color="primary"
+                                variant="text"
+                                fullWidth
+                                type="default"
+                            >
+                                {t("button.do_later")}
+                            </Button></Link>
 
-                </section>
-            </form>
+                    </section>
+                </form>
+            </Paper>
 
-        </div>
+
+        </div >
     );
 }
 

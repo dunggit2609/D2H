@@ -47,6 +47,8 @@
 
 .config-amount-question {
     margin-top: 24px;
+
+    max-width: 418px;
 }
 
 .general-config {
@@ -85,4 +87,33 @@
 
     cursor: pointer;
 
+}
+
+.result-type {
+    display: flex;
+    
+}
+
+.ml-8 {
+    margin-left: 8px;
+}
+
+.config-paper-type {
+    display: flex;
+}
+
+.mt-9 {
+    margin-top: 9px;
+}
+
+.paper-type-container {
+    width: 418px;
+}
+
+.create-test-paper-container {
+padding: 24px;
+}
+
+.create-test-title {
+    display: flex;
 }

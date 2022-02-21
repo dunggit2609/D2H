@@ -28,7 +28,6 @@ import { _LIST_LINK } from 'constant/config';
 import { InputLabel } from '@mui/material';
 import { FormControl } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { cloneDeep } from 'core/utils/common';
 CourseDetailFilter.propTypes = {
 
 };

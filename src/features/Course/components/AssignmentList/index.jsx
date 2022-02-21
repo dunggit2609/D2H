@@ -29,10 +29,7 @@ function AssignmentList(props) {
             name: t('grade'),
             id: 'grade'
         },
-        {
-            name: t('image'),
-            id: 'imageUrl'
-        },
+
         {
             name: 'Correct answer',
             id: 'correctAnswer'
@@ -40,6 +37,10 @@ function AssignmentList(props) {
         {
             name: 'Number of question',
             id: 'numberOfQuestion'
+        },
+        {
+            name: t('image'),
+            id: 'imageUrl'
         },
         {
             name: t('created_at'),
@@ -91,7 +92,7 @@ function AssignmentList(props) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                     <TableHead>
                         <TableRow >
-                            {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header'  align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}>
+                            {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header' align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}>
                                 {c.name}
                             </TableCell>)}
                         </TableRow>
@@ -103,8 +104,8 @@ function AssignmentList(props) {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 {columns.map(c => {
-                                    return <TableCell key={c.id} 
-                                    align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
+                                    return <TableCell key={c.id}
+                                        align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
 
                                     >
                                         {
@@ -115,12 +116,12 @@ function AssignmentList(props) {
                                                         Image
                                                     </a>
                                                     : c.id === 'correctAnswer'
-                                                    ? Math.floor(( row['grade'] / 10) * Object.keys(row['answer']).length)
-                                                    : c.id === 'grade'
-                                                    ? row[c.id]
-                                                    : c.id === 'numberOfQuestion'
-                                                    ? Object.keys(row['answer']).length
-                                                    : row[c.id]
+                                                        ? Math.floor((row['grade'] / 10) * Object.keys(row['answer']).length)
+                                                        : c.id === 'grade'
+                                                            ? row[c.id]
+                                                            : c.id === 'numberOfQuestion'
+                                                                ? Object.keys(row['answer']).length
+                                                                : row[c.id]
                                         }</TableCell>
                                 })}
                             </TableRow>

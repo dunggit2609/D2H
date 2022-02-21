@@ -85,7 +85,7 @@ export default function Header() {
                   </ButtonBase>
                 </div>
                 <Grid item xs={6} className='header-action-container'>
-                  <div className="toolbar__extraFeature" id="extraFeature">
+                  {/* <div className="toolbar__extraFeature" id="extraFeature">
                     <Tooltip
                       title={t("toolTip.chooseLanguage")}
                       placement="bottom"
@@ -111,7 +111,7 @@ export default function Header() {
                       typeOfSelected={itemSelected}
                     />
                     <ToggleMode></ToggleMode>
-                  </div>
+                  </div> */}
                   {isDisplayAuth && !isLogin && (
                     <>
                       <div className="float-right-block">

@@ -28,40 +28,39 @@ function SelectFieldForm(props) {
         onChangeSelected()
     }
     return (
-        <div>
-            <FormControl error={!!hasError} className="width-100">
-                <InputLabel className="label-custom" id={name}>{label}</InputLabel>
-                <Controller
 
-                    placeholder={placeholder}
-                    fullWidth
-                    control={form.control}
-                    name={name}
-                    label={label}
-                    disabled={disabled}
-                    error={!!hasError}
-                    helperText={errors[name]?.message}
-                    variant="outlined"
-                    margin="normal"
-                    render={({ onChange, onBlur, value, ref }) => (
-                        <SelectField
-                            id={name}
-                            handleChangeValue={(val) => {
-                                onChange(val)
-                                handleChangeSelected()
-                            }}
-                            onBlur={onBlur}
-                            selected={value}
-                            inputRef={ref}
-                            list={list}
-                        />
+        <FormControl error={!!hasError} className="width-100">
+            <InputLabel className="label-custom" id={name}>{label}</InputLabel>
+            <Controller
 
-                    )}
-                />
-                <ErrorMessage errors={errors} name={name} render={({ message }) => <p className="err-msg">{message}</p>} />
-            </FormControl>
+                placeholder={placeholder}
+                fullWidth
+                control={form.control}
+                name={name}
+                label={label}
+                disabled={disabled}
+                error={!!hasError}
+                helperText={errors[name]?.message}
+                variant="outlined"
+                margin="normal"
+                render={({ onChange, onBlur, value, ref }) => (
+                    <SelectField
+                        id={name}
+                        handleChangeValue={(val) => {
+                            onChange(val)
+                            handleChangeSelected()
+                        }}
+                        onBlur={onBlur}
+                        selected={value}
+                        inputRef={ref}
+                        list={list}
+                    />
 
-        </div>
+                )}
+            />
+            <ErrorMessage errors={errors} name={name} render={({ message }) => <p className="err-msg">{message}</p>} />
+        </FormControl>
+
 
     );
 }

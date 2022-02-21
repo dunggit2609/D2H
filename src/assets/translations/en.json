@@ -115,7 +115,7 @@
     "question_type": "Question type",
     "multiple_choice": "Multiple choice",
     "single_choice": "Single choice",
-    "paper_type": "Test paper's model",
+    "paper_type": "Test paper's template",
     "test_info": "Test info",
     "test_config": "Test config",
     "test_codes": "Test codes",
@@ -156,8 +156,8 @@
   "yes": "Yes",
   "no": "No",
   "paper_type": {
-    "model_1": "Model 1",
-    "model_2": "Model 2"
+    "model_1": "Template 1",
+    "model_2": "Template 2"
   },
   "student_id": "Student ID",
   "grade": "Grade",
