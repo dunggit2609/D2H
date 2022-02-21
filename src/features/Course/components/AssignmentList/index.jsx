@@ -3,7 +3,7 @@ import './styles.scss'
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, MenuItem, Pagination, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Grid, IconButton, MenuItem, Pagination, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import format from 'date-fns/format';
 import { isEmpty } from 'core/utils/object';
 import { useState, useEffect } from 'react';
@@ -11,7 +11,7 @@ import { useQuery } from 'hooks/useQuery';
 import qs from 'query-string'
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
-
+import ImageIcon from '@mui/icons-material/Image';
 function AssignmentList(props) {
     const { t } = useTranslation()
     const [page, setPage] = useState(1);
@@ -112,8 +112,10 @@ function AssignmentList(props) {
                                             c.id === 'createdAt'
                                                 ? getDateTimeFormat(row[c.id])
                                                 : c.id === 'imageUrl'
-                                                    ? <a href={row[c.id]} target="_blank">
-                                                        Image
+                                                    ? <a href={row[c.id]} target="_blank" className='decoration-none'>
+                                                        <IconButton>
+                                                            <ImageIcon />
+                                                        </IconButton>
                                                     </a>
                                                     : c.id === 'correctAnswer'
                                                         ? Math.floor((row['grade'] / 10) * Object.keys(row['answer']).length)
