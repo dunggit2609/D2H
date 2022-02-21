@@ -43,22 +43,7 @@ function BarChart(props) {
                 },
                 responsive: true,
                 scales: {
-                    yAxes: [
-                        {
-                            scaleLabel: {
-                                display: true,
-                                labelString: "VND",
-                            }
-                        }
-                    ],
-                    xAxes: [
-                        {
-                            scaleLabel: {
-                                display: true,
-                                labelString: "Date in Month",
-                            }
-                        }
-                    ],
+                  
                 }
 
             }}

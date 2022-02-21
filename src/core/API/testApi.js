@@ -24,7 +24,11 @@ const testApi = {
   getAllStatistic(id) {
     return axiosClient.get(`${url}/get-all-test-statistics/${id}`)
 
+  },
+  exportAssignments(payload) {
+    return axiosClient.post(`${url}/export-test`, payload)
   }
+
 };
 
 export default testApi;

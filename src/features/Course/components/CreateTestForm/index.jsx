@@ -262,14 +262,16 @@ function CreateTestForm(props) {
     }
     return (
         <div className="create-course__body">
-            <div className="create-test-title">
-                {match.path === _LIST_LINK.testCreate && <span className="back-to-test" onClick={handleClickBackToCourse}><ArrowBackIosIcon /></span>
-                }
+            {match.path === _LIST_LINK.testCreate &&
+                <div className="create-test-title">
+                    {match.path === _LIST_LINK.testCreate && <span className="back-to-test" onClick={handleClickBackToCourse}><ArrowBackIosIcon /></span>
+                    }
 
-                <h2>
-                    Create new test
-                </h2>
-            </div>
+                    <h2>
+                        Create new test
+                    </h2>
+                </div>}
+
 
             <Paper className='create-test-paper-container'>
                 <form onSubmit={form.handleSubmit(handleOnSubmit)}>
@@ -297,7 +299,7 @@ function CreateTestForm(props) {
                                     onChangeSelected={handleDisableChangeResultAndDisplaynumberOfQuestion}
 
                                 />
-                                {form.getValues('resultType') === RESULT_TYPE_INPUT &&
+                                {form.getValues('resultType') === RESULT_TYPE_FILE &&
                                     <span className='mt-9 ml-8'>
                                         <a href={resultTemplate} className='decoration-none pointer' target="_blank" download="Result-template.xlsx">
                                             <Tooltip title="Download result template">

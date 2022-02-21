@@ -14,7 +14,7 @@ import { useSnackbar } from 'notistack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { isEmpty } from 'core/utils/object';
 import { useRouteMatch, useHistory } from 'react-router';
-import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function CreateSubmission(props) {
     const dropzoneConfig = {
@@ -34,8 +34,8 @@ function CreateSubmission(props) {
     const { enqueueSnackbar } = useSnackbar();
     const [openDialog, setOpenDialog] = useState(false)
     const history = useHistory()
-    const match = useRouteMatch()
     const { courseId, testId } = useParams()
+    const match = useRouteMatch()
     const handleChangeFile = (values) => {
 
         const dummy = values.map(v => v.url)
@@ -45,24 +45,26 @@ function CreateSubmission(props) {
     const handleCloseDialog = () => {
         setOpenDialog(false)
     }
-
+    const currentTest = useSelector(state => state.test.curTest)
+    const currentCourse = useSelector(state => state.course.curCourse)
     const handleConfirmAssignSucces = () => {
 
-        if (!courseId || !testId)
-            if (match.path === _LIST_LINK.assginmentCreate) {
-                const url = `${_LIST_LINK.testDetail}`.replace(':courseId', courseId).replace(':testId', testId)
-                history.push({ pathname: url })
-            } else {
-                history.push({ pathname: _LIST_LINK.course })
-            }
+        if ((!courseId || !testId) && (!currentTest || !currentTest.testId || !currentCourse || !currentCourse.courseId)) {
+            return
+        }
+        const url = `${_LIST_LINK.viewAssignment}`
+            .replace(':courseId', courseId ? courseId : currentCourse.courseId)
+            .replace(':testId', testId ? testId : currentTest.testId)
+        history.push({ pathname: url })
     }
     const handleSubmitAssignment = async () => {
-        if (data.length === 0 || !testId) {
+        console.log("data", data)
+        if (data.length === 0 || (!testId && !currentTest.testId)) {
             setIsValid(true)
             return
         }
         setIsValid(false)
-        const payload = { test_id: testId, url: data }
+        const payload = { test_id: testId ? testId : currentTest.testId, url: data }
         const action = createAssignment(payload)
         try {
             handleDisplaySpinner(true)
@@ -75,7 +77,6 @@ function CreateSubmission(props) {
             handleDisplaySpinner(false)
         }
     }
-    const curAssignment = useSelector(state => state.assignment.curAssignment)
     const handleClickBackToTest = () => {
         if (!courseId || !testId) {
             return
@@ -89,7 +90,8 @@ function CreateSubmission(props) {
         <div className='assignment-container'>
             <div className="upload-submission-image">
                 <div className="upload-submission-label">
-                    <span className="back-to-test" onClick={handleClickBackToTest}><ArrowBackIosIcon /></span>
+                    {match.path === _LIST_LINK.assginmentCreate && <span className="back-to-test" onClick={handleClickBackToTest}><ArrowBackIosIcon /></span>
+                    }
 
                     {t("create_submission.upload_assignment")}
                 </div>
@@ -101,7 +103,16 @@ function CreateSubmission(props) {
                     disableEscapeKeyDown={true}>
                     <DialogTitle className="dialog-title">Assignment result</DialogTitle>
                     <DialogContent>
-                        {curAssignment && data && data.length === 1 &&
+                        <span>
+                            Assign successfully!!! Result will send to your email
+
+                        </span>
+                        <br />
+                        <span>
+                            You will be redirected to course detail
+                        </span>
+
+                        {/* {curAssignment && data && data.length === 1 &&
                             <Grid container spacing={2}>
                                 <Grid item xs={12} className='row-result'>
                                     <Grid container>
@@ -130,8 +141,7 @@ function CreateSubmission(props) {
                                 </Grid>
                             </Grid>}
                         {data && data.length !== 1 && <span>
-                            Assign successfully!!! Result will send to your email
-                        </span>}
+                        </span>} */}
 
 
                     </DialogContent>

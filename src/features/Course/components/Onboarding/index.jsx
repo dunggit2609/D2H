@@ -171,13 +171,6 @@ export default function Onboarding(props) {
 
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={curStep - 1} connector={<QontoConnector />}>
-        {steps.map((item) => (
-          <Step key={item.key}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{item.label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
       <Stepper alternativeLabel activeStep={curStep - 1} connector={<ColorlibConnector />}>
         {steps.map((item) => (
           <Step key={item.key}>
