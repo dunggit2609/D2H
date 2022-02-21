@@ -63,7 +63,7 @@ function CourseInfo(props) {
 
         { icon: <AddCircleIcon />, name: t('button.add_new_test'), FabProp: { color: 'primary' }, action: handleCreateNewTest },
         { icon: <InsertChartIcon />, name: t('button.visualize'), FabProp: { color: 'primary' }, action: handleVisualize },
-        { icon: <DeleteForever />, name: t('button.delete'), FabProp: { color: 'error' }, action: handleDeleteCourse },
+        // { icon: <DeleteForever />, name: t('button.delete'), FabProp: { color: 'error' }, action: handleDeleteCourse },
     ];
 
     const currentCourse = useSelector(state => state.course.curCourse)

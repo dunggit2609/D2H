@@ -99,7 +99,7 @@ function TestDetail(props) {
         { icon: <GradingIcon />, name: t('button.assign'), FabProp: { color: 'primary' }, action: handleAssign },
         { icon: <ListIcon />, name: t('button.view_assignments'), FabProp: { color: 'primary' }, action: handleViewAssignment },
         { icon: <InsertChartIcon />, name: t('button.visualize'), FabProp: { color: 'primary' }, action: handleVisualize },
-        { icon: <DeleteForever />, name: t('button.delete'), FabProp: { color: 'error' }, action: handleDeleteTest },
+        // { icon: <DeleteForever />, name: t('button.delete'), FabProp: { color: 'error' }, action: handleDeleteTest },
     ];
 
     const handleClickBackToAssignment = () => {
