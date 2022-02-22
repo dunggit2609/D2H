@@ -71,7 +71,7 @@ function Assignments(props) {
     const actions = [
 
         { icon: <InsertChartIcon />, name: t('button.visualize'), FabProp: { color: 'primary' }, action: handleVisualize },
-        { icon: <SystemUpdateAltIcon />, name: 'Export', FabProp: { color: 'error' }, action: handleExport },
+        // { icon: <SystemUpdateAltIcon />, name: 'Export', FabProp: { color: 'error' }, action: handleExport },
     ];
 
     return (
