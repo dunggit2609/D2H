@@ -19,8 +19,8 @@
       "loginButton": "Login",
       "registerButton": "Register",
       "loginByFb": "Login with Facebook",
-      "noAccount": "Have no account",
-      "haveAccount": "Already have an account"
+      "noAccount": "Have no account?",
+      "haveAccount": "Already have an account?"
     },
     "dialog": {
       "dialogLoginFb": "This feature is developing. You can use it next time 👌."

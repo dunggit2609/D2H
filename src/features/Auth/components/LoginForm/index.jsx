@@ -121,13 +121,13 @@ function LoginForm(props) {
             <Link className="decoration-none decoration-none-hover-effect" to={_LIST_LINK.register}>{t("auth.authButton.registerButton")}</Link>
           </div>
           
-          <Button
+          {/* <Button
             onClick={handleLoginFBClick}
             className="mainBox__iconSign"
             variant="contained"
           >
             <Icon className="mainBox__icon fab fa-facebook" color="secondary" />
-          </Button>
+          </Button> */}
         </div>
         <DialogSlide
           openStatus={openDialog}

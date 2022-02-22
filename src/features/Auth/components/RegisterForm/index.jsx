@@ -161,14 +161,14 @@ function RegisterForm(props) {
             <span className="have-account">-</span>
             <Link className="decoration-none decoration-none-hover-effect" to={_LIST_LINK.login}>{t("auth.authButton.loginButton")}</Link>
           </div>
-          <Button
+          {/* <Button
             onClick={handleLoginFBClick}
             className="mainBox__iconSign"
             variant="contained"
           >
             <Icon className="mainBox__icon fab fa-facebook" color="primary" />
-            {/* <span>{t("auth.authButton.loginByFb")}</span> */}
-          </Button>
+            <span>{t("auth.authButton.loginByFb")}</span>
+          </Button> */}
         </div>
         <DialogSlide
           openStatus={openDialog}

@@ -19,8 +19,8 @@
       "loginButton": "Đăng nhập",
       "registerButton": "Đăng kí",
       "loginByFb": "Tiếp tục với Facebook",
-      "noAccount": "Bạn không có tài khoàn",
-      "haveAccount": "Bạn đã có tài khoản"
+      "noAccount": "Bạn không có tài khoàn?",
+      "haveAccount": "Bạn đã có tài khoản?"
     },
     "dialog": {
       "dialogLoginFb": "Tính năng này đang phát triển. Bạn hãy sử dụng vào lần sau nhé 👌."
