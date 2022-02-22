@@ -34,6 +34,7 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 import DownloadIcon from '@mui/icons-material/Download';
 import PreviewIcon from '@mui/icons-material/Preview';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 CreateTestForm.propTypes = {
 
 };
@@ -51,6 +52,7 @@ function CreateTestForm(props) {
     const [isDisplayPreviewTemplate, setIsDisplayPreviewTemplate] = useState(false)
     const [templateUrl, setTemplateUrl] = useState('')
     const [displayDownloadResultTemplate, setDisplayDownloadResultTemplate] = useState(false)
+    const [disabledAddNewTestCode, setDisabledAddNewTestCode] = useState(false)
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading();
     const { enqueueSnackbar } = useSnackbar();
@@ -94,7 +96,6 @@ function CreateTestForm(props) {
         const disabled = !resultType || (resultType === RESULT_TYPE_INPUT && (+amount === 0 || !amount))
         const displayDownload = resultType === RESULT_TYPE_FILE
         const display = resultType === RESULT_TYPE_INPUT
-
         setDisplayDownloadResultTemplate(displayDownload)
         setDisabledSubmit(disabled)
         setIsInputFromUI(display)
@@ -134,10 +135,10 @@ function CreateTestForm(props) {
         } else {
             urls = data.map(v => v.url)
         }
-
         const payload = { ...values, url: urls, results: dummy || [], numberOfQuestion: values.numberOfQuestion ? values.numberOfQuestion : 0 }
         try {
             handleDisplaySpinner(true)
+            
             const payloadData = { courseID: currentCourse.courseId ? currentCourse.courseId : courseId, payload: payload }
             const action = createTest(payloadData)
             const rs = await dispatch(action)
@@ -150,8 +151,8 @@ function CreateTestForm(props) {
                 handleNextStep()
 
             } else {
-                const courseId = currentCourse.courseId ? currentCourse.courseId : courseId
-                history.push({ pathname: `${_LIST_LINK.course}/${courseId}` })
+                const courseIdParam = currentCourse.courseId ? currentCourse.courseId : courseId
+                history.push({ pathname: `${_LIST_LINK.course}/${courseIdParam}` })
             }
         } catch (err) {
             enqueueSnackbar(err.message, { variant: "error" });
@@ -441,8 +442,9 @@ function CreateTestForm(props) {
                             </div>
 
                             )}
-                            {form.getValues('resultType') && <div className="add-new-test-config">
-                                <Button variant="outlined" color="primary" onClick={addNewTest} >Add New</Button>
+                            {form.getValues('resultType') && !displayDownloadResultTemplate && 
+                            <div className="add-new-test-config">
+                                <Button variant="text" color="primary" onClick={addNewTest} startIcon={<AddCircleIcon />}>Add New</Button>
                             </div>}
 
                         </section>}
