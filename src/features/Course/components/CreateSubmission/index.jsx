@@ -3,7 +3,7 @@ import { Dialog, InputLabel, MenuItem, Select } from '@material-ui/core';
 import './styles.scss'
 import DropzoneUpload from 'components/DropzoneUpload';
 import { useTranslation } from 'react-i18next';
-import { Button, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
+import { Button, Chip, DialogActions, DialogContent, DialogTitle, Grid, Paper } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { _LIST_LINK } from 'constant/config';
 import { Link, useParams } from 'react-router-dom';
@@ -15,16 +15,19 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { isEmpty } from 'core/utils/object';
 import { useRouteMatch, useHistory } from 'react-router';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
+import { cloneDeep } from 'core/utils/common';
+import  AttachFileIcon  from '@mui/icons-material/AttachFile';
 function CreateSubmission(props) {
     const dropzoneConfig = {
         filesLimit: 1000,
         showPreviews: false,
-        showPreviewsInDropzone: true,
-        showFileNamesInPreview: true,
+        showPreviewsInDropzone: false,
+        showFileNamesInPreview: false,
         previewText: "",
         useChipsForPreview: true,
-        acceptedFiles: ['image/*']
+        acceptedFiles: ['image/*'],
+        showAlerts: false
     }
     const { t } = useTranslation()
     const dispatch = useDispatch()
@@ -36,9 +39,10 @@ function CreateSubmission(props) {
     const history = useHistory()
     const { courseId, testId } = useParams()
     const match = useRouteMatch()
+
     const handleChangeFile = (values) => {
 
-        const dummy = values.map(v => v.url)
+        const dummy = values.map(v => { return { url: v.url, name: v.name } })
         setData(dummy)
     }
 
@@ -58,13 +62,12 @@ function CreateSubmission(props) {
         history.push({ pathname: url })
     }
     const handleSubmitAssignment = async () => {
-        console.log("data", data)
         if (data.length === 0 || (!testId && !currentTest.testId)) {
             setIsValid(true)
             return
         }
         setIsValid(false)
-        const payload = { test_id: testId ? testId : currentTest.testId, url: data }
+        const payload = { test_id: testId ? testId : currentTest.testId, url: data.map(d => d.url) }
         const action = createAssignment(payload)
         try {
             handleDisplaySpinner(true)
@@ -86,6 +89,18 @@ function CreateSubmission(props) {
         history.push({ pathname: url })
 
     }
+
+    const handleDeleteFile = (index) => {
+        const dummy = cloneDeep(data)
+
+        dummy.splice(index, 1)
+        setData(dummy)
+    }
+
+    const handleClickFile = (url) => {
+        window.open(url, '_blank')
+    }
+
     return (
         <div className='assignment-container'>
             <div className="upload-submission-image">
@@ -95,7 +110,50 @@ function CreateSubmission(props) {
 
                     {t("create_submission.upload_assignment")}
                 </div>
-                <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
+
+                <Grid container spacing={4} className='list-assignment-file-container'>
+                    <Grid item xs={8}>
+                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Paper style={{
+                            height: 500 + 'px', paddingTop: 24 + 'px',
+                            paddingRight: 24 + 'px',
+                            paddingLeft: 24 + 'px',
+                            marginTop: 18 + 'px', marginBottom: -16 + 'px',
+                            // overflowY: 'hidden'
+                        }}>
+                            <div className='list-file-title'>List of files</div>
+                            {
+                                data &&
+                                    data.length > 0 ?
+
+                                    <ul className='file-list-container'>
+                                        {data.map((d, index) =>
+                                            <li key={d.url} className='file-item'>
+                                                <Chip label={d.name} onDelete={() => handleDeleteFile(index) }
+                                                  onClick={() => handleClickFile(d.url)}
+                                                  icon={<AttachFileIcon/>}
+                                                >
+
+                                                    {/* <a href={d.url} className='decoration-none' target='_blank'>
+
+
+                                                    </a> */}
+                                                </Chip>
+
+                                            </li>)}
+                                    </ul>
+                                    :
+                                    <div className='empty-list'>
+                                        <PlaylistRemoveIcon />
+                                        Empty list</div>
+
+                            }
+                        </Paper>
+                    </Grid>
+                </Grid>
+
                 {isValid && <p className="err-msg">{t('yupValidate.required_field')}</p>}
             </div>
             <div className="result-assign">
@@ -111,39 +169,6 @@ function CreateSubmission(props) {
                         <span>
                             You will be redirected to course detail
                         </span>
-
-                        {/* {curAssignment && data && data.length === 1 &&
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} className='row-result'>
-                                    <Grid container>
-                                        <Grid item xs={6}>
-                                            <div className="result__label">Student ID</div> <br />
-                                            {curAssignment.studentId}
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <div className="result__label">Grade</div> <br />
-                                            {curAssignment.grade * 10}
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} className='row-result' className="result__label">
-                                    <Grid container>
-                                        <Grid item xs={6}>
-                                            <div className="result__label">Assigment image</div> <br />
-                                            <a href={curAssignment.imageUrl} target='_blank'>
-                                                <img src={curAssignment.imageUrl} width={50 + 'px'} height={50 + 'px'} />
-                                            </a>
-                                        </Grid>
-                                        <Grid item xs={6}>
-
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>}
-                        {data && data.length !== 1 && <span>
-                        </span>} */}
-
-
                     </DialogContent>
                     <DialogActions>
 
@@ -183,7 +208,7 @@ function CreateSubmission(props) {
 
             </section>
 
-        </div>
+        </div >
     );
 }
 

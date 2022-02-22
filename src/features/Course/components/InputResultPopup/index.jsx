@@ -20,7 +20,9 @@ function InputResultPopup(props) {
         showPreviewsInDropzone: false,
         showFileNamesInPreview: true,
         previewText: "",
-        acceptedFiles: type === RESULT_TYPE_IMAGE ? ['image/*'] : ['.csv', '.xlsx']
+        acceptedFiles: type === RESULT_TYPE_IMAGE ? ['image/*'] : ['.csv', '.xlsx'],
+        showAlerts: false
+
     }
 
     const handleChangeFile = (values) => {
@@ -52,7 +54,6 @@ function InputResultPopup(props) {
     }
 
     useEffect(() => {
-        console.log(data)
         if (data.length === 0) {
             setDisabledConfirm(true)
             return
@@ -62,6 +63,7 @@ function InputResultPopup(props) {
     }, [data])
 
     useEffect(() => {
+        setData([])
         switch (type) {
             case RESULT_TYPE_IMAGE:
                 setPopupTitle(t("create_test.upload_result"))
@@ -81,7 +83,7 @@ function InputResultPopup(props) {
                 component={
 
                     type === RESULT_TYPE_IMAGE || type === RESULT_TYPE_FILE ? <>
-                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
+                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType={type}/>
                     </> : type === RESULT_TYPE_INPUT ? <> <ResultInputForm amount={amount} onChange={handleChangeResultInput} multiple={multiple}/> </> : <> </>
                 }
                 openStatus={isOpen}

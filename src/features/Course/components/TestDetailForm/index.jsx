@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './styles.scss'
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'core/utils/object';
-import { TextField } from '@material-ui/core';
+import { DialogActions, TextField } from '@material-ui/core';
 import { useState } from 'react';
-import { Divider, Grid, IconButton, Tooltip } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton, Table, TableHead, TableRow, Tooltip, TableCell, TableBody } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RESULT_TYPE_FILE, RESULT_TYPE_IMAGE, RESULT_TYPE_INPUT } from 'features/Course/constant/resultType';
@@ -13,16 +13,43 @@ import { PAPER_TYPE_1, PAPER_TYPE_2 } from 'features/Course/constant/paperType';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 TestDetailForm.propTypes = {
 
 };
+const columns = [
+    {
+        name: 'NO.',
+        id: 'no'
+    },
+    {
+        name: 'A',
+        id: 'A'
+    },
+    {
+        name: 'B',
+        id: 'B'
+    },
+    {
+        name: 'C',
+        id: 'C'
+    },
 
+    {
+        name: 'D',
+        id: 'D'
+    },
+]
 function TestDetailForm(props) {
     const [testName, setTestName] = useState('')
     const [resultType, setResultType] = useState('')
     const [multiple, setMultiple] = useState('')
     const [paperType, setPaperType] = useState('')
     const [numberOfQuestion, setNumberOfQuestion] = useState(0)
+    const [openDialog, setOpenDialog] = useState(false)
+    const [currentAnswer, setCurrentAnswer] = useState([])
     const [tests, setTests] = useState([])
     const { t } = useTranslation()
     const curTest = useSelector(state => state.test.curTest)
@@ -48,6 +75,43 @@ function TestDetailForm(props) {
         }
     }
 
+    const handleOpenResultPopup = (index) => {
+        if (!tests[index]) {
+            return
+        }
+        setOpenDialog(true)
+        const dummy = Object.values(tests[index].test_answer).map(d => Array.isArray(d) ? d : [d])
+        const answer = dummy.map(d => {
+
+            const result = {}
+            d.forEach(data => {
+                switch (data) {
+                    case 'A':
+                        result['A'] = true
+                        break
+                    case 'B':
+                        result['B'] = true
+                        break
+                    case 'C':
+                        result['C'] = true
+                        break
+                    case 'D':
+                        result['D'] = true
+                        break
+                }
+            })
+
+            return result
+        })
+
+        setCurrentAnswer(answer)
+    }
+
+    const handleCloseResultPopup = () => {
+        setOpenDialog(false)
+        setCurrentAnswer({})
+    }
+
     useEffect(() => {
         if (isEmpty(curTest) || !curTest.testConfig) {
             return
@@ -62,17 +126,20 @@ function TestDetailForm(props) {
     }, [curTest])
     return (
         <div className='test-detail-form'>
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <h3>{t("test_detail.info")}</h3>    <br />
                     <TextField variant="outlined" disabled fullWidth label={t('create_test.test_name')} value={testName} onChange={(e) => setTestName(e.target.value)} />
                 </Grid>
-                <Divider></Divider>
+                <Grid item xs={12}>
+                    <Divider></Divider>
+
+                </Grid>
 
                 <Grid item xs={12}>
                     <h3>{t("test_detail.config")}</h3> <br />
 
-                    <Grid container>
+                    <Grid container spacing={4}>
                         <Grid item xs={5}>
                             <TextField variant="outlined" fullWidth label={t('create_test.result_type')} value={resultType} disabled={true} />
                         </Grid>
@@ -86,30 +153,47 @@ function TestDetailForm(props) {
                         </Grid>
                         <Grid item xs={5}>
                             <TextField variant="outlined" fullWidth label={t('create_test.paper_type')} value={paperType} disabled={true} />
+
+                        </Grid>
+                        <Grid item xs={5}>
+                            <TextField variant="outlined" fullWidth label={t('create_test.amount_of_question')} value={numberOfQuestion} disabled={true} />
+
                         </Grid>
                     </Grid>
                 </Grid>
-                <Divider></Divider>
+                <Grid item xs={12}>
+                    <Divider></Divider>
+
+                </Grid>
 
                 <Grid item xs={12} className="mt-24 test-codes">
-                    {tests && tests.length > 0 && tests.map((test) =>
-                        <Grid container key={test.test_code} spacing={4}>
-                            <Grid item xs={6} className='test-code'>
+                    {tests && tests.length > 0 && tests.map((test, index) =>
+                        <Grid container key={test.test_code} spacing={4} style={{ marginBottom: 16 + 'px' }}>
+                            <Grid item xs={10} className='test-code'>
                                 <TextField variant="outlined" fullWidth label={t('create_test.test_code')}
                                     value={test.test_code} disabled={true} />
                             </Grid>
-                            {test.image_url && <Grid item xs={6} className='view-test-result'>
-                                <a href={test.image_url} target='_blank'>
-                                    <Tooltip title="View result file">
-                                        <IconButton>
-                                            <AttachFileIcon />
+                            <Grid item xs={2} className='view-test-result'>
+                                {test.image_url ?
+                                    <a href={test.image_url} target='_blank'>
+                                        <Tooltip title="View result file">
+                                            <IconButton>
+                                                <AttachFileIcon />
+
+                                            </IconButton>
+
+                                        </Tooltip>
+
+                                    </a>
+                                    : <Tooltip title="View result file">
+                                        <IconButton onClick={() => handleOpenResultPopup(index)}>
+                                            <VisibilityIcon />
 
                                         </IconButton>
 
                                     </Tooltip>
-
-                                </a>
-                            </Grid>}
+                                }
+                            </Grid>
 
                         </Grid>
 
@@ -119,6 +203,67 @@ function TestDetailForm(props) {
 
 
             </Grid>
+            <Dialog open={openDialog} disableBackdropClick={true}
+                disableEscapeKeyDown={true}>
+                <DialogTitle className="dialog-title"><h3>Test result</h3></DialogTitle>
+                <DialogContent>
+                    <Table sx={{ minWidth: 550 }} aria-label="simple table" >
+                        <TableHead>
+                            <TableRow >
+                                {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} align='center'
+                                    className='header'
+                                    style={{width: 30 + 'px'}}
+
+                                >
+                                    {c.name}
+                                </TableCell>)}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody >
+                            {currentAnswer && currentAnswer.length > 0 ? currentAnswer.map((row, index) => (
+                                <TableRow
+                                    key={row.testId}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    className='body-row'
+                                >
+                                    {columns.map(c => {
+                                        return <TableCell key={c.id}
+                                            align='center'
+                                            
+                                            style={{width: 30 + 'px'}}
+
+                                        >
+                                            {c.id === 'no' ? <span><b>{index + 1}</b></span> 
+                                            : !multiple ? (
+                                                row[c.id]
+                                                    ? <RadioButtonCheckedIcon color='primary'/>
+                                                    : <RadioButtonUncheckedIcon />
+                                            ) : (
+                                                row[c.id]
+                                                    ? <CheckBoxIcon color='primary'/>
+                                                    : <CheckBoxOutlineBlankIcon />
+                                            )
+                                                
+                                            }
+                                        </TableCell>
+                                    })}
+                                </TableRow>
+                            )) : <TableRow className='no-data'><TableCell >No data</TableCell></TableRow>}
+                        </TableBody>
+                    </Table>
+                </DialogContent>
+                <DialogActions>
+
+                    <Button
+                        color='primary'
+                        variant="contained"
+                        onClick={handleCloseResultPopup}
+                    >
+                        {t("button.ok")}
+                    </Button>
+
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

@@ -60,6 +60,7 @@ function Assignments(props) {
         try {
             handleDisplaySpinner(true)
             const rs = await testApi.exportAssignments({test_id: [testId]})
+            
             handleDisplaySpinner(false)
         } catch (err) {
             enqueueSnackbar(err.message, { variant: "error" });

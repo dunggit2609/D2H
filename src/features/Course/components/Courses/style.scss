@@ -11,15 +11,15 @@
         margin: 0;
         padding: 0;
 
-        &::-webkit-scrollbar {
-            width: 6px;
-            background: none;
-        }
+        // &::-webkit-scrollbar {
+        //     width: 6px;
+        //     background: none;
+        // }
 
-        &::-webkit-scrollbar-thumb {
-            background: var(--activeState);
-            border-radius: 4px;
-        }
+        // &::-webkit-scrollbar-thumb {
+        //     background: var(--activeState);
+        //     border-radius: 4px;
+        // }
     }
     &__item {
         height: 24px;

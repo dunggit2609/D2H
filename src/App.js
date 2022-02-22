@@ -30,6 +30,8 @@ function App() {
     !!(Object.keys(user).length !== 0);
   if (isLogin && location.pathname === _LIST_LINK.index) {
     history.push(_LIST_LINK.course);
+  } else if (!isLogin && location.pathname === _LIST_LINK.index) {
+    history.push(_LIST_LINK.login)
   }
   const isDisplayFooter =
     location.pathname === _LIST_LINK.index ||

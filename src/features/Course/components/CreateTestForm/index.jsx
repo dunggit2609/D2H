@@ -50,6 +50,7 @@ function CreateTestForm(props) {
     const [isInputFromUI, setIsInputFromUI] = useState(false)
     const [isDisplayPreviewTemplate, setIsDisplayPreviewTemplate] = useState(false)
     const [templateUrl, setTemplateUrl] = useState('')
+    const [displayDownloadResultTemplate, setDisplayDownloadResultTemplate] = useState(false)
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading();
     const { enqueueSnackbar } = useSnackbar();
@@ -91,9 +92,13 @@ function CreateTestForm(props) {
         const resultType = form.getValues('resultType')
         const amount = form.getValues('numberOfQuestion')
         const disabled = !resultType || (resultType === RESULT_TYPE_INPUT && (+amount === 0 || !amount))
-        setDisabledSubmit(disabled)
+        const displayDownload = resultType === RESULT_TYPE_FILE
         const display = resultType === RESULT_TYPE_INPUT
+
+        setDisplayDownloadResultTemplate(displayDownload)
+        setDisabledSubmit(disabled)
         setIsInputFromUI(display)
+
     }
 
     const handleChangeResult = (values, index) => {
@@ -299,7 +304,7 @@ function CreateTestForm(props) {
                                     onChangeSelected={handleDisableChangeResultAndDisplaynumberOfQuestion}
 
                                 />
-                                {form.getValues('resultType') === RESULT_TYPE_FILE &&
+                                {displayDownloadResultTemplate &&
                                     <span className='mt-9 ml-8'>
                                         <a href={resultTemplate} className='decoration-none pointer' target="_blank" download="Result-template.xlsx">
                                             <Tooltip title="Download result template">

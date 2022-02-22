@@ -5,35 +5,52 @@ import { uploadToServer } from 'core/helper/uploadToServer';
 import { LinearProgress } from '@mui/material';
 
 import './styles.scss'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
+import { useSnackbar } from 'notistack';
 DropzoneUpload.propTypes = {
 
 };
 
 function DropzoneUpload(props) {
-    const { config, onChange } = props
-    const { filesLimit, showPreviews, showPreviewsInDropzone, showFileNamesInPreview, previewText, acceptedFiles } = config
+    const { config, onChange, fileType } = props
+    const { filesLimit, showPreviews, showPreviewsInDropzone, showFileNamesInPreview, previewText, acceptedFiles, showAlerts } = config
     const [isLoading, setIsLoading] = useState(false)
-    const handleChange = async (files) => {
+    const { handleDisplaySpinner } = UseSpinnerLoading()
+    const { enqueueSnackbar } = useSnackbar();
 
+    const handleChange = async (files) => {
         if (!files || files.length === 0) {
             return
         }
-        for (let i = 0; i < files.length; i++) {
-            if (files[i].url) {
-                continue
+        try {
+            for (let i = 0; i < files.length; i++) {
+                if (files[i].url) {
+                    continue
+                }
+                handleDisplaySpinner(true)
+                setIsLoading(true)
+                const formData = new FormData();
+                formData.append("file", files[i]);
+                const url = await uploadToServer(formData, fileType)
+
+                // const url = 
+                handleDisplaySpinner(false)
+                setIsLoading(false)
+
+                if (!url) {
+                    continue
+                }
+                files[i].url = url
+
             }
-            setIsLoading(true)
-            const formData = new FormData();
-            formData.append("file", files[i]);
-            const url = await uploadToServer(formData)
+        } catch (err) {
+            handleDisplaySpinner(false)
             setIsLoading(false)
-            if (!url) {
-                continue
-            }
-            files[i].url = url
+            enqueueSnackbar(err.message, { variant: "error" });
 
         }
+
 
         if (!onChange) {
             return
@@ -44,18 +61,20 @@ function DropzoneUpload(props) {
     }
 
     return (
-        <div>
+        <div style={{ height: 100 + '%' }}>
             {isLoading && <LinearProgress />}
-
+            <br />
             <DropzoneArea
                 filesLimit={filesLimit}
                 onChange={(files) => handleChange(files)}
                 showFileNamesInPreview={showFileNamesInPreview}
                 showPreviews={showPreviews}
                 showPreviewsInDropzone={showPreviewsInDropzone}
-                previewText={previewText}
+                previewText={previewText}   
                 acceptedFiles={acceptedFiles}
                 maxFileSize={10000000}
+                style={{ height: 100 + '%' }}
+                showAlerts={showAlerts}
             />
 
 

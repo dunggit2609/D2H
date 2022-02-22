@@ -55,3 +55,49 @@
     font-weight: 700;
     font-size: 20px;
 }
+
+.file-list-container {
+    list-style: none;
+
+    overflow-y: auto;
+    max-height: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 0;
+}
+
+.file-item {
+
+    margin-bottom: 8px;
+}
+
+.list-file-title {
+    font-weight: 600;
+    font-size: 16px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    font-weight: 600;
+    font-size: 16px;
+    color: rgb(230, 230, 230);
+
+    
+}
+
+.list-assignment-file-container {
+    margin-bottom: 24px !important;
+}
