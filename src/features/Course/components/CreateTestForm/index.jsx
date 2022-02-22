@@ -429,7 +429,7 @@ function CreateTestForm(props) {
                                             </Tooltip>
                                         </Grid>
                                         <Grid item xs={4} className='change-result-item width-150'>
-                                            {index !== 0 && <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
+                                            {(data.length !== 1 || index !== 0) && <Tooltip title={item.url || !isEmpty(item.answer) ? t("create_test.change_result") : t("create_test.upload_answer")}>
                                                 <IconButton color="error" onClick={() => { handleRemoveTestCode(index) }} disabled={disabledSubmit}>
                                                     <RemoveCircleOutlinedIcon />
                                                 </IconButton>
