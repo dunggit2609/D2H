@@ -17,7 +17,7 @@ import { useRouteMatch, useHistory } from 'react-router';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import { cloneDeep } from 'core/utils/common';
-import  AttachFileIcon  from '@mui/icons-material/AttachFile';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 function CreateSubmission(props) {
     const dropzoneConfig = {
         filesLimit: 1000,
@@ -43,6 +43,7 @@ function CreateSubmission(props) {
     const handleChangeFile = (values) => {
 
         const dummy = values.map(v => { return { url: v.url, name: v.name } })
+        console.log(dummy)
         setData(dummy)
     }
 
@@ -53,12 +54,11 @@ function CreateSubmission(props) {
     const currentCourse = useSelector(state => state.course.curCourse)
     const handleConfirmAssignSucces = () => {
 
-        if ((!courseId || !testId) && (!currentTest || !currentTest.testId || !currentCourse || !currentCourse.courseId)) {
+        if ((!courseId) && (!currentCourse || !currentCourse.courseId)) {
             return
         }
-        const url = `${_LIST_LINK.viewAssignment}`
+        const url = `${_LIST_LINK.courseDetail}`
             .replace(':courseId', courseId ? courseId : currentCourse.courseId)
-            .replace(':testId', testId ? testId : currentTest.testId)
         history.push({ pathname: url })
     }
     const handleSubmitAssignment = async () => {
@@ -113,7 +113,7 @@ function CreateSubmission(props) {
 
                 <Grid container spacing={4} className='list-assignment-file-container'>
                     <Grid item xs={8}>
-                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType="image"/>
+                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType="image" />
                     </Grid>
                     <Grid item xs={4}>
                         <Paper style={{
@@ -131,9 +131,9 @@ function CreateSubmission(props) {
                                     <ul className='file-list-container'>
                                         {data.map((d, index) =>
                                             <li key={d.url} className='file-item'>
-                                                <Chip label={d.name} onDelete={() => handleDeleteFile(index) }
-                                                  onClick={() => handleClickFile(d.url)}
-                                                  icon={<AttachFileIcon/>}
+                                                <Chip label={d.name} onDelete={() => handleDeleteFile(index)}
+                                                    onClick={() => handleClickFile(d.url)}
+                                                    icon={<AttachFileIcon />}
                                                 >
 
                                                     {/* <a href={d.url} className='decoration-none' target='_blank'>
@@ -162,9 +162,11 @@ function CreateSubmission(props) {
                     <DialogTitle className="dialog-title">Assignment result</DialogTitle>
                     <DialogContent>
                         <span>
-                            Assign successfully!!! Result will send to your email
+                            Grade assigments successfully!!! Progress wil take a few minutes
 
                         </span>
+                        <br />
+                        <span>Result will send to your email</span>
                         <br />
                         <span>
                             You will be redirected to course detail

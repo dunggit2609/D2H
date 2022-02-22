@@ -64,7 +64,6 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 
     padding: 0;
@@ -72,7 +71,7 @@
 
 .file-item {
 
-    margin-bottom: 8px;
+    margin: 0 16px 8px 16px !important;
 }
 
 .list-file-title {
