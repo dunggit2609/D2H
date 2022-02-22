@@ -113,7 +113,7 @@ function CreateSubmission(props) {
 
                 <Grid container spacing={4} className='list-assignment-file-container'>
                     <Grid item xs={8}>
-                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} />
+                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType="image"/>
                     </Grid>
                     <Grid item xs={4}>
                         <Paper style={{
