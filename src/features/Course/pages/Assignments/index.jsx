@@ -10,12 +10,15 @@ import { Button } from '@mui/material';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import { useTranslation } from 'react-i18next';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import  KeyboardArrowDownIcon  from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { StyledMenu } from 'components/DropdownMenu/DropdownMenu';
 import { MenuItem } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import testApi from 'core/API/testApi';
+import { AxiosRequestConfig } from 'axios'
+import  axios  from 'axios';
+import AUTH  from 'constant/auth';
 Assignments.propTypes = {
 
 };
@@ -29,7 +32,7 @@ function Assignments(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const { enqueueSnackbar } = useSnackbar();
     const { handleDisplaySpinner } = UseSpinnerLoading()
- 
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -46,7 +49,7 @@ function Assignments(props) {
         history.push({ pathname: url })
 
     }
-    
+
     const handleVisualize = () => {
         const route = _LIST_LINK.visualize.replace(':courseId', courseId).replace(':testId', testId)
         history.push({ pathname: route })
@@ -56,11 +59,16 @@ function Assignments(props) {
         if (!testId) {
             return
         }
-        // exportAssignments
+       
         try {
             handleDisplaySpinner(true)
-            const rs = await testApi.exportAssignments({test_id: [testId]})
-            
+            const response = await testApi.exportAssignments({test_id: [testId]})
+            const link = document.createElement('a');
+            link.href = response.data.path;
+            const outputFilename = "Assignments Data.xlsx"
+            link.setAttribute('download', outputFilename);
+            document.body.appendChild(link);
+            link.click();
             handleDisplaySpinner(false)
         } catch (err) {
             enqueueSnackbar(err.message, { variant: "error" });
@@ -71,7 +79,7 @@ function Assignments(props) {
     const actions = [
 
         { icon: <InsertChartIcon />, name: t('button.visualize'), FabProp: { color: 'primary' }, action: handleVisualize },
-        // { icon: <SystemUpdateAltIcon />, name: 'Export', FabProp: { color: 'error' }, action: handleExport },
+        { icon: <SystemUpdateAltIcon />, name: 'Export', FabProp: { color: 'error' }, action: handleExport },
     ];
 
     return (
