@@ -18,6 +18,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import { cloneDeep } from 'core/utils/common';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import doneImage from 'assets/images/check-icon.jpeg'
+
 function CreateSubmission(props) {
     const dropzoneConfig = {
         filesLimit: 1000,
@@ -159,18 +161,23 @@ function CreateSubmission(props) {
             <div className="result-assign">
                 <Dialog onClose={handleCloseDialog} open={openDialog} disableBackdropClick={true}
                     disableEscapeKeyDown={true}>
-                    <DialogTitle className="dialog-title">Assignment result</DialogTitle>
+                    <DialogTitle className="dialog-title d-flex justify-content-center"><b>Grade assigments successfully!!!</b> </DialogTitle>
                     <DialogContent>
-                        <span>
-                            Grade assigments successfully!!! Progress wil take a few minutes
+                        <div className='d-flex justify-content-center'>
+                            <img src={doneImage} width={150 + 'px'} height={150 + 'px'}/>
 
-                        </span>
+                        </div>
                         <br />
-                        <span>Result will send to your email</span>
+                        <div className='d-flex justify-content-center'>
+                            Progress will take a few minutes and details will be sent to your email.
+
+                        </div>
+
+                       
                         <br />
-                        <span>
-                            You will be redirected to course detail
-                        </span>
+                        <div className='d-flex justify-content-center'>
+                            After confirming,  you will be redirected to course detail
+                        </div>
                     </DialogContent>
                     <DialogActions>
 
@@ -179,7 +186,7 @@ function CreateSubmission(props) {
                             variant="contained"
                             onClick={handleConfirmAssignSucces}
                         >
-                            {t("button.ok")}
+                            {t("button.confirm")}
                         </Button>
 
                     </DialogActions>

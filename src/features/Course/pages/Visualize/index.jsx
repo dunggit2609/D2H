@@ -80,14 +80,17 @@ function Visualize(props) {
             return
         }
 
-        const barData = Object.values(statistic.scoreInRange)
+        const barData = Object.values(statistic.scoreInRange).map(d => Number.parseInt(d) ? `${d}` : null)
+        console.log(barData)
         const barLabel = Object.keys(statistic.scoreInRange).map(k => k.replace("_", " to "))
         const dummyPieData = [statistic.scoreAtGood, statistic.scoreAtMedium, statistic.scoreAtRather, statistic.scoreAtWeak]
         const totalPieData = dummyPieData.reduce((prev, cur) => {
             return prev + cur
         }, 0)
-        const  pieData = dummyPieData.map(v => (v / totalPieData) * 100 )
-
+        const  pieData = dummyPieData.map(v => {
+            const value = ((v / totalPieData) * 100).toFixed(2)
+            return Number.parseInt(value) ? value : null
+        })
         setBarData(barData)
         setBarLabel(barLabel)
         setPieData(pieData)

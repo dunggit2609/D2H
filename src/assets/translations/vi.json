@@ -104,7 +104,8 @@
     "assign": "Chấm bài",
     "visualize": "Trực quan dữ liệu",
     "delete": "Xóa",
-    "view_assignments": "Xem kết quả chấm bài"
+    "view_assignments": "Xem kết quả chấm bài",
+    "confirm": "Xác nhận"
   },
   "create_test": {
     "label": "Tạo bài kiểm tra",

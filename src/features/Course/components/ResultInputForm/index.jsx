@@ -19,8 +19,7 @@ function ResultInputForm(props) {
             return
         }
         const dummy = cloneDeep(answer)
-        // console.log("item", item)
-        // console.log("value", value)
+        
         dummy[key] = value
         setAnswer(dummy)
 
@@ -28,7 +27,6 @@ function ResultInputForm(props) {
         if (!onChange) {
             return
         }
-        console.log("er", dummy)
         onChange([dummy])
     }
     const options = [

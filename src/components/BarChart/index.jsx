@@ -8,6 +8,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { Bar } from "react-chartjs-2";
 ChartJS.register(
@@ -16,7 +17,8 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 
 
@@ -37,14 +39,22 @@ function BarChart(props) {
             }}
             options={{
                 legend: { display: true },
-                title: {
-                    display: true,
-                    text: "Predicted world population (millions) in 2050"
-                },
+              
                 responsive: true,
                 scales: {
                   
-                }
+                },
+                plugins: {
+                    datalabels: {
+                      display: true,
+                      color: "black",
+                      formatter: (value) => value ? value : '' ,
+                      anchor: "end",
+                      offset: -20,
+                      align: "start",
+                      
+                    }
+                  },
 
             }}
         />

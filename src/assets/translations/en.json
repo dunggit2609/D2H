@@ -104,7 +104,8 @@
     "visualize": "Visualize",
     "delete": "Delete",
     "view_assignments": "View assignments", 
-    "add_new_test": "Add new test"
+    "add_new_test": "Add new test",
+    "confirm": "Confirm"
   },
   "create_test": {
     "label": "Create test",

@@ -94,13 +94,10 @@ function TestList(props) {
         }
     }
 
-    const getMultiple = (val) => {
-        console.log("val", val)
-    }
-
     const tests = useSelector(state => state.test.tests)
     useEffect(() => {
         if (isEmpty(tests) || tests.totalItems === 0) {
+            setPageCount(1)
             return
         }
         const mod = tests.totalItems % rowsPerPage

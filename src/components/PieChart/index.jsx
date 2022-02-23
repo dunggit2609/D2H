@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 PieChart.propTypes = {
 
@@ -37,8 +38,24 @@ function PieChart(props) {
             ],
             borderWidth: 1,
           },
-        ]
-      }} />
+        ],
+      }}
+        options={{
+
+          plugins: {
+            datalabels: {
+              display: true,
+              color: "black",
+              formatter: (value) => value ? `${value} %` : '',
+              anchor: "center",
+              align: "center",
+              font: {
+                size: 8
+              }
+            }
+          },
+        }}
+      />
     </div>
   );
 }

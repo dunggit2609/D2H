@@ -14,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <SnackbarProvider autoHideDuration={3000} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+        <SnackbarProvider autoHideDuration={4000} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
           <App useSuspense={true} />
         </SnackbarProvider>
       </BrowserRouter>

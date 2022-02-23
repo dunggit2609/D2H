@@ -6,12 +6,14 @@ import ResultInputForm from 'features/Course/components/ResultInputForm'
 import { RESULT_TYPE_FILE, RESULT_TYPE_IMAGE, RESULT_TYPE_INPUT } from 'features/Course/constant/resultType';
 import { uploadToServer } from 'core/helper/uploadToServer'
 import DropzoneUpload from 'components/DropzoneUpload'
+import { useSnackbar } from 'notistack';
 function InputResultPopup(props) {
     const { isOpen, handleClose, type, index, onChange, amount, multiple } = props
     const [data, setData] = useState([])
     const [origin, setOriginData] = useState([])
     const [popupTitle, setPopupTitle] = useState('')
     const [disabledConfirm, setDisabledConfirm] = useState(false)
+    const { enqueueSnackbar } = useSnackbar()
     const { t } = useTranslation()
 
     const dropzoneConfig = {
@@ -36,12 +38,32 @@ function InputResultPopup(props) {
         if (!onChange) {
             return
         }
+
+        if (type === RESULT_TYPE_INPUT && data.length > 0) {
+            const inputData = data[0]
+            for (const value in inputData) {
+                if (Array.isArray(inputData[value])) {
+                    const concat = inputData[value].join('')
+                    if (!concat) {
+                        enqueueSnackbar("Please input answer for all questions", { variant: "error" });
+                        return
+                    }
+                }
+                else if (!inputData[value]) {
+                    enqueueSnackbar("Please input answer for all questions", { variant: "error" });
+                    return
+                }
+            }
+        }
+
         setOriginData(data)
         onChange(data, index)
 
     }
 
     const handleChangeResultInput = (values) => {
+
+
         setData(values)
     }
 
@@ -83,8 +105,8 @@ function InputResultPopup(props) {
                 component={
 
                     type === RESULT_TYPE_IMAGE || type === RESULT_TYPE_FILE ? <>
-                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType={type}/>
-                    </> : type === RESULT_TYPE_INPUT ? <> <ResultInputForm amount={amount} onChange={handleChangeResultInput} multiple={multiple}/> </> : <> </>
+                        <DropzoneUpload config={dropzoneConfig} onChange={handleChangeFile} fileType={type} />
+                    </> : type === RESULT_TYPE_INPUT ? <> <ResultInputForm amount={amount} onChange={handleChangeResultInput} multiple={multiple} /> </> : <> </>
                 }
                 openStatus={isOpen}
                 handleCloseDialog={onClose}

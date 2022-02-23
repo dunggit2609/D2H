@@ -35,8 +35,8 @@ function AssignmentList(props) {
             id: 'correctAnswer'
         },
         {
-            name: 'Number of question',
-            id: 'numberOfQuestion'
+            name: 'Test code',
+            id: 'testCode'
         },
         {
             name: t('image'),
@@ -72,16 +72,18 @@ function AssignmentList(props) {
     const assignments = useSelector(state => state.assignment.assignments)
     useEffect(() => {
         if (isEmpty(assignments) || assignments.totalItems === 0) {
-            return
-        }
-        const mod = assignments.totalItems % rowsPerPage
-
-        const div = Math.floor(assignments.totalItems / rowsPerPage)
-        if (mod === 0) {
-            setPageCount(div)
+            setPageCount(1)
         } else {
-            setPageCount(div + 1)
+            const mod = assignments.totalItems % rowsPerPage
+
+            const div = Math.floor(assignments.totalItems / rowsPerPage)
+            if (mod === 0) {
+                setPageCount(div)
+            } else {
+                setPageCount(div + 1)
+            }
         }
+
 
 
     }, [assignments])
@@ -92,7 +94,11 @@ function AssignmentList(props) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                     <TableHead>
                         <TableRow >
-                            {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header' align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}>
+                            {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header'
+                                // align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
+                                align="center"
+
+                            >
                                 {c.name}
                             </TableCell>)}
                         </TableRow>
@@ -105,8 +111,8 @@ function AssignmentList(props) {
                             >
                                 {columns.map(c => {
                                     return <TableCell key={c.id}
-                                        align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
-
+                                        // align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
+                                        align="center"
                                     >
                                         {
                                             c.id === 'createdAt'
@@ -119,11 +125,12 @@ function AssignmentList(props) {
                                                     </a>
                                                     : c.id === 'correctAnswer'
                                                         ? Math.floor((row['grade'] / 10) * Object.keys(row['answer']).length)
+
                                                         : c.id === 'grade'
-                                                            ? row[c.id]
-                                                            : c.id === 'numberOfQuestion'
-                                                                ? Object.keys(row['answer']).length
-                                                                : row[c.id]
+                                                            ? Number.parseFloat(row[c.id]).toFixed(2)
+                                                            //     : c.id === 'numberOfQuestion'
+                                                            //         ? Object.keys(row['answer']).length
+                                                            : row[c.id]
                                         }</TableCell>
                                 })}
                             </TableRow>
