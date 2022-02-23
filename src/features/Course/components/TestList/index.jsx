@@ -18,6 +18,8 @@ import InfoIcon from '@mui/icons-material/InfoOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import noData from 'assets/images/no_data.png'
+
 import CloseIcon from '@mui/icons-material/Close';
 TestList.propTypes = {
 
@@ -132,38 +134,47 @@ function TestList(props) {
                             </TableCell>)}
                         </TableRow>
                     </TableHead>
-                    <TableBody >
-                        {tests && tests.items && tests.items.length > 0 ? tests.items.map((row, index) => (
-                            <TableRow
-                                key={row.testId}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => handleRowClick(row, index)}
-                                hover={true}
-                                className='body-row'
-                            >
-                                {columns.map(c => {
-                                    return <TableCell key={c.id}
-                                        align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
+                    {
+                        <TableBody >
+                            {tests && tests.items && tests.items.length > 0 ? tests.items.map((row, index) => (
+                                <TableRow
+                                    key={row.testId}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    onClick={() => handleRowClick(row, index)}
+                                    hover={true}
+                                    className='body-row'
+                                >
+                                    {columns.map(c => {
+                                        return <TableCell key={c.id}
+                                            align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
 
-                                    >
-                                        {
-                                            c.id === 'test_answer_type' && row['testConfig']
-                                                ? getResulType(row['testConfig'][c.id])
-                                                : (c.id === 'createdAt'
-                                                    ? getDateTimeFormat(row[c.id])
-                                                    : c.id === 'status'
-                                                        ? <Chip icon={row[c.id] === 'new' ? <InfoIcon /> : <CheckOutlinedIcon />}
-                                                            variant='outlined' color={row[c.id] === 'new' ? 'primary' : 'success'}
-                                                            label={row[c.id] === 'new' ? t('status.new') : t('status.graded')} />
-                                                        : c.id === 'is_multiple_choice' && row['testConfig']
-                                                            // ? getMultiple(row['testConfig'][c.id])
-                                                            ? (row['testConfig'][c.id] ? <CheckOutlinedIcon /> : <CloseIcon />)
-                                                            : row[c.id])
-                                        }</TableCell>
-                                })}
+                                        >
+                                            {
+                                                c.id === 'test_answer_type' && row['testConfig']
+                                                    ? getResulType(row['testConfig'][c.id])
+                                                    : (c.id === 'createdAt'
+                                                        ? getDateTimeFormat(row[c.id])
+                                                        : c.id === 'status'
+                                                            ? <Chip icon={row[c.id] === 'new' ? <InfoIcon /> : <CheckOutlinedIcon />}
+                                                                variant='outlined' color={row[c.id] === 'new' ? 'primary' : 'success'}
+                                                                label={row[c.id] === 'new' ? t('status.new') : t('status.graded')} />
+                                                            : c.id === 'is_multiple_choice' && row['testConfig']
+                                                                // ? getMultiple(row['testConfig'][c.id])
+                                                                ? (row['testConfig'][c.id] ? <CheckOutlinedIcon /> : <CloseIcon />)
+                                                                : row[c.id])
+                                            }</TableCell>
+                                    })}
+                                </TableRow>
+                            )) : <TableRow className="no-data" >
+                                <TableCell colSpan={5}  style={{ textAlign: 'center' }}>
+                                <img src={noData} />
+
+                                </TableCell>
                             </TableRow>
-                        )) : <TableRow className='no-data'><TableCell >No data</TableCell></TableRow>}
-                    </TableBody>
+                            }
+                        </TableBody>
+
+                    }
                 </Table>
             </TableContainer>
             <Grid container spacing={2} className='pagination'>

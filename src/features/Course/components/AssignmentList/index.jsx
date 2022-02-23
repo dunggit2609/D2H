@@ -12,6 +12,7 @@ import qs from 'query-string'
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import ImageIcon from '@mui/icons-material/Image';
+import noData from 'assets/images/no_data.png'
 function AssignmentList(props) {
     const { t } = useTranslation()
     const [page, setPage] = useState(1);
@@ -134,7 +135,13 @@ function AssignmentList(props) {
                                         }</TableCell>
                                 })}
                             </TableRow>
-                        )) : <TableRow className='no-data'><TableCell >No data</TableCell></TableRow>}
+                        )) : <TableRow className="no-data">
+                            <TableCell colSpan={6}  style={{ textAlign: 'center' }}>
+                                <img src={noData} />
+
+                            </TableCell>
+                        </TableRow>
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>
