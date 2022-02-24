@@ -1,5 +1,7 @@
 import axios from "axios";
 import AUTH from "constant/auth";
+import { useFeatureOfMenu } from 'hooks/useFeatureOfMenu';
+import { _LIST_LINK } from 'constant/config';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -71,6 +73,12 @@ axiosClient.interceptors.response.use(
     //parse error
     // const { config, status, data } = error.response;
     const URLS = {}; // link URLS apply this handle err
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem(AUTH.STORAGE_KEY);
+        localStorage.removeItem(AUTH.TOKEN_KEY);
+        localStorage.removeItem(AUTH.EXPIRED_TOKEN);
+        window.location.replace(_LIST_LINK.index);
+    }
     return Promise.reject(error.response.data);
   }
 );

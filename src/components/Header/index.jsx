@@ -163,7 +163,10 @@ export default function Header() {
                           open={open}
                           onClose={handleClose}
                         >
-                          {actions.map(action => <MenuItem key={action.name} onClick={() => handleChooseUserAction(action.action)}>
+                          {actions.map(action => <MenuItem key={action.name} onClick={() => {
+                            handleChooseUserAction(action.action)
+                            setAnchorEl(null)
+                          }}>
                             {action.icon}
                             {action.name}
                           </MenuItem>)}
