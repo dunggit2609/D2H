@@ -138,7 +138,7 @@ function CreateTestForm(props) {
         const payload = { ...values, url: urls, results: dummy || [], numberOfQuestion: values.numberOfQuestion ? values.numberOfQuestion : 0 }
         try {
             handleDisplaySpinner(true)
-            
+
             const payloadData = { courseID: currentCourse.courseId ? currentCourse.courseId : courseId, payload: payload }
             const action = createTest(payloadData)
             const rs = await dispatch(action)
@@ -321,15 +321,14 @@ function CreateTestForm(props) {
 
 
                             </div>
-                            <div className="question-type flex-grow-1">
-                                <div className="container">
-                                    <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
+                            <div className="question-type flex-grow-1 d-flex flex-column align-items-center">
+                                <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
                                     <CheckboxForm form={form}
                                         disabled={false}
                                         name="multipleChoice"
                                         label={t("create_test.multiple_choice")}
                                     />
-                                </div>
+
 
 
                             </div>
@@ -442,10 +441,10 @@ function CreateTestForm(props) {
                             </div>
 
                             )}
-                            {form.getValues('resultType') && !displayDownloadResultTemplate && 
-                            <div className="add-new-test-config">
-                                <Button variant="text" color="primary" onClick={addNewTest} startIcon={<AddCircleIcon />}>Add New</Button>
-                            </div>}
+                            {form.getValues('resultType') && !displayDownloadResultTemplate &&
+                                <div className="add-new-test-config">
+                                    <Button variant="text" color="primary" onClick={addNewTest} startIcon={<AddCircleIcon />}>Add New</Button>
+                                </div>}
 
                         </section>}
 

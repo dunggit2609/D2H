@@ -37,25 +37,30 @@ function TestList(props) {
     const columns = [
         {
             name: t('create_test.test_name'),
-            id: 'testName'
+            id: 'testName',
+            minWidth: 300
         },
         {
             name: t('create_test.result_type'),
-            id: 'test_answer_type'
+            id: 'test_answer_type',
+            minWidth: 100
         },
         {
             name: t('create_test.multiple_choice'),
-            id: 'is_multiple_choice'
+            id: 'is_multiple_choice',
+            minWidth: 150
         },
 
         {
             name: t('created_at'),
-            id: 'createdAt'
+            id: 'createdAt',
+            minWidth: 150
         },
 
         {
             name: t('status.label'),
-            id: 'status'
+            id: 'status',
+            minWidth: 100
         },
     ]
     const handleChangePage = (event, newPage) => {
@@ -124,11 +129,11 @@ function TestList(props) {
     return (
         <div className='test-data__container'>
 
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" >
+            <TableContainer component={Paper} sx={{maxHeight: 400}}>
+                <Table sx={{ minWidth: 800 }} aria-label="simple table" stickyHeader>
                     <TableHead>
                         <TableRow >
-                            {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header' align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
+                            {columns && columns.length > 0 && columns.map(c => <TableCell style={{minWidth: c.minWidth}} key={c.id} className='header' align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
                             >
                                 {c.name}
                             </TableCell>)}
@@ -186,7 +191,7 @@ function TestList(props) {
                     >
                         <MenuItem value={10}>10</MenuItem>
                         <MenuItem value={20}>20</MenuItem>
-                        <MenuItem value={30}>50</MenuItem>
+                        <MenuItem value={50}>50</MenuItem>
                     </Select>
                 </Grid>
                 <Grid item xs={6} className='pagination__nav'>

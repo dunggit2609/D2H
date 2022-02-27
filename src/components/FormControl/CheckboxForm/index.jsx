@@ -27,7 +27,7 @@ function CheckboxForm(props) {
         onChange()
     }
     return (
-        <div>
+        <div className="d-flex justify-content-center">
             <Controller
 
                 placeholder={placeholder}

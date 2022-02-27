@@ -24,28 +24,34 @@ function AssignmentList(props) {
     const columns = [
         {
             name: t('student_id'),
-            id: 'studentId'
+            id: 'studentId',
+            minWidth: 150
         },
         {
             name: t('grade'),
-            id: 'grade'
+            id: 'grade',
+            minWidth: 150
         },
 
         {
             name: 'Correct answer',
-            id: 'correctAnswer'
+            id: 'correctAnswer',
+            minWidth: 150
         },
         {
             name: 'Test code',
-            id: 'testCode'
+            id: 'testCode',
+            minWidth: 150
         },
         {
             name: t('image'),
-            id: 'imageUrl'
+            id: 'imageUrl',
+            minWidth: 150
         },
         {
             name: t('created_at'),
-            id: 'createdAt'
+            id: 'createdAt',
+            minWidth: 150
         },
     ]
 
@@ -91,14 +97,14 @@ function AssignmentList(props) {
     return (
         <div className='test-data__container'>
 
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" >
+            <TableContainer component={Paper} sx={{maxHeight: 450}}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
                     <TableHead>
                         <TableRow >
                             {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header'
                                 // align={['correctAnswer', 'grade', 'image', 'numberOfQuestion'].includes(c.id) ? 'center' : 'left'}
                                 align="center"
-
+                                style={{ minWidth: c.minWidth }}
                             >
                                 {c.name}
                             </TableCell>)}
@@ -136,7 +142,7 @@ function AssignmentList(props) {
                                 })}
                             </TableRow>
                         )) : <TableRow className="no-data">
-                            <TableCell colSpan={6}  style={{ textAlign: 'center' }}>
+                            <TableCell colSpan={6} style={{ textAlign: 'center' }}>
                                 <img src={noData} />
 
                             </TableCell>
@@ -154,7 +160,7 @@ function AssignmentList(props) {
                     >
                         <MenuItem value={10}>10</MenuItem>
                         <MenuItem value={20}>20</MenuItem>
-                        <MenuItem value={30}>50</MenuItem>
+                        <MenuItem value={50}>50</MenuItem>
                     </Select>
                 </Grid>
                 <Grid item xs={6} className='pagination__nav'>
