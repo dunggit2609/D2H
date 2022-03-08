@@ -6,6 +6,7 @@ $scrollHeaderColor: rgb(252, 227, 227);
   box-shadow: none !important;
   padding-bottom: 1rem !important;
   height: fit-content;
+  z-index: 1000 !important;
 }
 
 .toolbar {

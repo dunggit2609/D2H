@@ -35,6 +35,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import PreviewIcon from '@mui/icons-material/Preview';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Lightbox from 'react-image-lightbox';
+
 CreateTestForm.propTypes = {
 
 };
@@ -52,7 +54,6 @@ function CreateTestForm(props) {
     const [isDisplayPreviewTemplate, setIsDisplayPreviewTemplate] = useState(false)
     const [templateUrl, setTemplateUrl] = useState('')
     const [displayDownloadResultTemplate, setDisplayDownloadResultTemplate] = useState(false)
-    const [disabledAddNewTestCode, setDisabledAddNewTestCode] = useState(false)
     const dispatch = useDispatch()
     const { handleDisplaySpinner } = UseSpinnerLoading();
     const { enqueueSnackbar } = useSnackbar();
@@ -62,6 +63,8 @@ function CreateTestForm(props) {
     const history = useHistory()
     const [openConfirmRemoveTestCode, setOpenConfirmRemoveTestCode] = useState(false)
     const [currentIndexRemoved, setCurrentIndexRemoved] = useState(null)
+    const [isOpenLightBox, setIsOpenLightBox] = useState(false)
+    const [curUrl, setCurUrl] = useState('')
     const { courseId } = useParams()
     const resultTemplate = 'https://res.cloudinary.com/haiii/raw/upload/v1645447170/excel/Result-template_snoypp.xlsx'
     const template1 = 'https://res.cloudinary.com/dunbjnt9i/image/upload/v1644650582/test-img/a4_300_kvnapg.png'
@@ -100,6 +103,11 @@ function CreateTestForm(props) {
         setDisabledSubmit(disabled)
         setIsInputFromUI(display)
 
+    }
+
+    const handleViewLightBox = (url) => {
+        setIsOpenLightBox(true)
+        setCurUrl(url)
     }
 
     const handleChangeResult = (values, index) => {
@@ -323,11 +331,11 @@ function CreateTestForm(props) {
                             </div>
                             <div className="question-type flex-grow-1 d-flex flex-column align-items-center">
                                 <InputLabel id="paper-type-label">{t("create_test.multiple_choice")}</InputLabel>
-                                    <CheckboxForm form={form}
-                                        disabled={false}
-                                        name="multipleChoice"
-                                        label={t("create_test.multiple_choice")}
-                                    />
+                                <CheckboxForm form={form}
+                                    disabled={false}
+                                    name="multipleChoice"
+                                    label={t("create_test.multiple_choice")}
+                                />
 
 
 
@@ -346,14 +354,12 @@ function CreateTestForm(props) {
                                     {isDisplayPreviewTemplate
 
                                         && <span className='mt-9 ml-8'>
-                                            <a href={templateUrl} className='decoration-none pointer' target="_blank" >
-                                                <Tooltip title="View paper template">
-                                                    <IconButton >
-                                                        <PreviewIcon />
-                                                    </IconButton>
+                                            <Tooltip title="View paper template" >
+                                                <IconButton onClick={() => handleViewLightBox(templateUrl)} >
+                                                    <PreviewIcon />
+                                                </IconButton>
 
-                                                </Tooltip>
-                                            </a>
+                                            </Tooltip>
 
                                         </span>
                                     }
@@ -491,7 +497,15 @@ function CreateTestForm(props) {
                 </form>
             </Paper>
 
+            {isOpenLightBox &&
 
+                <Lightbox
+                    mainSrc={curUrl}
+
+                    onCloseRequest={() => setIsOpenLightBox(false)}
+
+                />
+            }
         </div >
     );
 }

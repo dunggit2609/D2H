@@ -16,6 +16,10 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import Lightbox from 'react-image-lightbox';
+
 TestDetailForm.propTypes = {
 
 };
@@ -51,6 +55,8 @@ function TestDetailForm(props) {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentAnswer, setCurrentAnswer] = useState([])
     const [tests, setTests] = useState([])
+    const [isOpenLightBox, setIsOpenLightBox] = useState(false)
+    const [curUrl, setCurUrl] = useState('')
     const { t } = useTranslation()
     const curTest = useSelector(state => state.test.curTest)
 
@@ -62,6 +68,8 @@ function TestDetailForm(props) {
                 return t('resultType.file')
             case RESULT_TYPE_INPUT:
                 return t('resultType.input')
+            default:
+                break
 
         }
     }
@@ -72,6 +80,8 @@ function TestDetailForm(props) {
                 return t('paper_type.model_1')
             case PAPER_TYPE_2:
                 return t('paper_type.model_2')
+            default:
+                break
         }
     }
 
@@ -98,6 +108,8 @@ function TestDetailForm(props) {
                     case 'D':
                         result['D'] = true
                         break
+                    default:
+                        break
                 }
             })
 
@@ -110,6 +122,11 @@ function TestDetailForm(props) {
     const handleCloseResultPopup = () => {
         setOpenDialog(false)
         setCurrentAnswer({})
+    }
+
+    const handleViewLightBox = (url) => {
+        setIsOpenLightBox(true)
+        setCurUrl(url)
     }
 
     useEffect(() => {
@@ -146,7 +163,7 @@ function TestDetailForm(props) {
                         <Grid item xs={2} className='multiple-choice-detail'>
                             <span className='multiple-choice__label'>{t('create_test.multiple_choice')}</span>
                             <span>
-                                {multiple ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+                                {multiple ? <CheckOutlinedIcon /> : <CloseIcon />}
 
                             </span>
                             {/* <TextField variant="outlined" label={t('create_test.multiple_choice')} fullWidth label={t('create_test.multiple_choice')} value={multiple ? 'True' : 'False'} disabled={true} /> */}
@@ -174,24 +191,29 @@ function TestDetailForm(props) {
                                     value={test.test_code} disabled={true} />
                             </Grid>
                             <Grid item xs={2} className='view-test-result'>
-                                {test.image_url ?
-                                    <a href={test.image_url} target='_blank'>
-                                        <Tooltip title="View result file">
-                                            <IconButton>
-                                                <AttachFileIcon />
+                                {test.image_url && curTest.testConfig.test_answer_type === RESULT_TYPE_IMAGE ?
+                                    <Tooltip title="View result file" onClick={() => handleViewLightBox(test.image_url)}>
+                                        <IconButton>
+                                            <AttachFileIcon />
+                                        </IconButton>
+
+                                    </Tooltip>
+                                    : test.image_url && curTest.testConfig.test_answer_type === RESULT_TYPE_FILE ?
+                                        <a href={test.image_url} target='_blank' className="decoration-none">
+                                            <Tooltip title="View result file" >
+                                                <IconButton>
+                                                    <AttachFileIcon />
+                                                </IconButton>
+
+                                            </Tooltip>
+                                        </a>
+                                        : <Tooltip title="View result file">
+                                            <IconButton onClick={() => handleOpenResultPopup(index)}>
+                                                <VisibilityIcon />
 
                                             </IconButton>
 
                                         </Tooltip>
-
-                                    </a>
-                                    : <Tooltip title="View result file">
-                                        <IconButton onClick={() => handleOpenResultPopup(index)}>
-                                            <VisibilityIcon />
-
-                                        </IconButton>
-
-                                    </Tooltip>
                                 }
                             </Grid>
 
@@ -212,7 +234,7 @@ function TestDetailForm(props) {
                             <TableRow >
                                 {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} align='center'
                                     className='header'
-                                    style={{width: 30 + 'px'}}
+                                    style={{ width: 30 + 'px' }}
 
                                 >
                                     {c.name}
@@ -229,21 +251,21 @@ function TestDetailForm(props) {
                                     {columns.map(c => {
                                         return <TableCell key={c.id}
                                             align='center'
-                                            
-                                            style={{width: 30 + 'px'}}
+
+                                            style={{ width: 30 + 'px' }}
 
                                         >
-                                            {c.id === 'no' ? <span><b>{index + 1}</b></span> 
-                                            : !multiple ? (
-                                                row[c.id]
-                                                    ? <RadioButtonCheckedIcon color='primary'/>
-                                                    : <RadioButtonUncheckedIcon />
-                                            ) : (
-                                                row[c.id]
-                                                    ? <CheckBoxIcon color='primary'/>
-                                                    : <CheckBoxOutlineBlankIcon />
-                                            )
-                                                
+                                            {c.id === 'no' ? <span><b>{index + 1}</b></span>
+                                                : !multiple ? (
+                                                    row[c.id]
+                                                        ? <RadioButtonCheckedIcon color='primary' />
+                                                        : <RadioButtonUncheckedIcon />
+                                                ) : (
+                                                    row[c.id]
+                                                        ? <CheckBoxIcon color='primary' />
+                                                        : <CheckBoxOutlineBlankIcon />
+                                                )
+
                                             }
                                         </TableCell>
                                     })}
@@ -264,6 +286,15 @@ function TestDetailForm(props) {
 
                 </DialogActions>
             </Dialog>
+            {isOpenLightBox &&
+
+                <Lightbox
+                    mainSrc={curUrl}
+
+                    onCloseRequest={() => setIsOpenLightBox(false)}
+
+                />
+            }
         </div>
     );
 }

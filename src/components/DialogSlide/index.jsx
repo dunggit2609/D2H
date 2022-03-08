@@ -71,8 +71,8 @@ export default function DialogSlide({ component: Component, ...rest }) {
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">{dialogTitle}</DialogTitle>
-      <DialogContent>
+      <DialogTitle id="alert-dialog-slide-title"><b>{dialogTitle}</b></DialogTitle>
+      <DialogContent className="scroll-custom">
         {!isRenderComponent && (
           <div className="displayCenterByFlex">
             <CircularProgress />

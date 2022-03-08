@@ -13,11 +13,15 @@ import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import ImageIcon from '@mui/icons-material/Image';
 import noData from 'assets/images/no_data.png'
+import Lightbox from 'react-image-lightbox';
+
 function AssignmentList(props) {
     const { t } = useTranslation()
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [pageCount, setPageCount] = useState(1)
+    const [isOpenLightBox, setIsOpenLightBox] = useState(false)
+    const [curUrl, setCurUrl] = useState('')
     const query = useQuery()
     const location = useLocation()
     const history = useHistory()
@@ -76,6 +80,12 @@ function AssignmentList(props) {
         return format(new Date(date), 'dd/MM/yyyy HH:mm')
 
     }
+
+    const handleViewLightBox = (url) => {
+        setIsOpenLightBox(true)
+        setCurUrl(url)
+    }
+
     const assignments = useSelector(state => state.assignment.assignments)
     useEffect(() => {
         if (isEmpty(assignments) || assignments.totalItems === 0) {
@@ -97,8 +107,8 @@ function AssignmentList(props) {
     return (
         <div className='test-data__container'>
 
-            <TableContainer component={Paper} sx={{maxHeight: 450}}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
+            <TableContainer component={Paper} sx={{ maxHeight: 450 }} className='scroll-custom'>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader >
                     <TableHead>
                         <TableRow >
                             {columns && columns.length > 0 && columns.map(c => <TableCell key={c.id} className='header'
@@ -125,11 +135,9 @@ function AssignmentList(props) {
                                             c.id === 'createdAt'
                                                 ? getDateTimeFormat(row[c.id])
                                                 : c.id === 'imageUrl'
-                                                    ? <a href={row[c.id]} target="_blank" className='decoration-none'>
-                                                        <IconButton>
-                                                            <ImageIcon />
-                                                        </IconButton>
-                                                    </a>
+                                                    ? <IconButton onClick={() => handleViewLightBox(row[c.id])}>
+                                                        <ImageIcon />
+                                                    </IconButton>
                                                     : c.id === 'correctAnswer'
                                                         ? Math.floor((row['grade'] / 10) * Object.keys(row['answer']).length)
 
@@ -167,6 +175,15 @@ function AssignmentList(props) {
                     <Pagination count={pageCount} variant="outlined" shape="rounded" page={page} onChange={handleChangePage} />
                 </Grid>
             </Grid>
+            {isOpenLightBox &&
+
+                <Lightbox
+                    mainSrc={curUrl}
+
+                    onCloseRequest={() => setIsOpenLightBox(false)}
+
+                />
+            }
         </div>
     );
 }

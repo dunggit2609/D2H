@@ -17,8 +17,8 @@ import { useSnackbar } from 'notistack';
 import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import testApi from 'core/API/testApi';
 import { AxiosRequestConfig } from 'axios'
-import  axios  from 'axios';
-import AUTH  from 'constant/auth';
+import axios from 'axios';
+import AUTH from 'constant/auth';
 Assignments.propTypes = {
 
 };
@@ -59,16 +59,17 @@ function Assignments(props) {
         if (!testId) {
             return
         }
-       
+
         try {
             handleDisplaySpinner(true)
-            const response = await testApi.exportAssignments({test_id: [testId]})
-            const link = document.createElement('a');
-            link.href = response.data.path;
-            const outputFilename = "Assignments Data.xlsx"
-            link.setAttribute('download', outputFilename);
-            document.body.appendChild(link);
-            link.click();
+            const response = await testApi.exportAssignments({ test_id: [testId] })
+            // const link = document.createElement('a');
+            // link.href = response.data.path;
+            // const outputFilename = "Assignments Data.xlsx"
+            // link.setAttribute('download', outputFilename);
+            // document.body.appendChild(link);
+            // link.click();
+            window.open(response.data.path, "_blank")
             handleDisplaySpinner(false)
         } catch (err) {
             enqueueSnackbar(err.message, { variant: "error" });

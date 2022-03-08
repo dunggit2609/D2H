@@ -12,7 +12,7 @@ import { createAssignment } from 'core/redux/assignmentSlice';
 import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import { useSnackbar } from 'notistack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { isEmpty } from 'core/utils/object';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { useRouteMatch, useHistory } from 'react-router';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
@@ -125,17 +125,18 @@ function CreateSubmission(props) {
                             marginTop: 18 + 'px', marginBottom: -16 + 'px',
                             // overflowY: 'hidden'
                         }}>
-                            <div className='list-file-title'>List of files</div>
+                            <div className='list-file-title'> <span className='mr-8 d-flex align-items-center'> <FilterListIcon /> </span> List files</div>
                             {
                                 data &&
                                     data.length > 0 ?
 
-                                    <ul className='file-list-container'>
+                                    <ul className='file-list-container scroll-custom'>
                                         {data.map((d, index) =>
                                             <li key={d.url} className='file-item'>
                                                 <Chip label={d.name} onDelete={() => handleDeleteFile(index)}
                                                     onClick={() => handleClickFile(d.url)}
                                                     icon={<AttachFileIcon />}
+                                                    fullWidth
                                                 >
 
                                                     {/* <a href={d.url} className='decoration-none' target='_blank'>

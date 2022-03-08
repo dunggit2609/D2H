@@ -10,6 +10,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { UseSpinnerLoading } from 'hooks/useSpinnerLoading';
 import { useSnackbar } from 'notistack';
 import { getAllCourseSlice } from 'core/redux/courseSlice';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 function SideBar(props) {
     const {t} = useTranslation()
@@ -45,7 +46,8 @@ function SideBar(props) {
     return (
         <div className="sidebar">
             <div className="sidebar__title">
-                <span className='sidebar-course__title'>{t('list_of_course')}</span>
+            <span className='mr-8 d-flex align-items-center'> <FilterListIcon /> </span> {t('list_of_course')}
+                {/* <span className='sidebar-course__title'></span> */}
             </div>
             <div className="sidebar__search">
               <Search search={search} onChange={handleSearch}/>

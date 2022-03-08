@@ -8,7 +8,7 @@ import App from "./App";
 import "./features/multiLanguage/i18n.js";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-
+import 'react-image-lightbox/style.css';
 
 ReactDOM.render(
   <React.StrictMode>

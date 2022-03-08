@@ -94,6 +94,7 @@ function CreateCourseForm(props) {
                         variant="contained"
                         fullWidth
                         type="submit"
+
                     >
                         {t("button.next_step")}
                     </Button>
@@ -105,6 +106,7 @@ function CreateCourseForm(props) {
                             variant="text"
                             fullWidth
                             type="default"
+
                         >
                             {t("button.do_later")}
                         </Button>

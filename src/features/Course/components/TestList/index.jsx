@@ -98,6 +98,8 @@ function TestList(props) {
                 return 'File'
             case RESULT_TYPE_INPUT:
                 return 'Input from UI'
+            default:
+                return
         }
     }
 
@@ -129,11 +131,11 @@ function TestList(props) {
     return (
         <div className='test-data__container'>
 
-            <TableContainer component={Paper} sx={{maxHeight: 400}}>
+            <TableContainer component={Paper} sx={{ maxHeight: 400 }} className='scroll-custom'>
                 <Table sx={{ minWidth: 800 }} aria-label="simple table" stickyHeader>
                     <TableHead>
                         <TableRow >
-                            {columns && columns.length > 0 && columns.map(c => <TableCell style={{minWidth: c.minWidth}} key={c.id} className='header' align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
+                            {columns && columns.length > 0 && columns.map(c => <TableCell style={{ minWidth: c.minWidth }} key={c.id} className='header' align={['is_multiple_choice'].includes(c.id) ? 'center' : 'left'}
                             >
                                 {c.name}
                             </TableCell>)}
@@ -171,8 +173,8 @@ function TestList(props) {
                                     })}
                                 </TableRow>
                             )) : <TableRow className="no-data" >
-                                <TableCell colSpan={5}  style={{ textAlign: 'center' }}>
-                                <img src={noData} />
+                                <TableCell colSpan={5} style={{ textAlign: 'center' }}>
+                                    <img src={noData} />
 
                                 </TableCell>
                             </TableRow>

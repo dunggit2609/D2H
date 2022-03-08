@@ -279,3 +279,17 @@ a.decoration-none {
     text-decoration: underline $avatarColor;
   }
 }
+
+.scroll-custom {
+  &::-webkit-scrollbar {
+      background: none;
+      width: 4px; 
+      display: block;
+      height: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+      background-color: #d8d8d7;
+
+  }
+}

@@ -138,7 +138,7 @@ function TestDetail(props) {
                         </span>
                     </section>
                     <span>
-                      
+
                         <Button
                             id="demo-customized-button"
                             aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -174,7 +174,7 @@ function TestDetail(props) {
                         <TestDetailForm />
                     </Paper>
                 </Grid>
-              
+
             </Grid>
 
         </div>
